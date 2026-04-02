@@ -260,7 +260,7 @@ body {
   outline:none;transition:all 0.18s;
   width:100%;box-sizing:border-box;
 }
-input[type="date"] { -webkit-appearance:none; appearance:none; padding:10px 14px; box-sizing:border-box; }
+input[type="date"], input[type="time"] { -webkit-appearance:none; appearance:none; padding:10px 14px; box-sizing:border-box; }
 .form-input:focus,.form-select:focus,.form-textarea:focus {
   border-color:var(--amber);
   background:rgba(255,255,255,0.92);
@@ -386,7 +386,7 @@ input[type="date"] { -webkit-appearance:none; appearance:none; padding:10px 14px
   .sidebar-overlay { display:none; }
   .sidebar-overlay.open { display:block; }
   .main-content { padding-left:0; }
-  .page-wrap { padding:80px 16px calc(90px + env(safe-area-inset-bottom)); }
+  .page-wrap { padding:68px 16px calc(90px + env(safe-area-inset-bottom)); }
   .bottom-nav { display:block; }
   .stats-grid { grid-template-columns:1fr 1fr; }
   .card-grid-2 { grid-template-columns:1fr; }
@@ -838,15 +838,11 @@ input[type="date"] { -webkit-appearance:none; appearance:none; padding:10px 14px
   <div id="plans-list"></div>
 </div>
 
-    </div><!-- /page-wrap -->
-  
+
 <!-- ===== PAIN TRACKER ===== -->
 <div class="page" id="page-pain">
   <div class="page-hdr">
-    <div class="page-eyebrow">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color:var(--amber);"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-      Health tracking
-    </div>
+    <div class="page-eyebrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color:var(--amber);"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> Health tracking</div>
     <div class="page-hdr-row">
       <div>
         <div class="page-title">Pain Tracker</div>
@@ -871,7 +867,7 @@ input[type="date"] { -webkit-appearance:none; appearance:none; padding:10px 14px
           <button class="modal-close" onclick="togglePainForm()">✕</button>
         </div>
 
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:16px;" id="pain-form-grid">
+        <div class="form-grid-3" id="pain-form-grid" style="margin-bottom:16px;">
           <div class="form-group">
             <label class="form-label">Date</label>
             <input type="date" class="form-input" id="pain-date">
@@ -973,7 +969,7 @@ input[type="date"] { -webkit-appearance:none; appearance:none; padding:10px 14px
     </div>
 
     <!-- Summary stats -->
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:20px;" id="pain-stats-row">
+    <div class="stats-grid" id="pain-stats-row" style="margin-bottom:20px;">
       <div class="stat-card"><div class="stat-icon" style="color:var(--text-soft);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div><div class="stat-num" id="pain-total-entries">0</div><div class="stat-label">Total entries</div></div>
       <div class="stat-card"><div class="stat-icon" style="color:var(--text-soft);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><div class="stat-num" id="pain-avg-score">—</div><div class="stat-label">Avg pain score</div></div>
       <div class="stat-card"><div class="stat-icon" style="color:var(--text-soft);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div><div class="stat-num" id="pain-post-workout-avg">—</div><div class="stat-label">Post-workout avg</div></div>
@@ -1004,6 +1000,9 @@ input[type="date"] { -webkit-appearance:none; appearance:none; padding:10px 14px
     </div>
   </div>
 </div>
+
+    </div><!-- /page-wrap -->
+  
 </main>
 </div><!-- /app -->
 
@@ -2552,5 +2551,4 @@ function exportPainData() {
 
 </script>
 </body>
-</html
-  renderDashboardPain();>
+</html>
