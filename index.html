@@ -1373,10 +1373,10 @@ function finishSession(){
   }
   save();
   clearInterval(sessionTimer);
+  var savedSession = S.sessions[0];
   activeSession=null;
   el('session-bar').classList.remove('on');
-  showNotif('Workout saved! 💪');
-  nav('history');
+  showCongrats(savedSession);
 }
 
 // ===== CUSTOM PLAN BUILDER =====
@@ -2034,7 +2034,7 @@ function obNext(step) {
     // Store name
     S.userName = name;
     // Update step 2 title
-    el('ob-step2-title').textContent = 'Hi ' + name + '! 👋';
+    el('ob-step2-title').textContent = 'Hi ' + name + '!';
     obShowStep(2);
   } else if (step === 2) {
     // Save measurements
@@ -2145,6 +2145,88 @@ document.addEventListener('keydown', function(e) {
   }
 });
 
+
+
+// ===== CONGRATS =====
+var CONGRATS = [
+  {emoji:"🔥", headline:"You showed up. That is everything.", sub:"Consistency is the secret. Every single session you complete is building the version of you that you are working towards."},
+  {emoji:"💜", headline:"That was all you.", sub:"No one else did that for you. You chose to show up, you pushed through, and you finished. That is something to be proud of."},
+  {emoji:"⚡", headline:"Stronger than yesterday.", sub:"Progress is not always visible right away — but it is happening. Every rep is quietly building something remarkable."},
+  {emoji:"🏆", headline:"Another one in the books!", sub:"Your future self is going to look back at days like today and be so grateful you kept going. Keep stacking these wins."},
+  {emoji:"✨", headline:"Look at you go.", sub:"You planned it, you did it. That gap between intention and action is where most people get stuck — you just cleared it."},
+  {emoji:"🌟", headline:"This is what dedication looks like.", sub:"It does not always feel glamorous. Sometimes it is just putting in the work quietly, session after session. That is the real thing."},
+  {emoji:"💪", headline:"Nailed it.", sub:"Your body just got a little stronger, a little more capable. Trust the process — you are exactly where you need to be."},
+  {emoji:"🎯", headline:"One step closer.", sub:"Every session is a vote for the person you are becoming. Today you voted. That matters more than you know."}
+];
+
+var lastCongratsIdx = -1;
+
+function showCongrats(sessionData) {
+  // Pick a random message, avoid repeating the last one
+  var idx;
+  do { idx = Math.floor(Math.random() * CONGRATS.length); } while (idx === lastCongratsIdx);
+  lastCongratsIdx = idx;
+  var msg = CONGRATS[idx];
+
+  el('congrats-emoji').textContent = msg.emoji;
+  el('congrats-headline').textContent = msg.headline;
+  el('congrats-sub').textContent = msg.sub;
+
+  // Stats row
+  var stats = el('congrats-stats');
+  stats.innerHTML = '';
+  var items = [
+    { label: 'Duration', value: sessionData.duration + ' min' },
+    { label: 'Exercises', value: (sessionData.exercises ? sessionData.exercises.length : 0) + '' },
+    { label: 'Session', value: '#' + S.sessions.length }
+  ];
+  items.forEach(function(item) {
+    var d = document.createElement('div');
+    d.innerHTML = '<div style="font-size:20px;font-weight:700;color:#3a2d45;">' + item.value + '</div>'
+      + '<div style="font-size:11px;color:#7a6a8a;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;margin-top:2px;">' + item.label + '</div>';
+    stats.appendChild(d);
+  });
+
+  // Show overlay
+  var overlay = el('congrats-overlay');
+  overlay.style.display = 'flex';
+  // Animate card in
+  var card = el('congrats-card');
+  setTimeout(function() {
+    card.style.transform = 'scale(1) translateY(0)';
+    card.style.opacity = '1';
+  }, 20);
+
+  // Scatter confetti dots
+  for (var i = 0; i < 16; i++) {
+    spawnConfettiDot(card);
+  }
+}
+
+function spawnConfettiDot(parent) {
+  var colours = ['#B3A2D8','#725D86','#7B593D','#CECAC0','#8A769B','#5a8a6a'];
+  var dot = document.createElement('div');
+  dot.className = 'confetti-dot';
+  dot.style.background = colours[Math.floor(Math.random() * colours.length)];
+  dot.style.left = (20 + Math.random() * 60) + '%';
+  dot.style.top = (10 + Math.random() * 30) + '%';
+  dot.style.animationDelay = (Math.random() * 0.4) + 's';
+  dot.style.animationDuration = (0.7 + Math.random() * 0.5) + 's';
+  parent.appendChild(dot);
+  setTimeout(function() { if (dot.parentNode) dot.parentNode.removeChild(dot); }, 1500);
+}
+
+function closeCongrats() {
+  var overlay = el('congrats-overlay');
+  var card = el('congrats-card');
+  card.style.transform = 'scale(0.9) translateY(10px)';
+  card.style.opacity = '0';
+  setTimeout(function() {
+    overlay.style.display = 'none';
+    card.style.transform = 'scale(0.9) translateY(16px)';
+    nav('history');
+  }, 280);
+}
 
 // ===== INIT =====
 el('m-date').value=today();
@@ -2504,5 +2586,41 @@ function exportPainData() {
 }
 
 </script>
+
+<!-- ===== CONGRATS MODAL ===== -->
+<div id="congrats-overlay" style="display:none;position:fixed;inset:0;background:rgba(58,45,69,0.45);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:800;align-items:center;justify-content:center;padding:24px;">
+  <div id="congrats-card" style="background:rgba(255,255,253,0.97);border-radius:28px;padding:36px 32px;width:100%;max-width:420px;text-align:center;box-shadow:0 24px 64px rgba(58,45,69,0.22),0 4px 16px rgba(58,45,69,0.12);border:1px solid rgba(179,162,216,0.2);transform:scale(0.9) translateY(16px);opacity:0;transition:all 0.35s cubic-bezier(0.34,1.56,0.64,1);">
+    <!-- Animated emoji -->
+    <div id="congrats-emoji" style="font-size:52px;margin-bottom:16px;display:block;animation:congrats-bounce 0.6s cubic-bezier(0.34,1.56,0.64,1) 0.1s both;"></div>
+    <!-- Headline -->
+    <div id="congrats-headline" style="font-size:24px;font-weight:700;color:#3a2d45;letter-spacing:-0.02em;margin-bottom:10px;line-height:1.2;"></div>
+    <!-- Subtext -->
+    <div id="congrats-sub" style="font-size:14px;color:#7a6a8a;line-height:1.6;margin-bottom:8px;"></div>
+    <!-- Stats row -->
+    <div id="congrats-stats" style="display:flex;justify-content:center;gap:24px;margin:20px 0 24px;padding:16px;background:rgba(179,162,216,0.08);border-radius:16px;border:1px solid rgba(179,162,216,0.15);"></div>
+    <!-- Button -->
+    <button onclick="closeCongrats()" style="width:100%;padding:14px;background:#725D86;color:#fff;border:none;border-radius:16px;font-size:16px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;box-shadow:0 4px 14px rgba(114,93,134,0.3);transition:all 0.18s;" onmouseover="this.style.background='#8A769B'" onmouseout="this.style.background='#725D86'">
+      Keep going! 🙌
+    </button>
+  </div>
+</div>
+<style>
+@keyframes congrats-bounce {
+  from { transform: scale(0.4) translateY(20px); opacity: 0; }
+  to   { transform: scale(1) translateY(0);     opacity: 1; }
+}
+@keyframes confetti-fall {
+  0%   { transform: translateY(-10px) rotate(0deg);   opacity: 1; }
+  100% { transform: translateY(80px)  rotate(360deg); opacity: 0; }
+}
+.confetti-dot {
+  position: absolute;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  animation: confetti-fall 0.9s ease-out forwards;
+  pointer-events: none;
+}
+</style>
+
 </body>
 </html>
