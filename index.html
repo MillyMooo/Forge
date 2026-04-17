@@ -52,15 +52,19 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .mob-btn{display:none;position:fixed;top:16px;left:16px;z-index:200;width:44px;height:44px;border-radius:50%;background:rgba(58,45,69,0.88);backdrop-filter:blur(16px);border:1px solid rgba(179,162,216,0.2);align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 16px rgba(58,45,69,0.25);color:#CECAC0;}
 .s-overlay{display:none;position:fixed;inset:0;background:rgba(30,43,64,0.25);z-index:99;}
 .s-overlay.open{display:block;}
-.bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:100;padding:10px 16px max(14px,calc(env(safe-area-inset-bottom) + 6px));}
-.bn-pill{display:flex;justify-content:space-around;align-items:center;background:rgba(58,45,69,0.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:28px;padding:8px 6px;box-shadow:0 8px 32px rgba(58,45,69,0.3),0 2px 8px rgba(58,45,69,0.15);}
+.bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:100;padding:0 0 max(0px,env(safe-area-inset-bottom));}
+.bn-pill{display:flex;justify-content:space-around;align-items:center;background:rgba(52,38,62,0.96);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:24px 24px 0 0;padding:8px 4px 6px;box-shadow:0 -4px 24px rgba(58,45,69,0.25);}
 .bn-inner{display:contents;}
-.bnb{display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 12px;background:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;flex:1;border-radius:20px;transition:all 0.18s;}
-.bn-ico{width:36px;height:36px;border-radius:11px;display:flex;align-items:center;justify-content:center;color:rgba(206,202,192,0.55);transition:all 0.2s;}
-.bnb.active .bn-ico{background:rgba(179,162,216,0.25);color:#CECAC0;}
-.bnb.active{background:rgba(255,255,255,0.07);}
-.bn-lbl{font-size:9px;font-weight:600;color:rgba(206,202,192,0.45);text-transform:uppercase;letter-spacing:0.04em;transition:all 0.18s;}
-.bnb.active .bn-lbl{color:rgba(206,202,192,0.9);}
+.bnb{display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 8px;background:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;flex:1;transition:all 0.18s;position:relative;}
+.bn-ico{width:38px;height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;color:rgba(179,162,216,0.45);transition:all 0.22s;}
+.bnb.active .bn-ico{color:#CECAC0;}
+.bn-lbl{font-size:9px;font-weight:600;color:rgba(179,162,216,0.4);text-transform:uppercase;letter-spacing:0.04em;transition:all 0.18s;}
+.bnb.active .bn-lbl{color:rgba(206,202,192,0.85);}
+/* Centre START button — raised pill */
+.bnb-center .bn-ico{width:52px;height:52px;background:#725D86;border-radius:16px;color:#fff;box-shadow:0 4px 16px rgba(114,93,134,0.45);margin-top:-14px;border:3px solid rgba(52,38,62,0.96);}
+.bnb-center.active .bn-ico{background:#B3A2D8;}
+.bnb-center .bn-lbl{color:rgba(206,202,192,0.6);}
+.bnb-center.active .bn-lbl{color:#CECAC0;}
 .more-drawer{position:fixed;bottom:-100%;left:0;right:0;background:rgba(250,248,246,0.98);border-radius:20px 20px 0 0;border-top:1px solid rgba(179,162,216,0.2);z-index:200;padding:12px 16px max(18px,env(safe-area-inset-bottom));transition:bottom 0.3s cubic-bezier(0.4,0,0.2,1);box-shadow:0 -8px 32px rgba(30,43,64,0.1);}
 .more-drawer.open{bottom:0;}
 .drw-handle{width:36px;height:4px;background:var(--bord2);border-radius:2px;margin:0 auto 14px;}
@@ -96,7 +100,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 /* FORMS */
 .fg{display:flex;flex-direction:column;gap:5px;}
 .flbl{font-size:11px;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;color:var(--text-soft);}
-.fi,.fs,.fta{background:rgba(255,255,255,0.7);border:1px solid var(--bord2);border-radius:11px;color:var(--text);padding:10px 13px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:400;outline:none;transition:all 0.18s;width:100%;box-sizing:border-box;}
+.fi,.fs,.fta{background:rgba(255,255,255,0.7);border:1px solid var(--bord2);border-radius:11px;color:var(--text);padding:10px 13px;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:400;outline:none;transition:all 0.18s;width:100%;box-sizing:border-box;-webkit-text-size-adjust:100%;}
 .fi:focus,.fs:focus,.fta:focus{border-color:var(--navy);background:rgba(255,255,253,0.96);box-shadow:0 0 0 3px rgba(114,93,134,0.12);}
 .fta{resize:vertical;min-height:68px;}
 input[type="date"].fi,input[type="time"].fi{-webkit-appearance:none;appearance:none;padding:10px 13px;}
@@ -124,6 +128,9 @@ input[type="date"].fi,input[type="time"].fi{-webkit-appearance:none;appearance:n
 /* PROGRESS BAR */
 .pbar{height:6px;background:#e2e8f0;border-radius:999px;overflow:hidden;margin-top:8px;}
 .pfill{height:100%;border-radius:999px;background:linear-gradient(90deg,#725D86,#B3A2D8);transition:width 0.5s ease;}
+.unit-toggle{display:inline-flex;background:rgba(179,162,216,0.12);border-radius:999px;padding:3px;border:1px solid rgba(179,162,216,0.2);}
+.unit-btn{padding:5px 14px;border-radius:999px;border:none;cursor:pointer;font-family:"DM Sans",sans-serif;font-size:12px;font-weight:700;color:#8A769B;background:none;transition:all 0.18s;letter-spacing:0.04em;}
+.unit-btn.active{background:#725D86;color:#fff;box-shadow:0 2px 6px rgba(114,93,134,0.25);}
 /* DIVIDER */
 .div{border:none;border-top:1px solid var(--border);margin:16px 0;}
 /* NOTIF */
@@ -137,7 +144,7 @@ input[type="date"].fi,input[type="time"].fi{-webkit-appearance:none;appearance:n
 /* SET ROW */
 .set-row{display:grid;grid-template-columns:26px 1fr 1fr 32px 32px;gap:7px;align-items:center;margin-bottom:6px;}
 .set-num{font-size:12px;font-weight:700;color:var(--text-faint);text-align:center;}
-.sinp{background:rgba(248,250,252,0.9);border:1px solid var(--bord2);border-radius:9px;padding:8px;font-size:13px;font-weight:500;color:var(--text);font-family:'DM Sans',sans-serif;outline:none;width:100%;text-align:center;box-sizing:border-box;}
+.sinp{background:rgba(248,250,252,0.9);border:1px solid var(--bord2);border-radius:9px;padding:8px;font-size:16px;font-weight:500;color:var(--text);font-family:'DM Sans',sans-serif;outline:none;width:100%;text-align:center;box-sizing:border-box;}
 .sinp:focus{border-color:var(--amber);box-shadow:0 0 0 2px rgba(245,158,11,0.1);}
 .scheck{width:30px;height:30px;border-radius:8px;border:1.5px solid var(--bord2);background:rgba(255,255,255,0.7);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.18s;color:transparent;}
 .scheck.done{background:var(--green);border-color:var(--green);color:#fff;}
@@ -186,11 +193,11 @@ input[type="date"].fi,input[type="time"].fi{-webkit-appearance:none;appearance:n
 @media(max-width:1024px){
   .sidebar{transform:translateX(-100%);padding-top:72px;}.sidebar.open{transform:translateX(0);}
   .mob-btn{display:flex;}.main{margin-left:0;}
-  .pw{padding:68px 16px calc(100px + env(safe-area-inset-bottom));}
+  .pw{padding:68px 16px calc(96px + env(safe-area-inset-bottom));}
   .bottom-nav{display:block;}
   .g4{grid-template-columns:1fr 1fr;}.g3{grid-template-columns:1fr 1fr;}
   .page-title{font-size:25px;}
-  .session-bar.on{left:0;bottom:calc(80px + env(safe-area-inset-bottom));}
+  .session-bar.on{left:0;bottom:calc(72px + env(safe-area-inset-bottom));}
 }
 @media(max-width:600px){.g2{grid-template-columns:1fr;}}
 </style>
@@ -316,9 +323,8 @@ input[type="date"].fi,input[type="time"].fi{-webkit-appearance:none;appearance:n
 <div class="more-drawer" id="more-drawer">
   <div class="drw-handle"></div>
   <div class="drw-grid">
-    <div class="drw-item" onclick="nav('records');closeDrawer()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"/></svg><div class="drw-item-lbl">Records</div></div>
-    <div class="drw-item" onclick="nav('goals');closeDrawer()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg><div class="drw-item-lbl">Goals</div></div>
-    <div class="drw-item" onclick="nav('timer');closeDrawer()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2"/><path d="M9 3h6"/><path d="M12 3v2"/></svg><div class="drw-item-lbl">Timer</div></div>
+    <div class="drw-item" onclick="nav('targets');closeDrawer()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"/></svg><div class="drw-item-lbl">Targets</div></div>
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
     <div class="drw-item" onclick="nav('pain');closeDrawer()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><div class="drw-item-lbl">Pain Log</div></div>
   </div>
 </div>
@@ -368,16 +374,69 @@ input[type="date"].fi,input[type="time"].fi{-webkit-appearance:none;appearance:n
     <button class="nb" data-page="progress" onclick="nav('progress')"><span class="ni"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></span>Progress</button>
     <div class="nav-sec">Body</div>
     <button class="nb" data-page="metrics" onclick="nav('metrics')"><span class="ni"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg></span>Body Metrics</button>
-    <button class="nb" data-page="records" onclick="nav('records')"><span class="ni"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"/></svg></span>Records</button>
-    <button class="nb" data-page="goals" onclick="nav('goals')"><span class="ni"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></span>Goals</button>
-    <div class="nav-sec">Health</div>
-    <button class="nb" data-page="pain" onclick="nav('pain')"><span class="ni"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></span>Pain Tracker</button>
-    <div class="nav-sec">Tools</div>
-    <button class="nb" data-page="timer" onclick="nav('timer')"><span class="ni"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2"/><path d="M9 3h6"/><path d="M12 3v2"/></svg></span>Timer</button>
-    <div class="sidebar-foot">
-      <div class="tip-card"><div class="tip-title">Stay consistent</div><div class="tip-body">Every rep counts towards your goals</div></div>
+    
+        <button class="btn btn-g btn-sm" onclick="toggleSection('targets-records-section')" id="btn-show-records">Records</button>
+        <button class="btn btn-a btn-sm" onclick="showTargetsAdd()" id="targets-add-btn">+ Add</button>
+      </div>
     </div>
-  </nav>
+  </div>
+
+  <!-- Add form (shared, switches mode) -->
+  <div class="card" id="targets-add-form" style="display:none;margin-bottom:18px;">
+    <div class="card-b">
+      <!-- Tab switcher -->
+      <div style="display:flex;gap:0;margin-bottom:20px;background:rgba(179,162,216,0.1);border-radius:12px;padding:3px;">
+        <button onclick="setTargetsMode('goal')" id="tm-goal-btn" style="flex:1;padding:8px;border:none;border-radius:10px;background:#725D86;color:#fff;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.18s;">Goal</button>
+        <button onclick="setTargetsMode('record')" id="tm-rec-btn" style="flex:1;padding:8px;border:none;border-radius:10px;background:none;color:#8A769B;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.18s;">Record</button>
+      </div>
+      <!-- Goal fields -->
+      <div id="tm-goal-fields">
+        <div class="card-hdr" style="margin-bottom:14px;"><span class="card-title" id="gf-title">New Goal</span><button onclick="closeTargetsForm()" style="background:#f1f5f9;border:none;cursor:pointer;border-radius:9px;width:30px;height:30px;display:flex;align-items:center;justify-content:center;font-size:13px;">✕</button></div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px;">
+          <div class="fg" style="flex:2;min-width:160px;"><label class="flbl">Goal Title</label><input class="fi" id="g-title" placeholder="e.g. Bench Press 100kg"></div>
+          <div class="fg" style="flex:1;min-width:100px;"><label class="flbl">Unit</label><input class="fi" id="g-unit" placeholder="kg, reps…"></div>
+        </div>
+        <div class="fg" style="margin-bottom:12px;"><label class="flbl">Description</label><textarea class="fta" id="g-desc" rows="2" placeholder="Optional…"></textarea></div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:14px;">
+          <div class="fg" style="flex:1;min-width:100px;"><label class="flbl">Target</label><input type="number" step="0.1" class="fi" id="g-target" placeholder="100"></div>
+          <div class="fg" style="flex:1;min-width:100px;"><label class="flbl">Current</label><input type="number" step="0.1" class="fi" id="g-current" value="0"></div>
+          <div class="fg" style="flex:1;min-width:130px;"><label class="flbl">Deadline</label><input type="date" class="fi" id="g-deadline"></div>
+        </div>
+        <input type="hidden" id="g-edit-id">
+        <div style="display:flex;gap:10px;"><button class="btn btn-g btn-sm" onclick="closeTargetsForm()">Cancel</button><button class="btn btn-a btn-sm" onclick="saveGoal()" id="g-save-btn">Create Goal</button></div>
+      </div>
+      <!-- Record fields -->
+      <div id="tm-rec-fields" style="display:none;">
+        <div class="card-hdr" style="margin-bottom:14px;"><span class="card-title">New Record</span><button onclick="closeTargetsForm()" style="background:#f1f5f9;border:none;cursor:pointer;border-radius:9px;width:30px;height:30px;display:flex;align-items:center;justify-content:center;font-size:13px;">✕</button></div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px;">
+          <div class="fg" style="flex:2;min-width:150px;"><label class="flbl">Exercise</label><input class="fi" id="r-ex" placeholder="e.g. Bench Press"></div>
+          <div class="fg" style="flex:1;min-width:90px;"><label class="flbl" id="r-w-lbl">Weight</label><input type="number" step="0.5" class="fi" id="r-w" placeholder="80"></div>
+          <div class="fg" style="flex:1;min-width:70px;"><label class="flbl">Reps</label><input type="number" class="fi" id="r-reps" value="1"></div>
+          <div class="fg" style="flex:1;min-width:120px;"><label class="flbl">Date</label><input type="date" class="fi" id="r-date"></div>
+        </div>
+        <div style="display:flex;gap:10px;"><button class="btn btn-g btn-sm" onclick="closeTargetsForm()">Cancel</button><button class="btn btn-a btn-sm" onclick="saveRecord()">Save Record</button></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Goals section -->
+  <div id="targets-goals-section">
+    <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-faint);margin-bottom:12px;" id="goals-active-lbl">Active Goals (0)</div>
+    <div id="goals-active-list"></div>
+    <div id="goals-done-section" style="display:none;margin-top:20px;">
+      <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-faint);margin-bottom:12px;">Completed</div>
+      <div id="goals-done-list"></div>
+    </div>
+  </div>
+
+  <!-- Records section -->
+  <div id="targets-records-section" style="margin-top:24px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-faint);margin-bottom:12px;">Personal Records</div>
+    <div id="rec-list"></div>
+  </div>
+</div>
+
+
   <main class="main">
     <div class="pw">
 <!-- DASHBOARD -->
@@ -401,7 +460,7 @@ input[type="date"].fi,input[type="time"].fi{-webkit-appearance:none;appearance:n
   </div>
   <div class="g2" style="margin-bottom:18px;">
     <div class="card"><div class="card-b"><div class="card-hdr"><span class="card-title">Strength Progress</span><button class="btn btn-g btn-xs" onclick="nav('progress')">Details →</button></div><div id="d-strength"></div></div></div>
-    <div class="card"><div class="card-b"><div class="card-hdr"><span class="card-title">Pain Overview</span><button class="btn btn-g btn-xs" onclick="nav('pain')">Details →</button></div><div id="dash-pain-content"></div></div></div>
+    <div class="card"><div class="card-b"><div class="card-hdr"><span class="card-title">Pain Overview</span><button class="btn btn-g btn-xs" onclick="nav('pain')">Details →</button></div><div id="d-pain"></div></div></div>
   </div>
 </div>
 
@@ -531,11 +590,17 @@ input[type="date"].fi,input[type="time"].fi{-webkit-appearance:none;appearance:n
     <div class="eyebrow"><span style="color:var(--amber)">✦</span> Track progress</div>
     <div class="page-hdr-row">
       <div><div class="page-title">Body Metrics</div><div class="page-sub">Weight, body fat and measurements</div></div>
-      <button class="btn btn-a btn-sm" onclick="toggleMetricForm()">+ Log Measurement</button>
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+        <div class="unit-toggle">
+          <button class="unit-btn active" data-unit="metric" onclick="setUnit('metric')">kg</button>
+          <button class="unit-btn" data-unit="imperial" onclick="setUnit('imperial')">lbs</button>
+        </div>
+        <button class="btn btn-a btn-sm" onclick="toggleMetricForm()">+ Log Measurement</button>
+      </div>
     </div>
   </div>
   <div class="g3" style="margin-bottom:18px;">
-    <div class="st"><div class="st-b"><div class="st-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="3"/><line x1="12" y1="22" x2="12" y2="8"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/></svg></div><div class="st-num" id="m-weight">—</div><div class="st-label">Current weight (kg)</div><div id="m-weight-delta" style="font-size:12px;margin-top:4px;"></div></div></div>
+    <div class="st"><div class="st-b"><div class="st-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="3"/><line x1="12" y1="22" x2="12" y2="8"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/></svg></div><div class="st-num" id="m-weight">—</div><div class="st-label" id="m-weight-label">Current weight (kg)</div><div id="m-weight-delta" style="font-size:12px;margin-top:4px;"></div></div></div>
     <div class="st"><div class="st-b"><div class="st-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg></div><div class="st-num" id="m-bf">—</div><div class="st-label">Body fat %</div></div></div>
     <div class="st"><div class="st-b"><div class="st-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div><div class="st-num" id="m-entries">0</div><div class="st-label">Entries logged</div></div></div>
   </div>
@@ -544,7 +609,7 @@ input[type="date"].fi,input[type="time"].fi{-webkit-appearance:none;appearance:n
       <div class="card-hdr"><span class="card-title">Log Measurement</span><button onclick="toggleMetricForm()" style="background:#f1f5f9;border:none;cursor:pointer;border-radius:9px;width:30px;height:30px;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--text-soft);">✕</button></div>
       <div class="g3" style="margin-bottom:12px;">
         <div class="fg"><label class="flbl">Date</label><input type="date" class="fi" id="m-date"></div>
-        <div class="fg"><label class="flbl">Weight (kg)</label><input type="number" step="0.1" class="fi" id="m-w" placeholder="75.0"></div>
+        <div class="fg"><label class="flbl" id="m-w-lbl">Weight (kg)</label><input type="number" step="0.1" class="fi" id="m-w" placeholder="75.0"></div>
         <div class="fg"><label class="flbl">Body Fat %</label><input type="number" step="0.1" class="fi" id="m-bfin" placeholder="18.5"></div>
       </div>
       <div class="fg" style="margin-bottom:14px;"><label class="flbl">Notes</label><textarea class="fta" id="m-notes" placeholder="Any observations?" rows="2"></textarea></div>
@@ -556,118 +621,64 @@ input[type="date"].fi,input[type="time"].fi{-webkit-appearance:none;appearance:n
 </div>
 
 <!-- RECORDS -->
-<div class="page" id="page-records">
+<div class="page" id="page-targets">
   <div class="page-hdr">
-    <div class="eyebrow"><span style="color:var(--amber)">✦</span> Personal bests</div>
+    <div class="eyebrow"><span style="color:var(--amber)">✦</span> Your ambitions</div>
     <div class="page-hdr-row">
-      <div><div class="page-title">Records</div><div class="page-sub">Your all-time personal bests</div></div>
-      <button class="btn btn-a btn-sm" onclick="toggleRecordForm()">+ Add Record</button>
+      <div><div class="page-title">My Targets</div><div class="page-sub">Goals, records &amp; personal bests</div></div>
+      <button class="btn btn-a btn-sm" onclick="showTargetsAdd()">+ Add</button>
     </div>
   </div>
-  <div class="card" id="record-form" style="display:none;margin-bottom:18px;">
+  <div style="display:flex;gap:0;background:rgba(179,162,216,0.1);border-radius:13px;padding:3px;margin-bottom:20px;">
+    <button onclick="switchTargetsTab('goals')" id="tt-goals" style="flex:1;padding:9px;border:none;border-radius:10px;background:#725D86;color:#fff;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all 0.18s;">Goals</button>
+    <button onclick="switchTargetsTab('records')" id="tt-records" style="flex:1;padding:9px;border:none;border-radius:10px;background:none;color:#8A769B;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all 0.18s;">Records</button>
+  </div>
+  <div class="card" id="targets-add-form" style="display:none;margin-bottom:18px;">
     <div class="card-b">
-      <div class="card-hdr"><span class="card-title">New Record</span><button onclick="toggleRecordForm()" style="background:#f1f5f9;border:none;cursor:pointer;border-radius:9px;width:30px;height:30px;display:flex;align-items:center;justify-content:center;font-size:13px;">✕</button></div>
-      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px;">
-        <div class="fg" style="flex:2;min-width:150px;"><label class="flbl">Exercise</label><input class="fi" id="r-ex" placeholder="e.g. Bench Press"></div>
-        <div class="fg" style="flex:1;min-width:90px;"><label class="flbl">Weight (kg)</label><input type="number" step="0.5" class="fi" id="r-w" placeholder="80"></div>
-        <div class="fg" style="flex:1;min-width:80px;"><label class="flbl">Reps</label><input type="number" class="fi" id="r-reps" value="1" placeholder="1"></div>
-        <div class="fg" style="flex:1;min-width:120px;"><label class="flbl">Date</label><input type="date" class="fi" id="r-date"></div>
+      <div style="display:flex;gap:0;background:rgba(179,162,216,0.1);border-radius:11px;padding:3px;margin-bottom:18px;">
+        <button onclick="setTargetsMode('goal')" id="tm-goal-btn" style="flex:1;padding:7px;border:none;border-radius:9px;background:#725D86;color:#fff;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;cursor:pointer;">Goal</button>
+        <button onclick="setTargetsMode('record')" id="tm-rec-btn" style="flex:1;padding:7px;border:none;border-radius:9px;background:none;color:#8A769B;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;cursor:pointer;">Record</button>
       </div>
-      <div style="display:flex;gap:10px;"><button class="btn btn-g btn-sm" onclick="toggleRecordForm()">Cancel</button><button class="btn btn-a btn-sm" onclick="saveRecord()">Save</button></div>
-    </div>
-  </div>
-  <div id="rec-list"></div>
-</div>
-
-<!-- GOALS -->
-<div class="page" id="page-goals">
-  <div class="page-hdr">
-    <div class="eyebrow"><span style="color:var(--amber)">✦</span> Stay focused</div>
-    <div class="page-hdr-row">
-      <div><div class="page-title">Goals</div><div class="page-sub">Set and track your fitness goals</div></div>
-      <button class="btn btn-a btn-sm" onclick="toggleGoalForm()">+ New Goal</button>
-    </div>
-  </div>
-  <div class="card" id="goal-form" style="display:none;margin-bottom:18px;">
-    <div class="card-b">
-      <div class="card-hdr"><span class="card-title" id="gf-title">New Goal</span><button onclick="closeGoalForm()" style="background:#f1f5f9;border:none;cursor:pointer;border-radius:9px;width:30px;height:30px;display:flex;align-items:center;justify-content:center;font-size:13px;">✕</button></div>
-      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px;">
-        <div class="fg" style="flex:2;min-width:160px;"><label class="flbl">Goal Title</label><input class="fi" id="g-title" placeholder="e.g. Bench Press 100kg"></div>
-        <div class="fg" style="flex:1;min-width:100px;"><label class="flbl">Unit</label><input class="fi" id="g-unit" placeholder="kg, reps…"></div>
-      </div>
-      <div class="fg" style="margin-bottom:12px;"><label class="flbl">Description</label><textarea class="fta" id="g-desc" rows="2" placeholder="Optional…"></textarea></div>
-      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:14px;">
-        <div class="fg" style="flex:1;min-width:100px;"><label class="flbl">Target</label><input type="number" step="0.1" class="fi" id="g-target" placeholder="100"></div>
-        <div class="fg" style="flex:1;min-width:100px;"><label class="flbl">Current</label><input type="number" step="0.1" class="fi" id="g-current" value="0"></div>
-        <div class="fg" style="flex:1;min-width:130px;"><label class="flbl">Deadline</label><input type="date" class="fi" id="g-deadline"></div>
-      </div>
-      <input type="hidden" id="g-edit-id">
-      <div style="display:flex;gap:10px;"><button class="btn btn-g btn-sm" onclick="closeGoalForm()">Cancel</button><button class="btn btn-a btn-sm" onclick="saveGoal()" id="g-save-btn">Create Goal</button></div>
-    </div>
-  </div>
-  <div style="font-size:13px;font-weight:700;color:var(--text-mid);margin-bottom:12px;" id="goals-active-lbl">Active Goals (0)</div>
-  <div id="goals-active-list"></div>
-  <div id="goals-done-section" style="display:none;margin-top:20px;">
-    <div style="font-size:13px;font-weight:700;color:var(--text-mid);margin-bottom:12px;">Completed ✓</div>
-    <div id="goals-done-list"></div>
-  </div>
-</div>
-
-<!-- TIMER -->
-<div class="page" id="page-timer">
-  <div class="page-hdr">
-    <div class="eyebrow"><span style="color:var(--amber)">✦</span> Rest periods</div>
-    <div class="page-hdr-row"><div><div class="page-title">Rest Timer</div><div class="page-sub">Track rest between sets</div></div></div>
-  </div>
-  <div class="g2">
-    <div class="card"><div class="card-b">
-      <div class="card-title" style="margin-bottom:22px;">Timer</div>
-      <div style="display:flex;justify-content:center;margin-bottom:24px;">
-        <div style="position:relative;width:210px;height:210px;">
-          <svg width="210" height="210" viewBox="0 0 210 210" style="transform:rotate(-90deg);">
-            <defs><linearGradient id="tg" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#725D86"/><stop offset="100%" stop-color="#B3A2D8"/></linearGradient></defs>
-            <circle cx="105" cy="105" r="94" fill="none" stroke="rgba(148,163,184,0.2)" stroke-width="11"/>
-            <circle cx="105" cy="105" r="94" fill="none" stroke="url(#tg)" stroke-width="11" stroke-linecap="round" stroke-dasharray="591" id="t-ring" style="transition:stroke-dashoffset 0.2s linear;"/>
-          </svg>
-          <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;">
-            <div style="font-size:40px;font-weight:700;color:var(--text);font-variant-numeric:tabular-nums;" id="t-disp">1:30</div>
-            <div style="font-size:12px;color:var(--text-faint);margin-top:2px;" id="t-status">Ready</div>
-          </div>
+      <div id="tm-goal-fields">
+        <div class="card-hdr" style="margin-bottom:14px;"><span class="card-title" id="gf-title">New Goal</span><button onclick="closeTargetsForm()" style="background:#f1f5f9;border:none;cursor:pointer;border-radius:9px;width:30px;height:30px;display:flex;align-items:center;justify-content:center;font-size:13px;">✕</button></div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px;">
+          <div class="fg" style="flex:2;min-width:160px;"><label class="flbl">Goal Title</label><input class="fi" id="g-title" placeholder="e.g. Bench 100kg"></div>
+          <div class="fg" style="flex:1;min-width:90px;"><label class="flbl">Unit</label><input class="fi" id="g-unit" placeholder="kg, reps…"></div>
         </div>
+        <div class="fg" style="margin-bottom:12px;"><label class="flbl">Description</label><textarea class="fta" id="g-desc" rows="2" placeholder="Optional…"></textarea></div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;">
+          <div class="fg" style="flex:1;min-width:80px;"><label class="flbl">Target</label><input type="number" step="0.1" class="fi" id="g-target" placeholder="100"></div>
+          <div class="fg" style="flex:1;min-width:80px;"><label class="flbl">Current</label><input type="number" step="0.1" class="fi" id="g-current" value="0"></div>
+          <div class="fg" style="flex:1;min-width:120px;"><label class="flbl">Deadline</label><input type="date" class="fi" id="g-deadline"></div>
+        </div>
+        <input type="hidden" id="g-edit-id">
+        <div style="display:flex;gap:10px;"><button class="btn btn-g btn-sm" onclick="closeTargetsForm()">Cancel</button><button class="btn btn-a btn-sm" onclick="saveGoal()" id="g-save-btn">Create Goal</button></div>
       </div>
-      <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-bottom:16px;">
-        <button class="badge badge-s" style="cursor:pointer;padding:6px 14px;" onclick="setTimer(45)">45s</button>
-        <button class="badge badge-s" style="cursor:pointer;padding:6px 14px;" onclick="setTimer(60)">60s</button>
-        <button class="badge badge-a" style="cursor:pointer;padding:6px 14px;" onclick="setTimer(90)">90s</button>
-        <button class="badge badge-s" style="cursor:pointer;padding:6px 14px;" onclick="setTimer(120)">2m</button>
-        <button class="badge badge-s" style="cursor:pointer;padding:6px 14px;" onclick="setTimer(180)">3m</button>
-        <button class="badge badge-s" style="cursor:pointer;padding:6px 14px;" onclick="setTimer(300)">5m</button>
+      <div id="tm-rec-fields" style="display:none;">
+        <div class="card-hdr" style="margin-bottom:14px;"><span class="card-title">New Record</span><button onclick="closeTargetsForm()" style="background:#f1f5f9;border:none;cursor:pointer;border-radius:9px;width:30px;height:30px;display:flex;align-items:center;justify-content:center;font-size:13px;">✕</button></div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px;">
+          <div class="fg" style="flex:2;min-width:140px;"><label class="flbl">Exercise</label><input class="fi" id="r-ex" placeholder="e.g. Bench Press"></div>
+          <div class="fg" style="flex:1;min-width:80px;"><label class="flbl" id="r-w-lbl">Weight (kg)</label><input type="number" step="0.5" class="fi" id="r-w" placeholder="80"></div>
+          <div class="fg" style="flex:1;min-width:60px;"><label class="flbl">Reps</label><input type="number" class="fi" id="r-reps" value="1"></div>
+          <div class="fg" style="flex:1;min-width:110px;"><label class="flbl">Date</label><input type="date" class="fi" id="r-date"></div>
+        </div>
+        <div style="display:flex;gap:10px;"><button class="btn btn-g btn-sm" onclick="closeTargetsForm()">Cancel</button><button class="btn btn-a btn-sm" onclick="saveRecord()">Save Record</button></div>
       </div>
-      <div style="display:flex;gap:8px;margin-bottom:16px;">
-        <input type="number" class="fi" id="t-custom" placeholder="Custom (secs)" min="1" style="flex:1;">
-        <button class="btn btn-g btn-sm" onclick="setCustomTimer()">Set</button>
-      </div>
-      <div style="display:flex;gap:8px;">
-        <button class="btn btn-a" id="t-toggle" onclick="toggleTimer()" style="flex:1;">▶ Start</button>
-        <button class="btn btn-g" onclick="resetTimer()">↺ Reset</button>
-      </div>
-      <div style="text-align:center;font-size:11px;color:var(--text-faint);margin-top:16px;padding-top:14px;border-top:1px solid var(--border);">60–90s hypertrophy · 2–3m strength · 3–5m max lifts</div>
-    </div></div>
-    <div class="card"><div class="card-b">
-      <div class="card-hdr"><span class="card-title">Set Tracker</span><button class="btn btn-g btn-xs" onclick="clearSets()">Clear</button></div>
-      <div class="fg" style="margin-bottom:12px;"><label class="flbl">Exercise</label><input class="fi" id="st-ex" placeholder="e.g. Bench Press"></div>
-      <div id="st-list" style="max-height:180px;overflow-y:auto;margin-bottom:12px;"></div>
-      <div id="st-empty" style="text-align:center;padding:20px;font-size:13px;color:var(--text-faint);margin-bottom:12px;">No sets yet</div>
-      <div style="display:flex;gap:10px;margin-bottom:12px;">
-        <div class="fg" style="flex:1;"><label class="flbl">Weight (kg)</label><input type="number" step="0.5" class="fi" id="st-w" placeholder="60"></div>
-        <div class="fg" style="flex:1;"><label class="flbl">Reps</label><input type="number" class="fi" id="st-r" placeholder="10"></div>
-      </div>
-      <button class="btn btn-a" onclick="logTimerSet()" style="width:100%;">+ Log Set</button>
-    </div></div>
+    </div>
+  </div>
+  <div id="targets-goals-tab">
+    <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-faint);margin-bottom:12px;" id="goals-active-lbl">Active Goals</div>
+    <div id="goals-active-list"></div>
+    <div id="goals-done-section" style="display:none;margin-top:20px;">
+      <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-faint);margin-bottom:12px;">Completed</div>
+      <div id="goals-done-list"></div>
+    </div>
+  </div>
+  <div id="targets-records-tab" style="display:none;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-faint);margin-bottom:12px;">Personal Records</div>
+    <div id="rec-list"></div>
   </div>
 </div>
-
-<!-- ===== PAIN TRACKER ===== -->
 <div class="page" id="page-pain">
   <div class="page-hdr" style="padding-top:8px;">
     <div class="page-eyebrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color:var(--amber);"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> Health tracking</div>
@@ -831,22 +842,33 @@ input[type="date"].fi,input[type="time"].fi{-webkit-appearance:none;appearance:n
 
     </div><!-- /pw -->
   </main>
-</div><!-- /app -->
-<!-- BOTTOM NAV -->
-<nav class="bottom-nav">
-  <div class="bn-pill">
-  <div class="bn-inner">
-    <button class="bnb active" data-page="dashboard" onclick="nav('dashboard')"><div class="bn-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div><div class="bn-lbl">Home</div></button>
-    <button class="bnb" data-page="workouts" onclick="nav('workouts')"><div class="bn-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5a5.657 5.657 0 0 1 8 0l1 1-1 1a5.657 5.657 0 0 1-8 0L5.5 7.5l1-1z"/><path d="m19 19-7-7"/><path d="M17.5 17.5 20 20"/></svg></div><div class="bn-lbl">Plans</div></button>
-    <button class="bnb" data-page="session" onclick="nav('session')"><div class="bn-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><div class="bn-lbl">Start</div></button>
-    <button class="bnb" data-page="progress" onclick="nav('progress')"><div class="bn-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><div class="bn-lbl">Progress</div></button>
-    <button class="bnb" id="more-btn" onclick="openDrawer()"><div class="bn-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="12" r="1.5" fill="currentColor"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/><circle cx="19" cy="12" r="1.5" fill="currentColor"/></svg></div><div class="bn-lbl">More</div></button>
-  </div>
-  </div>
-</nav>
 
+</div><!-- /app -->
 <script>
 // ===== STATE =====
+var UNIT = localStorage.getItem('forge-unit')||'metric'; // 'metric' or 'imperial'
+function setUnit(u){UNIT=u;localStorage.setItem('forge-unit',u);updateUnitDisplays();}
+function kg2lb(v){return Math.round(v*2.2046*10)/10;}
+function lb2kg(v){return Math.round(v/2.2046*10)/10;}
+function cm2in(v){return Math.round(v/2.54*10)/10;}
+function in2cm(v){return Math.round(v*2.54*10)/10;}
+function weightLabel(){return UNIT==='imperial'?'lbs':'kg';}
+function distLabel(){return UNIT==='imperial'?'miles':'km';}
+function displayWeight(kg){return UNIT==='imperial'?kg2lb(kg):kg;}
+function storeWeight(val){return UNIT==='imperial'?lb2kg(parseFloat(val)||0):parseFloat(val)||0;}
+function updateUnitDisplays(){
+  var btns=document.querySelectorAll('.unit-btn');
+  btns.forEach(function(b){b.classList.toggle('active',b.getAttribute('data-unit')===UNIT);});
+  var wLbl=el('m-w-lbl'); if(wLbl) wLbl.textContent='Weight ('+weightLabel()+')';
+  var wStatLbl=el('m-weight-label'); if(wStatLbl) wStatLbl.textContent='Current weight ('+weightLabel()+')';
+  var wW=el('m-weight'); if(wW && S.bodyMetrics&&S.bodyMetrics[0]&&S.bodyMetrics[0].weight){
+    wW.textContent=displayWeight(S.bodyMetrics[0].weight)+weightLabel();
+  }
+  // Update record weight label
+  var rWLbl=document.querySelector('#tm-rec-fields .flbl');
+  if(rWLbl&&rWLbl.textContent.includes('Weight')) rWLbl.textContent='Weight ('+weightLabel()+')';
+}
+
 var S = JSON.parse(localStorage.getItem('forge-fitness-storage')||'{"sessions":[],"bodyMetrics":[],"personalRecords":[],"goals":[],"customPlans":[],"painLogs":[],"userName":""}');
 if(!S.customPlans) S.customPlans=[];
 if(!S.painLogs) S.painLogs=[];
@@ -944,8 +966,7 @@ function nav(page){
   else if(page==='history') renderHistory();
   else if(page==='progress') renderProgress();
   else if(page==='metrics') renderMetrics();
-  else if(page==='records') renderRecords();
-  else if(page==='goals') renderGoals();
+  else if(page==='targets'){ renderGoals(); renderRecords(); }
   else if(page==='pain') renderPainPage();
 }
 
@@ -1747,12 +1768,13 @@ function toggleMetricForm(){
 function saveMetric(){
   var m={id:uid(),date:el('m-date').value||today()};
   var w=el('m-w').value,bf=el('m-bfin').value,n=el('m-notes').value.trim();
-  if(w)m.weight=parseFloat(w);if(bf)m.bodyFat=parseFloat(bf);if(n)m.notes=n;
+  if(w) m.weight=UNIT==='imperial'?lb2kg(parseFloat(w)):parseFloat(w);
+  if(bf)m.bodyFat=parseFloat(bf);if(n)m.notes=n;
   S.bodyMetrics.unshift(m);save();toggleMetricForm();renderMetrics();showNotif('Measurement saved!');
 }
 function renderMetrics(){
   var latest=S.bodyMetrics[0],prev=S.bodyMetrics[1];
-  el('m-weight').textContent=latest&&latest.weight?latest.weight+'kg':'—';
+  el('m-weight').textContent=latest&&latest.weight?(displayWeight(latest.weight)+' '+weightLabel()):'—';
   el('m-bf').textContent=latest&&latest.bodyFat?latest.bodyFat+'%':'—';
   el('m-entries').textContent=S.bodyMetrics.length;
   var delta=el('m-weight-delta');
@@ -1783,7 +1805,7 @@ function toggleRecordForm(){var f=el('record-form');f.style.display=f.style.disp
 function saveRecord(){
   var ex=el('r-ex').value.trim(),w=el('r-w').value;
   if(!ex||!w){showNotif('Fill exercise and weight');return;}
-  S.personalRecords.unshift({id:uid(),exerciseName:ex,weight:parseFloat(w),reps:parseInt(el('r-reps').value)||1,date:el('r-date').value||today()});
+  S.personalRecords.unshift({id:uid(),exerciseName:ex,weight:UNIT==='imperial'?lb2kg(parseFloat(w)):parseFloat(w),reps:parseInt(el('r-reps').value)||1,date:el('r-date').value||today()});
   save();toggleRecordForm();el('r-ex').value='';el('r-w').value='';el('r-reps').value='1';renderRecords();showNotif('Record saved!');
 }
 function renderRecords(){
@@ -1810,13 +1832,16 @@ function renderRecords(){
 
 // ===== GOALS =====
 var editingGoalId=null;
-function toggleGoalForm(){var f=el('goal-form');f.style.display=f.style.display==='none'?'block':'none';}
-function closeGoalForm(){el('goal-form').style.display='none';editingGoalId=null;['g-title','g-unit','g-desc','g-target','g-deadline'].forEach(function(i){el(i).value='';});el('g-current').value='0';el('gf-title').textContent='New Goal';el('g-save-btn').textContent='Create Goal';}
+function toggleGoalForm(){showTargetsAdd();}
+function closeGoalForm(){closeTargetsForm();}
 function editGoal(id){
   var g=S.goals.find(function(g){return g.id===id;});if(!g)return;
-  editingGoalId=id;el('g-title').value=g.title;el('g-unit').value=g.unit;el('g-desc').value=g.description||'';
-  el('g-target').value=g.targetValue;el('g-current').value=g.currentValue;el('g-deadline').value=g.deadline||'';
-  el('gf-title').textContent='Edit Goal';el('g-save-btn').textContent='Update Goal';el('goal-form').style.display='block';
+  editingGoalId=id;
+  showTargetsAdd();setTargetsMode('goal');
+  safeSet('g-title',g.title);safeSet('g-unit',g.unit);safeSet('g-desc',g.description||'');
+  safeSet('g-target',g.targetValue);safeSet('g-current',g.currentValue);safeSet('g-deadline',g.deadline||'');
+  if(el('gf-title'))el('gf-title').textContent='Edit Goal';
+  if(el('g-save-btn'))el('g-save-btn').textContent='Update Goal';
 }
 function saveGoal(){
   var title=el('g-title').value.trim(),target=el('g-target').value;
@@ -1835,7 +1860,7 @@ function renderGoals(){
     var pct=Math.min((g.currentValue/g.targetValue)*100,100)||0;
     var card=document.createElement('div');
     card.style.cssText='background:var(--surface);border:1px solid rgba(255,255,255,0.5);border-radius:var(--r);padding:18px 20px;margin-bottom:10px;box-shadow:var(--sh);';
-    card.innerHTML='<div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;"><div><div style="font-size:15px;font-weight:700;color:var(--text);">'+g.title+'</div>'+(g.description?'<div style="font-size:12px;color:var(--text-soft);margin-top:2px;">'+g.description+'</div>':'')+'</div><div style="display:flex;gap:4px;"><button style="background:none;border:none;cursor:pointer;font-size:14px;" data-edit="'+g.id+'">✏️</button><button style="background:none;border:none;cursor:pointer;font-size:14px;" data-complete="'+g.id+'">✅</button><button style="background:none;border:none;cursor:pointer;font-size:14px;" data-del="'+g.id+'">🗑</button></div></div>'
+    card.innerHTML='<div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;"><div><div style="font-size:15px;font-weight:700;color:var(--text);">'+g.title+'</div>'+(g.description?'<div style="font-size:12px;color:var(--text-soft);margin-top:2px;">'+g.description+'</div>':'')+'</div><div style="display:flex;gap:4px;"><button style="background:rgba(179,162,216,0.1);border:1px solid rgba(179,162,216,0.2);border-radius:8px;cursor:pointer;width:30px;height:30px;display:flex;align-items:center;justify-content:center;color:#8A769B;" data-edit="'+g.id+'"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button style="background:rgba(90,138,106,0.1);border:1px solid rgba(90,138,106,0.2);border-radius:8px;cursor:pointer;width:30px;height:30px;display:flex;align-items:center;justify-content:center;color:#3a7050;" data-complete="'+g.id+'"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></button><button style="background:rgba(192,80,96,0.08);border:1px solid rgba(192,80,96,0.15);border-radius:8px;cursor:pointer;width:30px;height:30px;display:flex;align-items:center;justify-content:center;color:#c05060;" data-del="'+g.id+'"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg></button></div></div>'
     +'<div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px;"><span style="color:var(--text-soft);">Progress</span><span style="font-weight:700;color:var(--text);">'+g.currentValue+' / '+g.targetValue+' '+g.unit+'</span></div>'
     +'<div style="height:6px;background:#e2e8f0;border-radius:999px;overflow:hidden;margin-bottom:8px;"><div style="height:100%;background:linear-gradient(90deg,#725D86,#B3A2D8);border-radius:999px;width:'+pct+'%;transition:width 0.5s;"></div></div>'
     +'<div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-faint);"><span>'+pct.toFixed(0)+'% complete</span>'+(g.deadline?'<span>Due '+fmt(g.deadline)+'</span>':'')+'</div>'
@@ -1872,20 +1897,49 @@ function updateTimerDisplay(){
   el('t-status').textContent=timerOn?'Running…':(timerSecs===0?'Done!':'Ready');
 }
 function toggleTimer(){
-  if(timerOn){timerOn=false;clearInterval(timerInt);el('t-toggle').textContent='▶ Start';}
-  else{if(timerSecs<=0)return;timerOn=true;el('t-toggle').textContent='⏸ Pause';timerInt=setInterval(function(){timerSecs--;updateTimerDisplay();if(timerSecs<=0){timerOn=false;clearInterval(timerInt);el('t-toggle').textContent='▶ Start';}},1000);}
+  if(timerOn){
+    timerOn=false;clearInterval(timerInt);
+    el('t-toggle').innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polygon points="5 3 19 12 5 21 5 3"/></svg> Resume';
+    el('t-status').textContent='Paused';
+  } else {
+    if(timerSecs<=0)return;
+    timerOn=true;
+    el('t-toggle').innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg> Pause';
+    timerInt=setInterval(function(){
+      timerSecs--;updateTimerDisplay();
+      if(timerSecs<=0){timerOn=false;clearInterval(timerInt);playBeep();
+        el('t-toggle').innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polygon points="5 3 19 12 5 21 5 3"/></svg> Start';
+      }
+    },1000);
+  }
+}
+function playBeep(){
+  try{
+    var ctx=new(window.AudioContext||window.webkitAudioContext)();
+    var osc=ctx.createOscillator();var gain=ctx.createGain();
+    osc.connect(gain);gain.connect(ctx.destination);
+    osc.type='sine';osc.frequency.setValueAtTime(660,ctx.currentTime);
+    gain.gain.setValueAtTime(0,ctx.currentTime);
+    gain.gain.linearRampToValueAtTime(0.18,ctx.currentTime+0.05);
+    gain.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+1.2);
+    osc.start(ctx.currentTime);osc.stop(ctx.currentTime+1.2);
+  }catch(e){}
 }
 function resetTimer(){timerOn=false;clearInterval(timerInt);timerSecs=timerInit;updateTimerDisplay();el('t-toggle').textContent='▶ Start';}
 function logTimerSet(){
-  var ex=el('st-ex').value.trim(),w=el('st-w').value,r=el('st-r').value;
+  var exEl=el('st-ex'),wEl=el('st-w'),rEl=el('st-r');
+  if(!exEl||!wEl||!rEl)return;
+  var ex=exEl.value.trim(),w=wEl.value,r=rEl.value;
   if(!ex||!w||!r)return;
   timerSets.unshift({id:uid(),ex:ex,w:parseFloat(w),r:parseInt(r)});
-  el('st-w').value='';el('st-r').value='';
+  wEl.value='';rEl.value='';
   renderTimerSets();
 }
-function clearSets(){if(confirm('Clear all?')){timerSets=[];renderTimerSets();}}
+function clearSets(){if(confirm('Clear all?')){timerSets=[];if(el('st-list'))renderTimerSets();}}
 function renderTimerSets(){
-  var c=el('st-list'),e=el('st-empty');c.innerHTML='';
+  var c=el('st-list'),e=el('st-empty');
+  if(!c||!e)return;
+  c.innerHTML='';
   if(!timerSets.length){e.style.display='block';return;}
   e.style.display='none';
   timerSets.forEach(function(s,i){
@@ -2228,25 +2282,109 @@ function closeCongrats() {
   }, 280);
 }
 
+
+// ===== REST TIMER =====
+var restSecs = 90, restInit = 90, restOn = false, restInt = null;
+function openRestTimer(){
+  restSecs = restInit; restOn = false; clearInterval(restInt);
+  updateRestDisplay();
+  var ov = el('rest-overlay');
+  ov.style.display = 'flex';
+  // Auto-start
+  startRestTimer();
+}
+function setRestPreset(s){
+  restSecs = s; restInit = s;
+  clearInterval(restInt); restOn = false;
+  updateRestDisplay();
+  // Update preset button highlights
+  document.querySelectorAll('#rest-presets button').forEach(function(b){
+    var active = parseInt(b.textContent) === s || 
+      (b.textContent === '2m' && s===120) || 
+      (b.textContent === '3m' && s===180);
+    b.style.border = active ? '2px solid #725D86' : '1px solid rgba(179,162,216,0.3)';
+    b.style.background = active ? 'rgba(114,93,134,0.1)' : 'rgba(179,162,216,0.08)';
+    b.style.color = active ? '#725D86' : '#8A769B';
+  });
+  startRestTimer();
+}
+function setRestCustom(){
+  var v = parseInt(el('rest-custom-input').value);
+  if(v > 0){ restSecs = v; restInit = v; clearInterval(restInt); restOn = false; updateRestDisplay(); startRestTimer(); }
+}
+function startRestTimer(){
+  if(restOn) return;
+  restOn = true;
+  el('rest-status').textContent = 'Resting...';
+  restInt = setInterval(function(){
+    restSecs--;
+    updateRestDisplay();
+    if(restSecs <= 0){
+      restOn = false; clearInterval(restInt);
+      el('rest-status').textContent = 'Done!';
+      playBeep();
+      setTimeout(function(){ dismissRest(); }, 1200);
+    }
+  }, 1000);
+}
+function updateRestDisplay(){
+  var m = Math.floor(restSecs/60), s = restSecs%60;
+  var disp = el('rest-display');
+  if(disp) disp.textContent = m + ':' + (s<10?'0':'') + s;
+  var pct = restInit > 0 ? (restSecs/restInit) : 1;
+  var ring = el('rest-ring');
+  if(ring) ring.style.strokeDashoffset = 502 - (502 * (1-pct));
+}
+function dismissRest(){
+  clearInterval(restInt); restOn = false;
+  el('rest-overlay').style.display = 'none';
+}
+
+// ===== TARGETS PAGE HELPERS =====
+var targetsMode = 'goal';
+function showTargetsAdd(){
+  el('targets-add-form').style.display = 'block';
+  setTargetsMode('goal');
+}
+function closeTargetsForm(){
+  el('targets-add-form').style.display = 'none';
+  editingGoalId = null;
+  ['g-title','g-unit','g-desc','g-target','g-deadline'].forEach(function(i){ if(el(i)) el(i).value=''; });
+  if(el('g-current')) el('g-current').value='0';
+  if(el('gf-title')) el('gf-title').textContent='New Goal';
+  if(el('g-save-btn')) el('g-save-btn').textContent='Create Goal';
+}
+function setTargetsMode(mode){
+  targetsMode = mode;
+  el('tm-goal-fields').style.display = mode==='goal' ? 'block' : 'none';
+  el('tm-rec-fields').style.display = mode==='record' ? 'block' : 'none';
+  el('tm-goal-btn').style.background = mode==='goal' ? '#725D86' : 'none';
+  el('tm-goal-btn').style.color = mode==='goal' ? '#fff' : '#8A769B';
+  el('tm-rec-btn').style.background = mode==='record' ? '#725D86' : 'none';
+  el('tm-rec-btn').style.color = mode==='record' ? '#fff' : '#8A769B';
+}
+function toggleSection(id){
+  var el2 = el(id);
+  if(el2) el2.style.display = el2.style.display==='none' ? 'block' : 'none';
+}
+
 // ===== INIT =====
-el('m-date').value=today();
-el('r-date').value=today();
-updateTimerDisplay();
+// Null-safe value setters — some elements live inside hidden cards
+function safeSet(id, val){ var e=el(id); if(e) e.value=val; }
+safeSet('m-date', today());
+safeSet('r-date', today());
+// timer page removed — no updateTimerDisplay() call needed
+if(!S.userName) S.userName='';
+updateUnitDisplays();
 renderEPFilters();
 renderEPList();
-
-// Add userName to state if missing
-if (!S.userName) S.userName = '';
-
-// Check onboarding first - then render dashboard after
 checkOnboarding();
-if (localStorage.getItem('forge-onboarding-done')) {
-  if (S.userName) {
-    // Update welcome message with stored name
-    setTimeout(function() {
-      var title = document.querySelector('#page-dashboard .page-title');
-      if (title) title.textContent = 'Welcome back, ' + S.userName + '!';
-    }, 50);
+if(localStorage.getItem('forge-onboarding-done')){
+  if(S.userName){
+    setTimeout(function(){
+      var t=document.querySelector('#page-dashboard .page-title');
+      if(t) t.textContent='Welcome back, '+S.userName+'!';
+    },50);
   }
   renderDashboard();
 }
@@ -2342,6 +2480,10 @@ function savePainEntry() {
   });
 
   save();
+  currentPainAreas = [];
+  // Re-read from storage to ensure fresh data
+  S = JSON.parse(localStorage.getItem('forge-fitness-storage'));
+  if(!S.painLogs) S.painLogs = [];
   togglePainForm();
   renderPainPage();
   renderDashboard();
@@ -2622,5 +2764,39 @@ function exportPainData() {
 }
 </style>
 
+
+<!-- REST TIMER OVERLAY -->
+<div id="rest-overlay" style="display:none;position:fixed;inset:0;background:rgba(52,38,62,0.88);backdrop-filter:blur(12px);z-index:700;align-items:center;justify-content:center;padding:24px;">
+  <div style="background:rgba(255,255,253,0.97);border-radius:28px;padding:36px 28px;width:100%;max-width:360px;text-align:center;box-shadow:0 24px 64px rgba(58,45,69,0.3);">
+    <div style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#8A769B;margin-bottom:6px;">Rest Timer</div>
+    <!-- Circular countdown -->
+    <div style="position:relative;width:180px;height:180px;margin:0 auto 20px;">
+      <svg width="180" height="180" viewBox="0 0 180 180" style="transform:rotate(-90deg);">
+        <circle cx="90" cy="90" r="80" fill="none" stroke="rgba(179,162,216,0.15)" stroke-width="10"/>
+        <circle cx="90" cy="90" r="80" fill="none" stroke="#725D86" stroke-width="10" stroke-linecap="round" stroke-dasharray="502" id="rest-ring" style="transition:stroke-dashoffset 0.8s linear;"/>
+      </svg>
+      <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+        <div id="rest-display" style="font-size:44px;font-weight:700;color:#3a2d45;font-variant-numeric:tabular-nums;line-height:1;">1:30</div>
+        <div id="rest-status" style="font-size:12px;color:#8A769B;margin-top:4px;font-weight:600;">Resting</div>
+      </div>
+    </div>
+    <!-- Preset times -->
+    <div style="display:flex;justify-content:center;gap:8px;margin-bottom:20px;" id="rest-presets">
+      <button onclick="setRestPreset(30)" style="padding:6px 12px;border-radius:999px;border:1px solid rgba(179,162,216,0.3);background:rgba(179,162,216,0.08);cursor:pointer;font-size:12px;font-weight:700;color:#8A769B;font-family:'DM Sans',sans-serif;">30s</button>
+      <button onclick="setRestPreset(60)" style="padding:6px 12px;border-radius:999px;border:1px solid rgba(179,162,216,0.3);background:rgba(179,162,216,0.08);cursor:pointer;font-size:12px;font-weight:700;color:#8A769B;font-family:'DM Sans',sans-serif;">60s</button>
+      <button onclick="setRestPreset(90)" style="padding:6px 12px;border-radius:999px;border:2px solid #725D86;background:rgba(114,93,134,0.1);cursor:pointer;font-size:12px;font-weight:700;color:#725D86;font-family:'DM Sans',sans-serif;">90s</button>
+      <button onclick="setRestPreset(120)" style="padding:6px 12px;border-radius:999px;border:1px solid rgba(179,162,216,0.3);background:rgba(179,162,216,0.08);cursor:pointer;font-size:12px;font-weight:700;color:#8A769B;font-family:'DM Sans',sans-serif;">2m</button>
+      <button onclick="setRestPreset(180)" style="padding:6px 12px;border-radius:999px;border:1px solid rgba(179,162,216,0.3);background:rgba(179,162,216,0.08);cursor:pointer;font-size:12px;font-weight:700;color:#8A769B;font-family:'DM Sans',sans-serif;">3m</button>
+    </div>
+    <!-- Custom time -->
+    <div style="display:flex;gap:8px;margin-bottom:20px;justify-content:center;">
+      <input type="number" id="rest-custom-input" class="fi" placeholder="Custom (secs)" min="1" style="width:140px;text-align:center;font-size:16px;">
+      <button onclick="setRestCustom()" class="btn btn-g btn-sm" style="border-radius:12px;">Set</button>
+    </div>
+    <button onclick="dismissRest()" style="width:100%;padding:14px;background:rgba(179,162,216,0.12);color:#725D86;border:1.5px solid rgba(114,93,134,0.2);border-radius:16px;font-size:15px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;">
+      Skip Rest
+    </button>
+  </div>
+</div>
 </body>
 </html>
