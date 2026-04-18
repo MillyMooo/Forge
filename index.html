@@ -52,12 +52,13 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .mob-btn{display:none;position:fixed;top:16px;left:16px;z-index:200;width:44px;height:44px;border-radius:50%;background:rgba(58,45,69,0.88);backdrop-filter:blur(16px);border:1px solid rgba(179,162,216,0.2);align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 16px rgba(58,45,69,0.25);color:#CECAC0;}
 .s-overlay{display:none;position:fixed;inset:0;background:rgba(30,43,64,0.25);z-index:99;}
 .s-overlay.open{display:block;}
-.bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:100;padding-bottom:env(safe-area-inset-bottom);--bn-cx:10%;}
-.bn-wrap{position:relative;width:100%;height:68px;overflow:visible;}
-.bn-svg{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none;filter:drop-shadow(0 -4px 14px rgba(58,45,69,0.18));}
+.bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:100;--bn-cx:10%;}
+.bn-wrap{position:relative;width:100%;height:calc(68px + env(safe-area-inset-bottom));overflow:visible;}
+.bn-safe-fill{position:absolute;left:0;right:0;bottom:0;height:calc(env(safe-area-inset-bottom) + 2px);background:#34262E;}
+.bn-svg{position:absolute;left:0;right:0;top:0;width:100%;height:68px;display:block;pointer-events:none;filter:drop-shadow(0 -4px 14px rgba(58,45,69,0.18));}
 .bn-pill-float{position:absolute;top:20px;left:var(--bn-cx);transform:translateX(-50%);width:36px;height:36px;border-radius:50%;background:#725D86;display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 4px 10px rgba(114,93,134,0.4);transition:left 0.38s cubic-bezier(0.4,0,0.2,1);z-index:2;pointer-events:none;}
 .bn-pill-float svg{width:16px;height:16px;}
-.bn-buttons{position:absolute;inset:0;display:flex;align-items:center;padding:0;}
+.bn-buttons{position:absolute;left:0;right:0;top:0;height:68px;display:flex;align-items:center;padding:0;}
 .bnb{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:12px 4px 6px;background:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;min-width:0;height:100%;}
 .bn-ico{width:32px;height:32px;display:flex;align-items:center;justify-content:center;color:rgba(179,162,216,0.55);transition:opacity 0.22s;}
 .bn-lbl{font-size:9.5px;font-weight:600;color:rgba(179,162,216,0.5);text-transform:uppercase;letter-spacing:0.05em;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;transition:opacity 0.22s;}
@@ -2815,6 +2816,7 @@ window.addEventListener('resize', function(){ try{ updateBottomNav(curPage||'das
 <!-- BOTTOM NAV (mobile) -->
 <nav class="bottom-nav" id="bottom-nav" aria-label="Primary">
   <div class="bn-wrap">
+    <div class="bn-safe-fill"></div>
     <svg class="bn-svg" id="bn-svg" viewBox="0 0 360 68" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <mask id="bn-scoop-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="360" height="68">
