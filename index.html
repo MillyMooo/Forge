@@ -52,19 +52,16 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .mob-btn{display:none;position:fixed;top:16px;left:16px;z-index:200;width:44px;height:44px;border-radius:50%;background:rgba(58,45,69,0.88);backdrop-filter:blur(16px);border:1px solid rgba(179,162,216,0.2);align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 16px rgba(58,45,69,0.25);color:#CECAC0;}
 .s-overlay{display:none;position:fixed;inset:0;background:rgba(30,43,64,0.25);z-index:99;}
 .s-overlay.open{display:block;}
-.bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:100;padding:0 0 max(0px,env(safe-area-inset-bottom));}
-.bn-pill{display:flex;justify-content:space-around;align-items:center;background:rgba(52,38,62,0.96);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:24px 24px 0 0;padding:8px 4px 6px;box-shadow:0 -4px 24px rgba(58,45,69,0.25);}
-.bn-inner{display:contents;}
-.bnb{display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 8px;background:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;flex:1;transition:all 0.18s;position:relative;}
-.bn-ico{width:38px;height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;color:rgba(179,162,216,0.45);transition:all 0.22s;}
-.bnb.active .bn-ico{color:#CECAC0;}
-.bn-lbl{font-size:9px;font-weight:600;color:rgba(179,162,216,0.4);text-transform:uppercase;letter-spacing:0.04em;transition:all 0.18s;}
-.bnb.active .bn-lbl{color:rgba(206,202,192,0.85);}
-/* Centre START button — raised pill */
-.bnb-center .bn-ico{width:52px;height:52px;background:#725D86;border-radius:16px;color:#fff;box-shadow:0 4px 16px rgba(114,93,134,0.45);margin-top:-14px;border:3px solid rgba(52,38,62,0.96);}
-.bnb-center.active .bn-ico{background:#B3A2D8;}
-.bnb-center .bn-lbl{color:rgba(206,202,192,0.6);}
-.bnb-center.active .bn-lbl{color:#CECAC0;}
+.bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:100;padding-bottom:env(safe-area-inset-bottom);--bn-cx:10%;}
+.bn-wrap{position:relative;width:100%;height:68px;overflow:visible;}
+.bn-svg{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none;filter:drop-shadow(0 -4px 14px rgba(58,45,69,0.18));}
+.bn-pill-float{position:absolute;top:20px;left:var(--bn-cx);transform:translateX(-50%);width:36px;height:36px;border-radius:50%;background:#725D86;display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 4px 10px rgba(114,93,134,0.4);transition:left 0.38s cubic-bezier(0.4,0,0.2,1);z-index:2;pointer-events:none;}
+.bn-pill-float svg{width:16px;height:16px;}
+.bn-buttons{position:absolute;inset:0;display:flex;align-items:center;padding:0;}
+.bnb{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:12px 4px 6px;background:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;min-width:0;height:100%;}
+.bn-ico{width:32px;height:32px;display:flex;align-items:center;justify-content:center;color:rgba(179,162,216,0.55);transition:opacity 0.22s;}
+.bn-lbl{font-size:9.5px;font-weight:600;color:rgba(179,162,216,0.5);text-transform:uppercase;letter-spacing:0.05em;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;transition:opacity 0.22s;}
+.bnb.active .bn-ico,.bnb.active .bn-lbl{opacity:0;}
 .more-drawer{position:fixed;bottom:-100%;left:0;right:0;background:rgba(250,248,246,0.98);border-radius:20px 20px 0 0;border-top:1px solid rgba(179,162,216,0.2);z-index:200;padding:12px 16px max(18px,env(safe-area-inset-bottom));transition:bottom 0.3s cubic-bezier(0.4,0,0.2,1);box-shadow:0 -8px 32px rgba(30,43,64,0.1);}
 .more-drawer.open{bottom:0;}
 .drw-handle{width:36px;height:4px;background:var(--bord2);border-radius:2px;margin:0 auto 14px;}
@@ -203,6 +200,7 @@ input[type="date"].fi,input[type="time"].fi{-webkit-appearance:none;appearance:n
 </style>
 </head>
 
+<body>
 <!-- ===== ONBOARDING OVERLAY ===== -->
 <div id="onboarding" style="display:none;position:fixed;inset:0;z-index:9999;overflow:hidden;">
   <!-- Bg blobs (same as app) -->
@@ -306,8 +304,6 @@ input[type="date"].fi,input[type="time"].fi{-webkit-appearance:none;appearance:n
     </div>
   </div>
 </div>
-
-<body>
 <div class="blobs" aria-hidden="true">
   <div class="blobs-base"></div>
   <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
@@ -324,7 +320,7 @@ input[type="date"].fi,input[type="time"].fi{-webkit-appearance:none;appearance:n
   <div class="drw-handle"></div>
   <div class="drw-grid">
     <div class="drw-item" onclick="nav('targets');closeDrawer()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"/></svg><div class="drw-item-lbl">Targets</div></div>
-<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
+    <div class="drw-item" onclick="nav('metrics');closeDrawer()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg><div class="drw-item-lbl">Metrics</div></div>
     <div class="drw-item" onclick="nav('pain');closeDrawer()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><div class="drw-item-lbl">Pain Log</div></div>
   </div>
 </div>
@@ -374,68 +370,16 @@ input[type="date"].fi,input[type="time"].fi{-webkit-appearance:none;appearance:n
     <button class="nb" data-page="progress" onclick="nav('progress')"><span class="ni"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></span>Progress</button>
     <div class="nav-sec">Body</div>
     <button class="nb" data-page="metrics" onclick="nav('metrics')"><span class="ni"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg></span>Body Metrics</button>
-    
-        <button class="btn btn-g btn-sm" onclick="toggleSection('targets-records-section')" id="btn-show-records">Records</button>
-        <button class="btn btn-a btn-sm" onclick="showTargetsAdd()" id="targets-add-btn">+ Add</button>
+    <button class="nb" data-page="targets" onclick="nav('targets')"><span class="ni"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></span>My Targets</button>
+    <div class="nav-sec">Health</div>
+    <button class="nb" data-page="pain" onclick="nav('pain')"><span class="ni"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></span>Pain Tracker</button>
+    <div class="sidebar-foot">
+      <div class="tip-card">
+        <div class="tip-title">Keep forging</div>
+        <div class="tip-body">Consistency beats intensity. Small wins, logged daily, compound into something remarkable.</div>
       </div>
     </div>
-  </div>
-
-  <!-- Add form (shared, switches mode) -->
-  <div class="card" id="targets-add-form" style="display:none;margin-bottom:18px;">
-    <div class="card-b">
-      <!-- Tab switcher -->
-      <div style="display:flex;gap:0;margin-bottom:20px;background:rgba(179,162,216,0.1);border-radius:12px;padding:3px;">
-        <button onclick="setTargetsMode('goal')" id="tm-goal-btn" style="flex:1;padding:8px;border:none;border-radius:10px;background:#725D86;color:#fff;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.18s;">Goal</button>
-        <button onclick="setTargetsMode('record')" id="tm-rec-btn" style="flex:1;padding:8px;border:none;border-radius:10px;background:none;color:#8A769B;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.18s;">Record</button>
-      </div>
-      <!-- Goal fields -->
-      <div id="tm-goal-fields">
-        <div class="card-hdr" style="margin-bottom:14px;"><span class="card-title" id="gf-title">New Goal</span><button onclick="closeTargetsForm()" style="background:#f1f5f9;border:none;cursor:pointer;border-radius:9px;width:30px;height:30px;display:flex;align-items:center;justify-content:center;font-size:13px;">✕</button></div>
-        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px;">
-          <div class="fg" style="flex:2;min-width:160px;"><label class="flbl">Goal Title</label><input class="fi" id="g-title" placeholder="e.g. Bench Press 100kg"></div>
-          <div class="fg" style="flex:1;min-width:100px;"><label class="flbl">Unit</label><input class="fi" id="g-unit" placeholder="kg, reps…"></div>
-        </div>
-        <div class="fg" style="margin-bottom:12px;"><label class="flbl">Description</label><textarea class="fta" id="g-desc" rows="2" placeholder="Optional…"></textarea></div>
-        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:14px;">
-          <div class="fg" style="flex:1;min-width:100px;"><label class="flbl">Target</label><input type="number" step="0.1" class="fi" id="g-target" placeholder="100"></div>
-          <div class="fg" style="flex:1;min-width:100px;"><label class="flbl">Current</label><input type="number" step="0.1" class="fi" id="g-current" value="0"></div>
-          <div class="fg" style="flex:1;min-width:130px;"><label class="flbl">Deadline</label><input type="date" class="fi" id="g-deadline"></div>
-        </div>
-        <input type="hidden" id="g-edit-id">
-        <div style="display:flex;gap:10px;"><button class="btn btn-g btn-sm" onclick="closeTargetsForm()">Cancel</button><button class="btn btn-a btn-sm" onclick="saveGoal()" id="g-save-btn">Create Goal</button></div>
-      </div>
-      <!-- Record fields -->
-      <div id="tm-rec-fields" style="display:none;">
-        <div class="card-hdr" style="margin-bottom:14px;"><span class="card-title">New Record</span><button onclick="closeTargetsForm()" style="background:#f1f5f9;border:none;cursor:pointer;border-radius:9px;width:30px;height:30px;display:flex;align-items:center;justify-content:center;font-size:13px;">✕</button></div>
-        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px;">
-          <div class="fg" style="flex:2;min-width:150px;"><label class="flbl">Exercise</label><input class="fi" id="r-ex" placeholder="e.g. Bench Press"></div>
-          <div class="fg" style="flex:1;min-width:90px;"><label class="flbl" id="r-w-lbl">Weight</label><input type="number" step="0.5" class="fi" id="r-w" placeholder="80"></div>
-          <div class="fg" style="flex:1;min-width:70px;"><label class="flbl">Reps</label><input type="number" class="fi" id="r-reps" value="1"></div>
-          <div class="fg" style="flex:1;min-width:120px;"><label class="flbl">Date</label><input type="date" class="fi" id="r-date"></div>
-        </div>
-        <div style="display:flex;gap:10px;"><button class="btn btn-g btn-sm" onclick="closeTargetsForm()">Cancel</button><button class="btn btn-a btn-sm" onclick="saveRecord()">Save Record</button></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Goals section -->
-  <div id="targets-goals-section">
-    <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-faint);margin-bottom:12px;" id="goals-active-lbl">Active Goals (0)</div>
-    <div id="goals-active-list"></div>
-    <div id="goals-done-section" style="display:none;margin-top:20px;">
-      <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-faint);margin-bottom:12px;">Completed</div>
-      <div id="goals-done-list"></div>
-    </div>
-  </div>
-
-  <!-- Records section -->
-  <div id="targets-records-section" style="margin-top:24px;">
-    <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-faint);margin-bottom:12px;">Personal Records</div>
-    <div id="rec-list"></div>
-  </div>
-</div>
-
+  </nav>
 
   <main class="main">
     <div class="pw">
@@ -949,6 +893,50 @@ var EP_TARGET = 'plan'; // 'plan' or 'session'
 
 // ===== NAVIGATION =====
 var curPage = 'dashboard';
+// ===== BOTTOM NAV SCOOP / FLOATING PILL =====
+var BN_ICONS = {
+  home:    '<path d="M3 12l9-9 9 9"/><path d="M5 10v10a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V10"/>',
+  plans:   '<path d="M6.5 6.5a5.657 5.657 0 0 1 8 0l1 1-1 1a5.657 5.657 0 0 1-8 0L5.5 7.5l1-1z"/><path d="m19 19-7-7"/><path d="M17.5 17.5 20 20"/>',
+  start:   '<polygon points="5 3 19 12 5 21 5 3"/>',
+  progress:'<polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>',
+  more:    '<circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/>'
+};
+function updateBottomNav(page){
+  var nav = el('bottom-nav'); if(!nav) return;
+  var btns = nav.querySelectorAll('.bnb');
+  var activeBtn = null;
+  btns.forEach(function(b){
+    var isActive = b.getAttribute('data-page')===page;
+    b.classList.toggle('active', isActive);
+    if(isActive) activeBtn = b;
+  });
+  if(!activeBtn) return; // e.g. on More drawer (no data-page)
+  var navRect = nav.getBoundingClientRect();
+  var btnRect = activeBtn.getBoundingClientRect();
+  var cxPx = (btnRect.left + btnRect.width/2) - navRect.left;
+  // Clamp so the 80-unit-wide scoop (viewBox) + some margin stays inside the bar.
+  // 48px min edge margin covers the ±40 scoop half-width plus rounded corner.
+  var minPx = 58, maxPx = navRect.width - 58;
+  if(cxPx < minPx) cxPx = minPx;
+  else if(cxPx > maxPx) cxPx = maxPx;
+  var cxPct = (cxPx / navRect.width) * 100;
+  nav.style.setProperty('--bn-cx', cxPct.toFixed(3)+'%');
+  // Update scoop path cx in SVG viewBox units (0..360)
+  var cxVB = (cxPct / 100) * 360;
+  var scoopPath = el('bn-scoop-path');
+  if(scoopPath){
+    // Match preview widget scaled to 68-tall viewBox (original was 100-tall)
+    // rim y=12, valley y=66. Rim half-width 40, valley half-width 0.
+    // Handle pattern pulls outward at rim then inward at valley (flask curve).
+    var l = cxVB - 40, r = cxVB + 40;
+    scoopPath.setAttribute('d',
+      'M '+l+' 12 C '+(cxVB - 18)+' 12, '+(cxVB - 32)+' 66, '+cxVB+' 66 C '+(cxVB + 32)+' 66, '+(cxVB + 18)+' 12, '+r+' 12 Z');
+  }
+  // Update floating pill icon
+  var icoKey = activeBtn.getAttribute('data-icon');
+  var pillIco = el('bn-pill-ico');
+  if(pillIco && BN_ICONS[icoKey]) pillIco.innerHTML = BN_ICONS[icoKey];
+}
 function nav(page){
   document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
   var pg = el('page-'+page);
@@ -958,6 +946,7 @@ function nav(page){
     b.classList.toggle('active', b.getAttribute('data-page')===page);
   });
   curPage = page;
+  updateBottomNav(page);
   closeSidebar();
   window.scrollTo({top:0,behavior:'smooth'});
   if(page==='dashboard') renderDashboard();
@@ -2368,6 +2357,26 @@ function toggleSection(id){
   if(el2) el2.style.display = el2.style.display==='none' ? 'block' : 'none';
 }
 
+
+function switchTargetsTab(tab){
+  var goalsTab = el('targets-goals-tab');
+  var recsTab  = el('targets-records-tab');
+  var goalsBtn = el('tt-goals');
+  var recsBtn  = el('tt-records');
+  if(!goalsTab||!recsTab) return;
+  goalsTab.style.display = tab==='goals'  ? 'block' : 'none';
+  recsTab.style.display  = tab==='records'? 'block' : 'none';
+  if(goalsBtn){
+    goalsBtn.style.background = tab==='goals'  ? '#725D86' : 'none';
+    goalsBtn.style.color      = tab==='goals'  ? '#fff'    : '#8A769B';
+  }
+  if(recsBtn){
+    recsBtn.style.background  = tab==='records'? '#725D86' : 'none';
+    recsBtn.style.color       = tab==='records'? '#fff'    : '#8A769B';
+  }
+  if(tab==='records') renderRecords();
+  else renderGoals();
+}
 // ===== INIT =====
 // Null-safe value setters — some elements live inside hidden cards
 function safeSet(id, val){ var e=el(id); if(e) e.value=val; }
@@ -2727,6 +2736,10 @@ function exportPainData() {
   showNotif('CSV exported for your doctor!');
 }
 
+
+// Initialise bottom-nav scoop on load
+window.addEventListener('load', function(){ try{ updateBottomNav(curPage||'dashboard'); }catch(e){} });
+window.addEventListener('resize', function(){ try{ updateBottomNav(curPage||'dashboard'); }catch(e){} });
 </script>
 
 <!-- ===== CONGRATS MODAL ===== -->
@@ -2798,5 +2811,45 @@ function exportPainData() {
     </button>
   </div>
 </div>
+
+<!-- BOTTOM NAV (mobile) -->
+<nav class="bottom-nav" id="bottom-nav" aria-label="Primary">
+  <div class="bn-wrap">
+    <svg class="bn-svg" id="bn-svg" viewBox="0 0 360 68" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <mask id="bn-scoop-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="360" height="68">
+          <rect width="360" height="68" fill="white"/>
+          <path id="bn-scoop-path" d="M -4 12 C 18 12, 4 66, 36 66 C 68 66, 54 12, 76 12 Z" fill="black"/>
+        </mask>
+      </defs>
+      <path d="M 0 24 Q 0 12 12 12 L 348 12 Q 360 12 360 24 L 360 68 L 0 68 Z" fill="#34262E" mask="url(#bn-scoop-mask)"/>
+    </svg>
+    <div class="bn-pill-float" id="bn-pill-float" aria-hidden="true">
+      <svg id="bn-pill-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l9-9 9 9"/><path d="M5 10v10a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V10"/></svg>
+    </div>
+    <div class="bn-buttons" id="bn-buttons">
+      <button class="bnb active" data-page="dashboard" data-icon="home" onclick="nav('dashboard')" aria-label="Home">
+        <span class="bn-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l9-9 9 9"/><path d="M5 10v10a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V10"/></svg></span>
+        <span class="bn-lbl">Home</span>
+      </button>
+      <button class="bnb" data-page="workouts" data-icon="plans" onclick="nav('workouts')" aria-label="Plans">
+        <span class="bn-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5a5.657 5.657 0 0 1 8 0l1 1-1 1a5.657 5.657 0 0 1-8 0L5.5 7.5l1-1z"/><path d="m19 19-7-7"/><path d="M17.5 17.5 20 20"/></svg></span>
+        <span class="bn-lbl">Plans</span>
+      </button>
+      <button class="bnb" data-page="session" data-icon="start" onclick="nav('session')" aria-label="Start">
+        <span class="bn-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>
+        <span class="bn-lbl">Start</span>
+      </button>
+      <button class="bnb" data-page="progress" data-icon="progress" onclick="nav('progress')" aria-label="Progress">
+        <span class="bn-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></span>
+        <span class="bn-lbl">Progress</span>
+      </button>
+      <button class="bnb" data-icon="more" onclick="openDrawer()" aria-label="More">
+        <span class="bn-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg></span>
+        <span class="bn-lbl">More</span>
+      </button>
+    </div>
+  </div>
+</nav>
 </body>
 </html>
