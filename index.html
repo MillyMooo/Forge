@@ -492,6 +492,7 @@ input[type="date"].fi,input[type="time"].fi{-webkit-appearance:none;appearance:n
       <input type="datetime-local" id="sess-datetime" class="fi" style="flex:1;padding:6px 10px;font-size:13px;max-width:240px;">
     </div>
     <div id="sess-strength-content"></div>
+    <div id="sess-hold-content" style="display:none;margin-top:18px;padding-top:18px;border-top:0.5px solid var(--border);"></div>
     <div id="sess-cardio-content" style="display:none;margin-top:18px;padding-top:18px;border-top:0.5px solid var(--border);"></div>
   </div>
 </div>
@@ -972,26 +973,182 @@ var BUILTIN_PLANS = [
     {name:'Planks',mg:'Core',sets:[{w:0,r:30},{w:0,r:30},{w:0,r:30}]}
   ]},
   {id:'low_cardio',name:'Low Impact Cardio',icon:'__cardio',color:'#fda4af',desc:'Walking, cycling, gentle pace',type:'cardio',bodyArea:'cardio',days:'Any day',exercises:[
-    {name:'Walking',mg:'Cardio',cardio:true},
-    {name:'Stationary Bike',mg:'Cardio',cardio:true},
-    {name:'Elliptical',mg:'Cardio',cardio:true}
+    {name:'Walking',mg:'Cardio',exType:'cardio',cardio:true},
+    {name:'Stationary Bike',mg:'Cardio',exType:'cardio',cardio:true},
+    {name:'Elliptical',mg:'Cardio',exType:'cardio',cardio:true}
+  ]},
+  // ===== R4b: Evidence-based plans =====
+  {id:'beginner_full',name:'Beginner Full Body',icon:'__gentle',color:'#a7c7e7',desc:'5-move compound foundation, 3x/week',type:'fullbody',bodyArea:'full',days:'Mon / Wed / Fri',exercises:[
+    {name:'Squats',mg:'Legs',exType:'strength',sets:[{w:20,r:10},{w:20,r:10},{w:20,r:10}]},
+    {name:'Bench Press',mg:'Chest',exType:'strength',sets:[{w:20,r:8},{w:20,r:8},{w:20,r:8}]},
+    {name:'Romanian Deadlift',mg:'Legs',exType:'strength',sets:[{w:20,r:10},{w:20,r:10},{w:20,r:10}]},
+    {name:'Lat Pulldown',mg:'Back',exType:'strength',sets:[{w:20,r:10},{w:20,r:10},{w:20,r:10}]},
+    {name:'Planks',mg:'Core',exType:'hold',sets:[{secs:20},{secs:20},{secs:20}]}
+  ]},
+  {id:'glute_focus',name:'Glute Focus',icon:'__legs',color:'#c084fc',desc:'Hip thrust, RDL & abduction — Contreras pattern',type:'strength',bodyArea:'lower',days:'2–3x per week',exercises:[
+    {name:'Hip Thrusts',mg:'Glutes',exType:'strength',sets:[{w:30,r:10},{w:30,r:10},{w:30,r:10},{w:30,r:8}]},
+    {name:'Romanian Deadlift',mg:'Legs',exType:'strength',sets:[{w:25,r:10},{w:25,r:10},{w:25,r:10}]},
+    {name:'Bulgarian Split Squat',mg:'Legs',exType:'strength',sets:[{w:8,r:10},{w:8,r:10},{w:8,r:10}]},
+    {name:'Abductor Machine',mg:'Glutes',exType:'strength',sets:[{w:25,r:15},{w:25,r:15},{w:25,r:15}]},
+    {name:'Glute Bridges',mg:'Glutes',exType:'strength',sets:[{w:0,r:20},{w:0,r:20}]}
+  ]},
+  {id:'glute_no_gym',name:'Glute Bridge (No Gym)',icon:'__gentle',color:'#fbbf77',desc:'Bodyweight + band glute work for home',type:'strength',bodyArea:'lower',days:'2–3x per week',exercises:[
+    {name:'Glute Bridges',mg:'Glutes',exType:'strength',sets:[{w:0,r:15},{w:0,r:15},{w:0,r:15}]},
+    {name:'Single-Leg Glute Bridge',mg:'Glutes',exType:'strength',sets:[{w:0,r:10},{w:0,r:10},{w:0,r:10}]},
+    {name:'Banded Hip Thrust',mg:'Glutes',exType:'strength',sets:[{w:0,r:15},{w:0,r:15},{w:0,r:15}]},
+    {name:'Banded Clamshells',mg:'Glutes',exType:'strength',sets:[{w:0,r:15},{w:0,r:15}]},
+    {name:'Step-ups',mg:'Legs',exType:'strength',sets:[{w:0,r:10},{w:0,r:10},{w:0,r:10}]}
+  ]},
+  {id:'pelvic_friendly',name:'Pelvic Friendly',icon:'__gentle',color:'#86efac',desc:'Endo-flare friendly. Avoids pelvic pressure.',type:'fullbody',bodyArea:'full',days:'On low/medium energy days',exercises:[
+    {name:'Walking',mg:'Cardio',exType:'cardio',cardio:true},
+    {name:'Glute Bridges',mg:'Glutes',exType:'strength',sets:[{w:0,r:12},{w:0,r:12}]},
+    {name:'Bird Dog',mg:'Core',exType:'strength',sets:[{w:0,r:10},{w:0,r:10}]},
+    {name:'Dead Bug',mg:'Core',exType:'strength',sets:[{w:0,r:10},{w:0,r:10}]},
+    {name:'Wall Sit',mg:'Legs',exType:'hold',sets:[{secs:20},{secs:20}]},
+    {name:'Child\'s Pose',mg:'Mobility',exType:'hold',sets:[{secs:60}]}
+  ]},
+  {id:'yoga_hip_flow',name:'Yoga Hip Flow',icon:'__gentle',color:'#f9a8d4',desc:'Hip-opener flow. Endo-friendly, ~20 min.',type:'fullbody',bodyArea:'full',days:'Any day',exercises:[
+    {name:'Cat-Cow',mg:'Mobility',exType:'hold',sets:[{secs:60}]},
+    {name:'Child\'s Pose',mg:'Mobility',exType:'hold',sets:[{secs:60}]},
+    {name:'Hip Circles',mg:'Mobility',exType:'hold',sets:[{secs:30},{secs:30}]},
+    {name:'Pigeon Pose',mg:'Mobility',exType:'hold',sets:[{secs:60},{secs:60}]},
+    {name:'Reclined Butterfly',mg:'Mobility',exType:'hold',sets:[{secs:90}]},
+    {name:'Supine Spinal Twist',mg:'Mobility',exType:'hold',sets:[{secs:45},{secs:45}]},
+    {name:'Happy Baby',mg:'Mobility',exType:'hold',sets:[{secs:45}]},
+    {name:'Savasana',mg:'Mobility',exType:'hold',sets:[{secs:300}]}
+  ]},
+  {id:'walk_and_strength',name:'Walk + Strength',icon:'__cardio',color:'#fcd34d',desc:'10 min walk + 4 light moves. Low-energy days.',type:'fullbody',bodyArea:'full',days:'On lower energy days',exercises:[
+    {name:'Walking',mg:'Cardio',exType:'cardio',cardio:true},
+    {name:'Lat Pulldown',mg:'Back',exType:'strength',sets:[{w:20,r:12},{w:20,r:12}]},
+    {name:'Glute Bridges',mg:'Glutes',exType:'strength',sets:[{w:0,r:15},{w:0,r:15}]},
+    {name:'Cable Flyes',mg:'Chest',exType:'strength',sets:[{w:8,r:12},{w:8,r:12}]},
+    {name:'Bird Dog',mg:'Core',exType:'strength',sets:[{w:0,r:10},{w:0,r:10}]}
   ]}
 ];
 
 
 var MG_CLASS = {Chest:'tc-chest',Back:'tc-back',Shoulders:'tc-shoulders',Arms:'tc-arms',Legs:'tc-legs',Glutes:'tc-glutes',Core:'tc-core',Cardio:'tc-cardio','Full Body':'tc-full'};
+// ===== EXERCISE CUES =====
+// Written form cues for each exercise. Shown in a "How to" panel
+// under each exercise on the active session page.
+var EXERCISE_CUES = {
+  // CHEST
+  'Bench Press': 'Lie flat on a bench, feet planted, slight arch in lower back. Grip the bar slightly wider than shoulders. Lower the bar to mid-chest with control, elbows at ~45 degrees. Press up explosively without flaring elbows. Keep shoulder blades pinned back the whole time.',
+  'Incline Dumbbell Press': 'Set bench to 30–45 degrees. Sit back, dumbbells at shoulder height, palms forward. Press up and slightly inward, stopping just before locking out. Lower with control to a comfortable stretch — not deeper than feels safe.',
+  'Cable Flyes': 'Set cables high or mid. Step forward into a split stance, soft bend in elbows. Bring hands together in a hugging arc, squeezing chest at the front. Don\'t straighten arms — keep that elbow bend constant.',
+  'Push-ups': 'Hands slightly wider than shoulders. Body in one straight line — no sagging hips, no piked bum. Lower until chest is just above the floor, elbows at ~45 degrees. Press back up, keeping core braced.',
+  'Chest Dip': 'Grip parallel bars, body upright with a slight forward lean for chest emphasis. Lower until shoulders are roughly level with elbows. Press back to full extension. Stop if you feel shoulder pinching.',
+  'Dumbbell Flyes': 'Lie flat, dumbbells over chest with soft elbow bend. Lower in a wide arc, feeling a stretch across your chest. Reverse the arc back, squeezing at the top. Light weight — it\'s about the stretch, not the load.',
+  // BACK
+  'Deadlift': 'Bar over mid-foot, shins close. Hinge at hips, grip just outside knees. Chest up, back flat. Push the floor away — lift legs first, then hips. Keep the bar dragging up your shins. Stand tall, don\'t over-arch at the top.',
+  'Pull-ups': 'Hang from the bar, hands slightly wider than shoulders. Pull elbows down and back, leading with your chest toward the bar. Lower with control to full hang. Use a band or assist machine if needed — quality over numbers.',
+  'Barbell Rows': 'Hinge forward to ~45 degrees, back flat, knees soft. Pull the bar to your lower ribs, elbows tracking behind you. Squeeze shoulder blades together at the top. Lower with control.',
+  'Lat Pulldown': 'Sit with thighs locked under pads. Grip bar wider than shoulders. Lean back slightly, pull bar to upper chest by driving elbows down. Don\'t let the weight pull you up between reps.',
+  'Seated Cable Row': 'Feet braced, knees soft. Pull the handle to your belly button, leading with your elbows. Squeeze shoulder blades together. Slow controlled return — no slamming the stack.',
+  'Single-Arm DB Row': 'Knee and hand on bench, opposite foot on floor. Back flat. Pull dumbbell to hip, elbow tracking close to body. Squeeze, lower with control. Don\'t rotate your torso to lift the weight.',
+  // SHOULDERS
+  'Overhead Press': 'Bar at collarbone level. Squeeze glutes, brace core. Press the bar straight up, moving your head through the gap as the bar passes your face. Lock out overhead. Lower with control to start.',
+  'Lateral Raises': 'Dumbbells at sides, soft elbow bend. Raise arms out to the sides until parallel with floor — imagine pouring water from the dumbbells. Lower slowly. Lighter than you think — no swinging.',
+  'Face Pulls': 'Cable at upper chest height with rope. Pull rope toward your face, splitting hands at the end. Elbows high, externally rotated. Squeeze rear delts. Brilliant for shoulder health.',
+  'Arnold Press': 'Start with palms facing you at shoulder height. As you press up, rotate so palms face forward at the top. Reverse on the way down. Smooth, not jerky.',
+  'Rear Delt Fly': 'Hinge forward 45 degrees, dumbbells hanging. Open arms wide like you\'re flapping wings, leading with elbows. Squeeze shoulder blades. Light weight, slow tempo.',
+  // ARMS
+  'Barbell Curl': 'Stand tall, bar at thighs, elbows pinned to your sides. Curl the bar up by flexing biceps — no swinging. Squeeze at the top, lower slowly. Keep wrists straight.',
+  'Hammer Curls': 'Dumbbells at sides, palms facing each other (neutral grip). Curl up keeping that neutral grip. Targets the brachialis — great for filling out arms.',
+  'Tricep Dips': 'Hands on bars or bench behind you. Lower until elbows reach 90 degrees, no deeper. Press back up to full extension. Body close to the bars.',
+  'Skull Crusher': 'Lie on bench, arms over chest with EZ-bar or dumbbells. Bend at elbows only — upper arms stay still. Lower toward forehead, then extend back up. Keep elbows tucked.',
+  'Tricep Pushdown': 'Cable at top with rope or bar. Elbows pinned to sides. Push down by extending forearms only. Squeeze triceps at the bottom, slow return.',
+  'Preacher Curl': 'Arms over the pad, fully extended at start. Curl up squeezing biceps. Lower slowly to about 90% extension — don\'t fully relax at the bottom.',
+  // LEGS
+  'Squats': 'Feet shoulder-width, toes slightly out. Brace core, hold the bar across upper back. Sit down between your hips — knees track over toes. Go as deep as your mobility allows with a flat back. Drive through mid-foot to stand.',
+  'Leg Press': 'Feet shoulder-width on the platform. Lower until knees reach ~90 degrees. Press through whole foot, especially heels. Don\'t lock out knees at the top.',
+  'Romanian Deadlift': 'Bar at hips, soft knees. Push hips back like closing a car door with your bum. Bar slides down thighs to mid-shin. Feel the stretch in hamstrings. Drive hips forward to stand. Back stays flat throughout.',
+  'Bulgarian Split Squat': 'Rear foot on bench behind you. Front foot far enough forward that knee tracks over ankle at the bottom. Lower straight down. Press through front heel. Brutal but brilliant.',
+  'Leg Curls': 'Lying or seated. Curl the pad toward your bum by squeezing hamstrings. Slow controlled return. Don\'t let the weight slam back to start.',
+  'Walking Lunge': 'Step forward into a lunge, both knees at ~90 degrees. Drive through front heel to step the back leg through into the next lunge. Keep torso upright, core braced.',
+  'Step-ups': 'Step onto a sturdy box or bench, driving through the heel of the planted foot. Stand fully tall, then lower with control. Don\'t push off the ground with the back foot.',
+  // GLUTES
+  'Hip Thrusts': 'Upper back on a bench, barbell across hips (use a pad). Feet flat, shins vertical at the top. Drive through heels, squeezing glutes hard at lockout. Hips thrust forward, ribs stay down. Don\'t over-extend lower back.',
+  'Glute Bridges': 'Lie on back, feet flat, knees bent. Drive heels into the floor, lifting hips by squeezing glutes. Pause and squeeze at the top. Lower with control. Ribs stay down.',
+  'Cable Kickback': 'Ankle strap on cable at low setting. Stand tall, holding the machine for balance. Kick leg straight back by squeezing the glute — not by arching your back. Slow return.',
+  'Sumo Deadlift': 'Feet very wide, toes turned out. Grip bar inside legs. Sit back into the lift, chest up. Drive knees out as you stand. Targets glutes more than conventional.',
+  'Abductor Machine': 'Sit upright, pads against outer thighs. Push knees outward against resistance. Squeeze glutes at the widest point. Slow return.',
+  'Single-Leg Glute Bridge': 'Same setup as glute bridge but with one leg extended straight. Drive through the planted heel, lifting hips level. Don\'t let hips tilt to one side. Switch legs.',
+  'Banded Clamshells': 'Lie on side, knees bent and stacked. Loop band above knees. Open top knee like a clam, keeping feet together. Don\'t roll your hips back. Squeeze glute medius.',
+  'Banded Hip Thrust': 'Same as hip thrust but with mini-band above knees. Push knees outward against the band the whole time — huge glute medius activation.',
+  // CORE
+  'Cable Crunch': 'Kneel facing cable with rope at top. Hold rope at temples. Crunch down by curling spine — not by bending at the hips. Round your back. Squeeze abs at bottom.',
+  'Hanging Knee Raise': 'Hang from a pull-up bar. Brace core. Curl knees up toward chest, tilting pelvis at the top. Slow controlled lower. No swinging.',
+  'Ab Wheel Rollout': 'Kneel with wheel under hands. Roll out as far as you can with a flat back — don\'t let lower back sag. Pull yourself back using abs, not hips.',
+  'Russian Twists': 'Sit on floor, lean back ~45 degrees, feet up or down. Hold weight, rotate side to side, touching weight near hip each time. Move from the rib cage, not the arms.',
+  'Dead Bug': 'Lie on back, arms reaching up, knees bent at 90 degrees. Lower opposite arm and leg slowly while keeping lower back pressed to floor. Return and switch. Brilliant for endo-friendly core work.',
+  'Bird Dog': 'On hands and knees, neutral spine. Extend opposite arm and leg until level with torso. Hold a beat, return slowly. Don\'t let your hips tilt. Endo-friendly core stability.',
+  // CARDIO
+  'Walking': 'Brisk pace, arms swinging naturally. Aim for a pace where you can hold a conversation but feel your heart rate rise. 10–30 minutes is plenty. Wonderful on flare days.',
+  'Running': 'Land mid-foot under your hips, not heel-strike out in front. Relaxed shoulders, gentle arm swing. Build distance gradually — add 10% per week max. Skip on flare days.',
+  'Cycling': 'Saddle height: leg almost fully extended at the bottom of the pedal stroke. Push and pull through the whole circle, not just down. Low-impact and pelvis-friendly.',
+  'Stationary Bike': 'Same form as cycling. Resistance moderate — you should feel it but be able to talk. Brilliant low-impact option.',
+  'Elliptical': 'Stand tall, light grip on handles. Push through whole foot, not just toes. Smooth motion both directions. Very joint-friendly.',
+  'Jump Rope': 'Light bouncing on balls of feet, knees soft. Wrists do the rotating, not whole arms. High impact — maybe skip on flare days.',
+  'Rowing Machine': 'Drive: push with legs first, then lean back, then pull with arms. Recovery: arms forward, lean forward, then bend knees. Legs do most of the work, not your back.',
+  'Stair Climber': 'Stand tall, light hand support. Don\'t lean on the rails or hunch — that wastes the work. Full step up, full step down.',
+  'Swimming': 'Whatever stroke feels good. Focus on smooth breathing rhythm and long strokes rather than sprinting. Wonderfully low-impact and pelvis-friendly.',
+  // FULL BODY
+  'Kettlebell Swing': 'Hinge at hips, kettlebell between legs. Drive hips forward explosively to swing the bell to chest height — the swing comes from hips, not arms. Let it fall back into the hinge. It\'s a hinge, not a squat.',
+  'Thruster': 'Front rack squat down, then drive up with a press at the top in one fluid motion. Use legs to start the press — don\'t shoulder-press out of a static squat.',
+  'Turkish Get-Up': 'Kettlebell pressed overhead. Get from lying to standing, then back down, keeping arm locked out the entire time. Slow and deliberate. Watch a video before attempting.',
+  // HOLDS
+  'Planks': 'Forearms on floor, body in one line. Brace core, squeeze glutes, tuck pelvis slightly. Don\'t let hips sag or pike. Quality over duration — 30 great seconds beat 60 sloppy.',
+  'Side Plank': 'On forearm, body in straight line, top hip stacked over bottom. Lift hips so they\'re aligned with shoulders. Squeeze obliques. Drop knee to floor for an easier version.',
+  'Wall Sit': 'Back flat against wall, feet shoulder-width, walked out so knees are at 90 degrees. Thighs parallel to floor. Hold and breathe. Burns more than it looks.',
+  'Child\'s Pose': 'Knees wide, big toes touching. Sit hips back to heels, arms extended forward. Forehead to floor. Breathe into your back. Brilliant for endo-related pelvic tension.',
+  'Cat-Cow': 'Hands and knees. Inhale: drop belly, lift gaze (cow). Exhale: round spine, tuck chin (cat). Move with breath, slowly. Lovely for spine and pelvic floor mobility.',
+  'Reclined Butterfly': 'Lie on back, soles of feet together, knees falling open. Arms relaxed at sides. Stay 1–3 minutes, breathing slowly. Place pillows under knees if hips are tight. Endo-friendly hip opener.',
+  'Supine Spinal Twist': 'Lie on back, knees to chest. Drop both knees to one side, gaze the other way. Shoulders stay flat. Release for 1–2 minutes per side.',
+  'Pigeon Pose': 'From hands and knees, bring one knee forward behind the wrist, shin angled. Extend the other leg straight back. Sit upright or fold forward. Hold and breathe. Deep glute and hip-flexor stretch.',
+  'Happy Baby': 'On back, draw knees toward armpits, grab outer feet. Knees wider than torso. Gentle rock side to side. Releases lower back and pelvic floor.',
+  'Forward Fold': 'Stand with feet hip-width. Hinge at hips, fold forward with soft knees. Let head and arms hang heavy. Don\'t force the depth. Lengthens hamstrings and decompresses spine.',
+  'Downward Dog': 'Hands and knees, then lift hips up and back into an inverted V. Heels reaching toward floor (no need to touch). Press hands into mat, long spine. Whole-body opener.',
+  'Hip Circles': 'On hands and knees. Slowly circle one hip in a wide motion — forward, up, back, down. 5 each direction, then switch sides. Wakes up the hip joint.',
+  'Cobra Pose': 'Lie on belly, hands under shoulders. Press into hands to lift chest, elbows soft. Open through the front of your hips. Don\'t crunch your lower back — lift from the spine.',
+  'Savasana': 'Lie flat on back, arms relaxed by sides palms up, legs flopped open. Close your eyes. Breathe naturally. Stay 5–10 minutes at the end of any session.'
+};
+
+// Helper: get cue text for an exercise (returns empty string if no cue exists)
+function exerciseCue(name){ return (EXERCISE_CUES && EXERCISE_CUES[name]) || ''; }
+
+// Helper: which type is this exercise? Reads modern exType OR legacy cardio:true
+function exerciseType(ex){
+  if(!ex) return 'strength';
+  if(ex.exType) return ex.exType;
+  if(ex.cardio) return 'cardio';
+  return 'strength';
+}
+
 var EXERCISES = [
-  {n:'Bench Press',mg:'Chest'},{n:'Incline Dumbbell Press',mg:'Chest'},{n:'Cable Flyes',mg:'Chest'},{n:'Push-ups',mg:'Chest'},{n:'Chest Dip',mg:'Chest'},{n:'Dumbbell Flyes',mg:'Chest'},
-  {n:'Deadlift',mg:'Back'},{n:'Pull-ups',mg:'Back'},{n:'Barbell Rows',mg:'Back'},{n:'Lat Pulldown',mg:'Back'},{n:'Seated Cable Row',mg:'Back'},{n:'Single-Arm DB Row',mg:'Back'},
-  {n:'Overhead Press',mg:'Shoulders'},{n:'Lateral Raises',mg:'Shoulders'},{n:'Face Pulls',mg:'Shoulders'},{n:'Arnold Press',mg:'Shoulders'},{n:'Rear Delt Fly',mg:'Shoulders'},
-  {n:'Barbell Curl',mg:'Arms'},{n:'Hammer Curls',mg:'Arms'},{n:'Tricep Dips',mg:'Arms'},{n:'Skull Crusher',mg:'Arms'},{n:'Tricep Pushdown',mg:'Arms'},{n:'Preacher Curl',mg:'Arms'},
-  {n:'Squats',mg:'Legs'},{n:'Leg Press',mg:'Legs'},{n:'Romanian Deadlift',mg:'Legs'},{n:'Bulgarian Split Squat',mg:'Legs'},{n:'Leg Curls',mg:'Legs'},{n:'Walking Lunge',mg:'Legs'},
-  {n:'Hip Thrusts',mg:'Glutes'},{n:'Glute Bridges',mg:'Glutes'},{n:'Cable Kickback',mg:'Glutes'},{n:'Sumo Deadlift',mg:'Glutes'},{n:'Abductor Machine',mg:'Glutes'},
-  {n:'Planks',mg:'Core'},{n:'Cable Crunch',mg:'Core'},{n:'Hanging Knee Raise',mg:'Core'},{n:'Ab Wheel Rollout',mg:'Core'},{n:'Russian Twists',mg:'Core'},
-  {n:'Walking',mg:'Cardio',cardio:true},{n:'Running',mg:'Cardio',cardio:true},{n:'Cycling',mg:'Cardio',cardio:true},{n:'Stationary Bike',mg:'Cardio',cardio:true},{n:'Elliptical',mg:'Cardio',cardio:true},{n:'Jump Rope',mg:'Cardio',cardio:true},{n:'Rowing Machine',mg:'Cardio',cardio:true},{n:'Stair Climber',mg:'Cardio',cardio:true},{n:'Swimming',mg:'Cardio',cardio:true},
-  {n:'Kettlebell Swing',mg:'Full Body'},{n:'Thruster',mg:'Full Body'},{n:'Turkish Get-Up',mg:'Full Body'}
+  // Chest
+  {n:'Bench Press',mg:'Chest',exType:'strength'},{n:'Incline Dumbbell Press',mg:'Chest',exType:'strength'},{n:'Cable Flyes',mg:'Chest',exType:'strength'},{n:'Push-ups',mg:'Chest',exType:'strength'},{n:'Chest Dip',mg:'Chest',exType:'strength'},{n:'Dumbbell Flyes',mg:'Chest',exType:'strength'},
+  // Back
+  {n:'Deadlift',mg:'Back',exType:'strength'},{n:'Pull-ups',mg:'Back',exType:'strength'},{n:'Barbell Rows',mg:'Back',exType:'strength'},{n:'Lat Pulldown',mg:'Back',exType:'strength'},{n:'Seated Cable Row',mg:'Back',exType:'strength'},{n:'Single-Arm DB Row',mg:'Back',exType:'strength'},
+  // Shoulders
+  {n:'Overhead Press',mg:'Shoulders',exType:'strength'},{n:'Lateral Raises',mg:'Shoulders',exType:'strength'},{n:'Face Pulls',mg:'Shoulders',exType:'strength'},{n:'Arnold Press',mg:'Shoulders',exType:'strength'},{n:'Rear Delt Fly',mg:'Shoulders',exType:'strength'},
+  // Arms
+  {n:'Barbell Curl',mg:'Arms',exType:'strength'},{n:'Hammer Curls',mg:'Arms',exType:'strength'},{n:'Tricep Dips',mg:'Arms',exType:'strength'},{n:'Skull Crusher',mg:'Arms',exType:'strength'},{n:'Tricep Pushdown',mg:'Arms',exType:'strength'},{n:'Preacher Curl',mg:'Arms',exType:'strength'},
+  // Legs
+  {n:'Squats',mg:'Legs',exType:'strength'},{n:'Leg Press',mg:'Legs',exType:'strength'},{n:'Romanian Deadlift',mg:'Legs',exType:'strength'},{n:'Bulgarian Split Squat',mg:'Legs',exType:'strength'},{n:'Leg Curls',mg:'Legs',exType:'strength'},{n:'Walking Lunge',mg:'Legs',exType:'strength'},{n:'Step-ups',mg:'Legs',exType:'strength'},
+  // Glutes
+  {n:'Hip Thrusts',mg:'Glutes',exType:'strength'},{n:'Glute Bridges',mg:'Glutes',exType:'strength'},{n:'Cable Kickback',mg:'Glutes',exType:'strength'},{n:'Sumo Deadlift',mg:'Glutes',exType:'strength'},{n:'Abductor Machine',mg:'Glutes',exType:'strength'},{n:'Single-Leg Glute Bridge',mg:'Glutes',exType:'strength'},{n:'Banded Clamshells',mg:'Glutes',exType:'strength'},{n:'Banded Hip Thrust',mg:'Glutes',exType:'strength'},
+  // Core
+  {n:'Cable Crunch',mg:'Core',exType:'strength'},{n:'Hanging Knee Raise',mg:'Core',exType:'strength'},{n:'Ab Wheel Rollout',mg:'Core',exType:'strength'},{n:'Russian Twists',mg:'Core',exType:'strength'},{n:'Dead Bug',mg:'Core',exType:'strength'},{n:'Bird Dog',mg:'Core',exType:'strength'},
+  // Cardio
+  {n:'Walking',mg:'Cardio',exType:'cardio',cardio:true},{n:'Running',mg:'Cardio',exType:'cardio',cardio:true},{n:'Cycling',mg:'Cardio',exType:'cardio',cardio:true},{n:'Stationary Bike',mg:'Cardio',exType:'cardio',cardio:true},{n:'Elliptical',mg:'Cardio',exType:'cardio',cardio:true},{n:'Jump Rope',mg:'Cardio',exType:'cardio',cardio:true},{n:'Rowing Machine',mg:'Cardio',exType:'cardio',cardio:true},{n:'Stair Climber',mg:'Cardio',exType:'cardio',cardio:true},{n:'Swimming',mg:'Cardio',exType:'cardio',cardio:true},
+  // Full Body strength
+  {n:'Kettlebell Swing',mg:'Full Body',exType:'strength'},{n:'Thruster',mg:'Full Body',exType:'strength'},{n:'Turkish Get-Up',mg:'Full Body',exType:'strength'},
+  // Holds (yoga / isometric / mobility)
+  {n:'Planks',mg:'Core',exType:'hold'},{n:'Side Plank',mg:'Core',exType:'hold'},{n:'Wall Sit',mg:'Legs',exType:'hold'},
+  {n:'Child\'s Pose',mg:'Mobility',exType:'hold'},{n:'Cat-Cow',mg:'Mobility',exType:'hold'},{n:'Reclined Butterfly',mg:'Mobility',exType:'hold'},{n:'Supine Spinal Twist',mg:'Mobility',exType:'hold'},{n:'Pigeon Pose',mg:'Mobility',exType:'hold'},{n:'Happy Baby',mg:'Mobility',exType:'hold'},{n:'Forward Fold',mg:'Mobility',exType:'hold'},{n:'Downward Dog',mg:'Mobility',exType:'hold'},{n:'Hip Circles',mg:'Mobility',exType:'hold'},{n:'Cobra Pose',mg:'Mobility',exType:'hold'},{n:'Savasana',mg:'Mobility',exType:'hold'}
 ];
-var MG_ALL = ['All','Chest','Back','Shoulders','Arms','Legs','Glutes','Core','Cardio','Full Body'];
+var MG_ALL = ['All','Chest','Back','Shoulders','Arms','Legs','Glutes','Core','Cardio','Full Body','Mobility'];
 var EP_MG = 'All';
 var EP_TARGET = 'plan'; // 'plan' or 'session'
 
@@ -1099,19 +1256,22 @@ function renderEPList(){
   filtered.forEach(function(ex){
     var d=document.createElement('div'); d.className='ep-item';
     d.innerHTML='<span>'+ex.n+'</span><span class="badge '+(MG_CLASS[ex.mg]||'tc-full')+'">'+ex.mg+'</span>';
-    d.onclick=(function(e){return function(){pickEx(e.n,e.mg,e.cardio||false);};})(ex);
+    d.onclick=(function(e){return function(){pickEx(e.n,e.mg,e.exType||(e.cardio?'cardio':'strength'));};})(ex);
     c.appendChild(d);
   });
 }
 function addCustomEx(){
   var n=el('ep-custom').value.trim();
   if(!n) return;
-  pickEx(n,EP_MG==='All'?'Full Body':EP_MG,false);
+  pickEx(n,EP_MG==='All'?'Full Body':EP_MG,'strength');
   el('ep-custom').value='';
 }
-function pickEx(name,mg,isCardio){
-  if(EP_TARGET==='plan') addExToPlan(name,mg,isCardio);
-  else if(EP_TARGET==='session') addExToSession(name,mg,isCardio);
+function pickEx(name,mg,exType){
+  // exType: 'strength' | 'cardio' | 'hold'. Back-compat: bool true == cardio
+  if(exType===true) exType='cardio';
+  if(exType===false || !exType) exType='strength';
+  if(EP_TARGET==='plan') addExToPlan(name,mg,exType);
+  else if(EP_TARGET==='session') addExToSession(name,mg,exType);
   closeExPicker();
 }
 
@@ -1242,17 +1402,24 @@ function initSession(plan){
     bodyArea:plan.bodyArea||(plan.type==='cardio'?'cardio':'full'),
     startTime:new Date().toISOString(),
     exercises:JSON.parse(JSON.stringify(plan.exercises||[])).map(function(ex){
-      return {
-        id:uid(),
-        name:ex.name,
-        mg:ex.mg||'Full Body',
-        cardio:ex.cardio||false,
-        sets:(ex.sets||[{w:0,r:10}]).map(function(s){
-          return {id:uid(),weight:s.w||0,reps:s.r||10,done:false};
-        }),
-        // cardio fields
-        duration:0,speed:0,distance:0,notes:''
+      var ext = exerciseType(ex);
+      var newEx = {
+        id:uid(), name:ex.name, mg:ex.mg||'Full Body',
+        exType: ext, cardio: ext==='cardio',
+        duration:0, speed:0, distance:0, notes:''
       };
+      if(ext==='strength'){
+        newEx.sets = (ex.sets||[{w:0,r:10}]).map(function(s){
+          return {id:uid(), weight:s.w||s.weight||0, reps:s.r||s.reps||10, done:false};
+        });
+      } else if(ext==='hold'){
+        newEx.sets = (ex.sets||[{secs:30}]).map(function(s){
+          return {id:uid(), duration:s.secs||s.duration||30, done:false};
+        });
+      } else {
+        newEx.sets = [];
+      }
+      return newEx;
     })
   };
   isSessionPaused=false;
@@ -1378,18 +1545,22 @@ function renderSession(){
     };
   }
 
-  // Check for each exercise type — render both blocks if present
-  var hasStrength = (activeSession.exercises||[]).some(function(ex){ return !ex.cardio; });
-  var hasCardio   = (activeSession.exercises||[]).some(function(ex){ return ex.cardio; });
-  el('sess-strength-content').style.display=hasStrength?'block':'none';
-  el('sess-cardio-content').style.display=hasCardio?'block':'none';
+  // Three-way exercise type rendering
+  var exs = activeSession.exercises||[];
+  var hasStrength = exs.some(function(ex){ return exerciseType(ex)==='strength'; });
+  var hasHold     = exs.some(function(ex){ return exerciseType(ex)==='hold'; });
+  var hasCardio   = exs.some(function(ex){ return exerciseType(ex)==='cardio'; });
+  el('sess-strength-content').style.display = hasStrength?'block':'none';
+  el('sess-hold-content').style.display     = hasHold?'block':'none';
+  el('sess-cardio-content').style.display   = hasCardio?'block':'none';
   if(hasStrength) renderStrengthSession();
+  if(hasHold) renderHoldSession();
   if(hasCardio) renderCardioSession();
 }
 
 function renderStrengthSession(){
   var c=el('sess-strength-content');c.innerHTML='';
-  var strengthExs = []; (activeSession.exercises||[]).forEach(function(ex,idx){ if(!ex.cardio){ strengthExs.push({ex:ex, origIdx:idx}); } });
+  var strengthExs = []; (activeSession.exercises||[]).forEach(function(ex,idx){ if(exerciseType(ex)==='strength'){ strengthExs.push({ex:ex, origIdx:idx}); } });
   if(!strengthExs.length){
     c.innerHTML='<div class="empty"><div class="empty-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5a5.657 5.657 0 0 1 8 0l1 1-1 1a5.657 5.657 0 0 1-8 0L5.5 7.5l1-1z"/><path d="m19 19-7-7"/></svg></div><div class="empty-title">No exercises</div><div class="empty-sub">Tap "+ Add" to add exercises</div></div>';
     return;
@@ -1426,6 +1597,10 @@ function renderStrengthSession(){
     delBtn.onclick=(function(i){return function(){activeSession.exercises.splice(i,1);renderStrengthSession();renderCardioSession();};})(origI);
     hdr.appendChild(delBtn);
     card.appendChild(hdr);
+
+    // Cue panel: written How-to text
+    var cueText = exerciseCue(ex.name);
+    if(cueText){ card.appendChild(buildCuePanel(ex.name, cueText)); }
 
     // Col headers
     var colHdr=document.createElement('div');
@@ -1468,23 +1643,146 @@ function renderStrengthSession(){
   });
 }
 
+function renderHoldSession(){
+  var c = el('sess-hold-content'); c.innerHTML = '';
+  var holdExs = [];
+  (activeSession.exercises||[]).forEach(function(ex,idx){
+    if(exerciseType(ex)==='hold') holdExs.push({ex:ex, origIdx:idx});
+  });
+  if(!holdExs.length) return;
+
+  // Section header
+  var hdr = document.createElement('div');
+  hdr.style.cssText = 'display:flex;align-items:center;gap:10px;margin-bottom:12px;';
+  hdr.innerHTML = '<div style="width:32px;height:32px;border-radius:9px;background:rgba(179,162,216,0.15);color:#8A769B;display:flex;align-items:center;justify-content:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 7 12 12 15 15"/></svg></div><div style="font-size:14px;font-weight:700;color:var(--text);">Holds &amp; mobility</div>';
+  c.appendChild(hdr);
+
+  holdExs.forEach(function(item, i){
+    var ex = item.ex;
+    var origI = item.origIdx;
+    var card = document.createElement('div');
+    card.className = 'card';
+    card.style.cssText = 'margin-bottom:14px;';
+
+    var body = document.createElement('div');
+    body.className = 'card-b';
+
+    // Title row
+    var titleRow = document.createElement('div');
+    titleRow.style.cssText = 'display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;';
+    var title = document.createElement('div');
+    title.style.cssText = 'display:flex;align-items:center;gap:10px;';
+    title.innerHTML = '<div style="font-size:16px;font-weight:700;color:var(--text);">'+ex.name+'</div>'+
+      (ex.mg ? '<span class="badge" style="background:rgba(179,162,216,0.15);color:#8A769B;border:none;">'+ex.mg+'</span>' : '');
+    var del = document.createElement('button');
+    del.className = 'btn-ico';
+    del.style.cssText = 'background:#fef2f2;border:none;cursor:pointer;border-radius:9px;width:30px;height:30px;display:flex;align-items:center;justify-content:center;color:#dc2626;font-size:13px;';
+    del.textContent = '✕';
+    del.onclick = (function(idx){return function(){
+      activeSession.exercises.splice(idx,1);
+      renderSession();
+    };})(origI);
+    titleRow.appendChild(title);
+    titleRow.appendChild(del);
+    body.appendChild(titleRow);
+
+    // Cue panel
+    var cue = exerciseCue(ex.name);
+    if(cue){
+      body.appendChild(buildCuePanel(ex.name, cue));
+    }
+
+    // Holds list (each "set" is a hold)
+    var sets = ex.sets || [];
+    sets.forEach(function(s, si){
+      var row = document.createElement('div');
+      row.style.cssText = 'display:flex;align-items:center;gap:10px;padding:10px 0;border-top:0.5px solid var(--border);';
+      var lbl = document.createElement('div');
+      lbl.style.cssText = 'font-size:12px;color:var(--text-soft);width:60px;';
+      lbl.textContent = 'Hold ' + (si+1);
+      var inp = document.createElement('input');
+      inp.type = 'number'; inp.min = 1; inp.value = s.duration || 30;
+      inp.style.cssText = 'background:rgba(248,250,252,0.9);border:1px solid var(--bord2);border-radius:9px;padding:6px 10px;font-size:13px;font-family:\'DM Sans\',sans-serif;outline:none;width:80px;text-align:center;';
+      inp.oninput = (function(oi,j){return function(){
+        activeSession.exercises[oi].sets[j].duration = parseInt(this.value)||0;
+      };})(origI, si);
+      var unit = document.createElement('span');
+      unit.style.cssText = 'font-size:12px;color:var(--text-soft);';
+      unit.textContent = 'sec';
+      var chk = document.createElement('button');
+      chk.style.cssText = 'margin-left:auto;width:34px;height:34px;border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;background:'+(s.done?'#22c55e':'rgba(179,162,216,0.18)')+';color:#fff;font-size:14px;';
+      chk.innerHTML = s.done ? '✓' : '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8A769B" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+      chk.onclick = (function(oi,j){return function(){
+        activeSession.exercises[oi].sets[j].done = !activeSession.exercises[oi].sets[j].done;
+        renderHoldSession();
+      };})(origI, si);
+      row.appendChild(lbl); row.appendChild(inp); row.appendChild(unit); row.appendChild(chk);
+      body.appendChild(row);
+    });
+
+    // Add another hold
+    var addBtn = document.createElement('button');
+    addBtn.className = 'btn btn-g btn-sm';
+    addBtn.style.cssText = 'width:100%;margin-top:10px;';
+    addBtn.textContent = '+ Add another hold';
+    addBtn.onclick = (function(oi){return function(){
+      var prev = activeSession.exercises[oi].sets.slice(-1)[0];
+      activeSession.exercises[oi].sets.push({id:uid(), duration: prev?prev.duration:30, done:false});
+      renderHoldSession();
+    };})(origI);
+    body.appendChild(addBtn);
+
+    card.appendChild(body);
+    c.appendChild(card);
+  });
+}
+
+// Reusable: build the "How to" expandable cue panel
+function buildCuePanel(exerciseName, cueText){
+  var wrap = document.createElement('div');
+  wrap.style.cssText = 'margin-bottom:12px;background:rgba(179,162,216,0.07);border:1px solid rgba(179,162,216,0.18);border-radius:10px;overflow:hidden;';
+  var hdr = document.createElement('button');
+  hdr.style.cssText = 'width:100%;display:flex;align-items:center;justify-content:space-between;padding:9px 12px;background:none;border:none;cursor:pointer;font-family:\'DM Sans\',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;color:#725D86;';
+  hdr.innerHTML = '<span>ℹ How to</span><span class="cue-arrow" style="font-size:14px;transition:transform 0.2s;">▾</span>';
+  var body = document.createElement('div');
+  body.style.cssText = 'display:none;padding:0 12px 12px;font-size:13px;color:var(--text-soft);line-height:1.55;';
+  body.textContent = cueText;
+  hdr.onclick = function(){
+    var open = body.style.display === 'block';
+    body.style.display = open ? 'none' : 'block';
+    var arrow = hdr.querySelector('.cue-arrow');
+    if(arrow) arrow.style.transform = open ? 'rotate(0deg)' : 'rotate(180deg)';
+  };
+  wrap.appendChild(hdr);
+  wrap.appendChild(body);
+  return wrap;
+}
+
 function renderCardioSession(){
   var c=el('sess-cardio-content');c.innerHTML='';
-  var cardioExs = []; (activeSession.exercises||[]).forEach(function(ex,idx){ if(ex.cardio){ cardioExs.push({ex:ex, origIdx:idx}); } });
+  var cardioExs = []; (activeSession.exercises||[]).forEach(function(ex,idx){ if(exerciseType(ex)==='cardio'){ cardioExs.push({ex:ex, origIdx:idx}); } });
+  if(!cardioExs.length) return;
   var card=document.createElement('div');
   card.style.cssText='background:rgba(255,255,255,0.7);border:1px solid var(--border);border-radius:16px;padding:20px;';
   card.innerHTML='<div style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:18px;">Cardio Log</div>';
 
-  activeSession.exercises.forEach(function(ex,ei){
+  cardioExs.forEach(function(item){
+    var ex = item.ex;
+    var origI = item.origIdx;
     var exDiv=document.createElement('div');
     exDiv.style.cssText='margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);';
-    exDiv.innerHTML='<div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:12px;">'+ex.name+'</div>'
-      +'<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:10px;">'
-      +'<div class="fg"><label class="flbl">Duration (min)</label><input type="number" class="fi" data-field="duration" data-idx="'+ei+'" value="'+ex.duration+'" min="0" placeholder="30"></div>'
-      +'<div class="fg"><label class="flbl">Speed (km/h)</label><input type="number" class="fi" data-field="speed" data-idx="'+ei+'" value="'+ex.speed+'" step="0.1" min="0" placeholder="8.5"></div>'
-      +'<div class="fg"><label class="flbl">Distance (km)</label><input type="number" class="fi" data-field="distance" data-idx="'+ei+'" value="'+ex.distance+'" step="0.1" min="0" placeholder="5.0"></div>'
+    exDiv.innerHTML='<div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:12px;">'+ex.name+'</div>';
+    // Cue panel for this cardio exercise
+    var cueText = exerciseCue(ex.name);
+    if(cueText){ exDiv.appendChild(buildCuePanel(ex.name, cueText)); }
+    var inputsBlock = document.createElement('div');
+    inputsBlock.innerHTML = '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:10px;">'
+      +'<div class="fg"><label class="flbl">Duration (min)</label><input type="number" class="fi" data-field="duration" data-idx="'+origI+'" value="'+ex.duration+'" min="0" placeholder="30"></div>'
+      +'<div class="fg"><label class="flbl">Speed (km/h)</label><input type="number" class="fi" data-field="speed" data-idx="'+origI+'" value="'+ex.speed+'" step="0.1" min="0" placeholder="8.5"></div>'
+      +'<div class="fg"><label class="flbl">Distance (km)</label><input type="number" class="fi" data-field="distance" data-idx="'+origI+'" value="'+ex.distance+'" step="0.1" min="0" placeholder="5.0"></div>'
       +'</div>'
-      +'<div class="fg"><label class="flbl">Notes</label><input type="text" class="fi" data-field="notes" data-idx="'+ei+'" value="'+ex.notes+'" placeholder="How did it feel?"></div>';
+      +'<div class="fg"><label class="flbl">Notes</label><input type="text" class="fi" data-field="notes" data-idx="'+origI+'" value="'+ex.notes+'" placeholder="How did it feel?"></div>';
+    exDiv.appendChild(inputsBlock);
     card.appendChild(exDiv);
   });
 
@@ -1504,14 +1802,23 @@ function renderCardioSession(){
   c.appendChild(card);
 }
 
-function addExToSession(name,mg,isCardio){
+function addExToSession(name,mg,exType){
   if(!activeSession) return;
-  activeSession.exercises.push({
-    id:uid(),name:name,mg:mg,cardio:isCardio,
-    sets:isCardio?[]:([{id:uid(),weight:0,reps:10,done:false}]),
-    duration:0,speed:0,distance:0,notes:''
-  });
-  if(activeSession.type==='cardio'||isCardio) renderCardioSession();
+  // Back-compat: bool args
+  if(exType===true) exType='cardio';
+  if(exType===false || !exType) exType='strength';
+  var newEx = {
+    id:uid(), name:name, mg:mg, exType:exType,
+    cardio: exType==='cardio',                       // legacy field for downstream code
+    sets: exType==='strength' ? [{id:uid(),weight:0,reps:10,done:false}]
+        : exType==='hold'     ? [{id:uid(),duration:30,done:false}]
+        : [],                                         // cardio: empty sets
+    duration:0, speed:0, distance:0, notes:''
+  };
+  activeSession.exercises.push(newEx);
+  // Trigger re-render. renderSession decides which sections to show.
+  if(typeof renderSession==='function') renderSession();
+  else if(exType==='cardio') renderCardioSession();
   else renderStrengthSession();
 }
 
@@ -1577,8 +1884,15 @@ function finishSession(){
 var cpExercises=[];
 function showCreatePlan(){el('create-plan-form').style.display='block';cpExercises=[];renderCPExercises();el('cp-name').value='';var a=el('cp-area'); if(a) a.value='upper';}
 function hideCreatePlan(){el('create-plan-form').style.display='none';}
-function addExToPlan(name,mg,isCardio){
-  cpExercises.push({name:name,mg:mg,cardio:isCardio,sets:[{w:0,r:10}]});
+function addExToPlan(name,mg,exType){
+  // Back-compat: bool args
+  if(exType===true) exType='cardio';
+  if(exType===false || !exType) exType='strength';
+  var item = {name:name, mg:mg, exType:exType, cardio: exType==='cardio'};
+  if(exType==='strength') item.sets = [{w:0,r:10}];
+  else if(exType==='hold') item.sets = [{secs:30}];
+  // cardio: no sets
+  cpExercises.push(item);
   renderCPExercises();
 }
 function renderCPExercises(){
