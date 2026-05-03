@@ -1214,8 +1214,8 @@ function nav(page){
     b.classList.toggle('active', b.getAttribute('data-page')===page);
   });
   curPage = page;
-  updateBottomNav(page);
   closeSidebar();
+  updateBottomNav(page);
   window.scrollTo({top:0,behavior:'smooth'});
   if(page==='dashboard') renderDashboard();
   else if(page==='workouts') renderWorkouts();
