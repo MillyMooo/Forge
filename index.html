@@ -196,6 +196,7 @@ input[type="date"].fi,input[type="time"].fi{-webkit-appearance:none;appearance:n
   .mob-btn{display:flex;}.main{margin-left:0;}
   .pw{padding:68px 16px calc(96px + env(safe-area-inset-bottom));}
   .bottom-nav{display:block;}
+  body.sidebar-open .bottom-nav{display:none;}
   .g4{grid-template-columns:1fr 1fr;}.g3{grid-template-columns:1fr 1fr;}
   .page-title{font-size:25px;}
   .session-bar.on{left:0;bottom:calc(72px + env(safe-area-inset-bottom));}
@@ -1227,8 +1228,8 @@ function nav(page){
 }
 
 // ===== SIDEBAR / DRAWER =====
-function toggleSidebar(){el('sidebar').classList.toggle('open');el('s-overlay').classList.toggle('open');}
-function closeSidebar(){el('sidebar').classList.remove('open');el('s-overlay').classList.remove('open');}
+function toggleSidebar(){el('sidebar').classList.toggle('open');el('s-overlay').classList.toggle('open');document.body.classList.toggle('sidebar-open');}
+function closeSidebar(){el('sidebar').classList.remove('open');el('s-overlay').classList.remove('open');document.body.classList.remove('sidebar-open');}
 function openDrawer(){el('more-drawer').classList.add('open');el('drw-overlay').classList.add('open');}
 function closeDrawer(){el('more-drawer').classList.remove('open');el('drw-overlay').classList.remove('open');}
 
