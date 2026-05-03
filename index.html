@@ -7,25 +7,25 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  /* Purple Coconut palette */
-  --bg:#f7f4f0;--surface:rgba(255,255,253,0.94);--surface2:rgba(255,255,253,0.68);
-  --navy:#725D86;--navy2:#8A769B;--text:#3a2d45;--text-mid:#5a4a6a;--text-soft:#7a6a8a;--text-faint:#B3A2D8;
-  --amber:#7B593D;--orange:#9a6e4a;--green:#5a8a6a;--red:#c05060;--blue:#725D86;
-  --border:rgba(178,162,216,0.18);--bord2:rgba(178,162,216,0.28);
-  --sh:0 2px 12px rgba(30,43,64,0.06),0 1px 3px rgba(30,43,64,0.04);
-  --sh2:0 8px 32px rgba(30,43,64,0.08),0 2px 8px rgba(30,43,64,0.05);
-  --sh3:0 16px 48px rgba(30,43,64,0.12),0 4px 16px rgba(30,43,64,0.07);
-  --sand:rgba(206,202,192,0.3);--r:18px;
+  /* Italian Coast palette (Fiordo di Furore) */
+  --bg:#F4ECDB;--surface:rgba(252,247,238,0.94);--surface2:rgba(252,247,238,0.68);
+  --navy:#3D8B8C;--navy2:#7E9263;--text:#1F3D3F;--text-mid:#3D5450;--text-soft:#5A6553;--text-faint:#9DA89A;
+  --amber:#F4A584;--orange:#E08660;--green:#9DA960;--red:#C66A5C;--blue:#3D8B8C;
+  --border:rgba(125,146,99,0.18);--bord2:rgba(125,146,99,0.32);
+  --sh:0 2px 12px rgba(31,61,63,0.06),0 1px 3px rgba(31,61,63,0.04);
+  --sh2:0 8px 32px rgba(31,61,63,0.08),0 2px 8px rgba(31,61,63,0.05);
+  --sh3:0 16px 48px rgba(31,61,63,0.12),0 4px 16px rgba(31,61,63,0.07);
+  --sand:rgba(200,188,167,0.4);--r:18px;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100svh;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
 /* BLOBS */
 .blobs{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;}
-.blobs-base{position:absolute;inset:0;background:linear-gradient(135deg,#f2eeea 0%,rgba(220,215,208,0.4) 40%,#ede8f4 100%);}
+.blobs-base{position:absolute;inset:0;background:linear-gradient(135deg,#F8F1E0 0%,rgba(244,236,219,0.5) 40%,#F2E9D5 100%);}
 .blob{position:absolute;border-radius:50%;filter:blur(64px);animation:blobanim 25s ease-in-out infinite;will-change:transform;}
-.b1{width:600px;height:600px;top:-160px;right:-160px;background:radial-gradient(circle,rgba(179,162,216,0.22) 0%,transparent 70%);}
-.b2{width:500px;height:500px;bottom:-128px;left:-128px;background:radial-gradient(circle,rgba(206,202,192,0.22) 0%,transparent 70%);animation-delay:2s;}
-.b3{width:360px;height:360px;top:33%;right:22%;background:radial-gradient(circle,rgba(123,89,61,0.12) 0%,transparent 70%);animation-delay:4s;}
+.b1{width:600px;height:600px;top:-160px;right:-160px;background:radial-gradient(circle,rgba(125,146,99,0.14) 0%,transparent 70%);}
+.b2{width:500px;height:500px;bottom:-128px;left:-128px;background:radial-gradient(circle,rgba(200,188,167,0.18) 0%,transparent 70%);animation-delay:2s;}
+.b3{width:360px;height:360px;top:33%;right:22%;background:radial-gradient(circle,rgba(244,165,132,0.12) 0%,transparent 70%);animation-delay:4s;}
 @keyframes blobanim{0%,100%{transform:translate(0,0) scale(1);}25%{transform:translate(30px,-40px) scale(1.08);}50%{transform:translate(-20px,30px) scale(0.92);}75%{transform:translate(-30px,-20px) scale(1.04);}}
 /* LAYOUT */
 .app{position:relative;min-height:100svh;}
@@ -35,40 +35,40 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .page{display:none;}.page.active{display:block;}
 /* SIDEBAR */
 .logo-wrap{display:flex;align-items:center;gap:11px;padding:0 18px 20px;border-bottom:1px solid var(--border);margin-bottom:6px;}
-.logo-icon{width:38px;height:38px;background:var(--navy);border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#fff;box-shadow:0 4px 12px rgba(114,93,134,0.3);}
+.logo-icon{width:38px;height:38px;background:var(--navy);border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#fff;box-shadow:0 4px 12px rgba(61,139,140,0.3);}
 .logo-name{font-size:17px;font-weight:700;color:var(--text);letter-spacing:-0.02em;}
 .logo-sub{font-size:11px;color:var(--text-faint);margin-top:1px;}
 .nav-sec{padding:10px 18px 3px;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-faint);font-weight:600;}
 .nb{display:flex;align-items:center;gap:10px;padding:9px 10px;margin:1px 8px;width:calc(100% - 16px);background:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;color:var(--text-soft);border-radius:10px;transition:all 0.15s;text-align:left;}
 .nb:hover{background:rgba(148,163,184,0.1);color:var(--text);}
-.nb.active{background:var(--navy);color:#fff;box-shadow:0 2px 8px rgba(114,93,134,0.2);}
+.nb.active{background:var(--navy);color:#fff;box-shadow:0 2px 8px rgba(61,139,140,0.2);}
 .nb.active .ni{color:rgba(255,255,255,0.8);}
 .ni{width:17px;height:17px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--text-faint);}
 .sidebar-foot{margin-top:auto;padding:0 10px;}
-.tip-card{background:linear-gradient(135deg,rgba(206,202,192,0.4),rgba(179,162,216,0.15));border:1px solid rgba(179,162,216,0.25);border-radius:13px;padding:13px 15px;}
+.tip-card{background:linear-gradient(135deg,rgba(206,202,192,0.4),rgba(125,146,99,0.15));border:1px solid rgba(125,146,99,0.25);border-radius:13px;padding:13px 15px;}
 .tip-title{font-size:13px;font-weight:700;color:var(--text);}
 .tip-body{font-size:11px;color:var(--text-soft);margin-top:3px;line-height:1.5;}
 /* MOBILE */
-.mob-btn{display:none;position:fixed;top:16px;left:16px;z-index:200;width:44px;height:44px;border-radius:50%;background:rgba(58,45,69,0.88);backdrop-filter:blur(16px);border:1px solid rgba(179,162,216,0.2);align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 16px rgba(58,45,69,0.25);color:#CECAC0;}
+.mob-btn{display:none;position:fixed;top:16px;left:16px;z-index:200;width:44px;height:44px;border-radius:50%;background:rgba(31,61,63,0.88);backdrop-filter:blur(16px);border:1px solid rgba(125,146,99,0.2);align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 16px rgba(31,61,63,0.25);color:#CECAC0;}
 .s-overlay{display:none;position:fixed;inset:0;background:rgba(30,43,64,0.25);z-index:99;}
 .s-overlay.open{display:block;}
 .bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:100;--bn-cx:10%;}
 .bn-wrap{position:relative;width:100%;height:calc(68px + env(safe-area-inset-bottom));overflow:visible;}
-.bn-safe-fill{position:absolute;left:0;right:0;bottom:0;height:calc(env(safe-area-inset-bottom) + 2px);background:#34262E;}
-.bn-svg{position:absolute;left:0;right:0;top:0;width:100%;height:68px;display:block;pointer-events:none;filter:drop-shadow(0 -4px 14px rgba(58,45,69,0.18));}
-.bn-pill-float{position:absolute;top:20px;left:var(--bn-cx);transform:translateX(-50%);width:36px;height:36px;border-radius:50%;background:#725D86;display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 4px 10px rgba(114,93,134,0.4);transition:left 0.38s cubic-bezier(0.4,0,0.2,1);z-index:2;pointer-events:none;}
+.bn-safe-fill{position:absolute;left:0;right:0;bottom:0;height:calc(env(safe-area-inset-bottom) + 2px);background:#1F3D3F;}
+.bn-svg{position:absolute;left:0;right:0;top:0;width:100%;height:68px;display:block;pointer-events:none;filter:drop-shadow(0 -4px 14px rgba(31,61,63,0.18));}
+.bn-pill-float{position:absolute;top:20px;left:var(--bn-cx);transform:translateX(-50%);width:36px;height:36px;border-radius:50%;background:#3D8B8C;display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 4px 10px rgba(61,139,140,0.4);transition:left 0.38s cubic-bezier(0.4,0,0.2,1);z-index:2;pointer-events:none;}
 .bn-pill-float svg{width:16px;height:16px;}
 .bn-buttons{position:absolute;left:0;right:0;top:0;height:68px;display:flex;align-items:center;padding:0;}
 .bnb{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:12px 4px 6px;background:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;min-width:0;height:100%;}
-.bn-ico{width:32px;height:32px;display:flex;align-items:center;justify-content:center;color:rgba(179,162,216,0.55);transition:opacity 0.22s;}
-.bn-lbl{font-size:9.5px;font-weight:600;color:rgba(179,162,216,0.5);text-transform:uppercase;letter-spacing:0.05em;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;transition:opacity 0.22s;}
+.bn-ico{width:32px;height:32px;display:flex;align-items:center;justify-content:center;color:rgba(125,146,99,0.55);transition:opacity 0.22s;}
+.bn-lbl{font-size:9.5px;font-weight:600;color:rgba(125,146,99,0.5);text-transform:uppercase;letter-spacing:0.05em;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;transition:opacity 0.22s;}
 .bnb.active .bn-ico,.bnb.active .bn-lbl{opacity:0;}
-.more-drawer{position:fixed;bottom:-100%;left:0;right:0;background:rgba(250,248,246,0.98);border-radius:20px 20px 0 0;border-top:1px solid rgba(179,162,216,0.2);z-index:200;padding:12px 16px max(18px,env(safe-area-inset-bottom));transition:bottom 0.3s cubic-bezier(0.4,0,0.2,1);box-shadow:0 -8px 32px rgba(30,43,64,0.1);}
+.more-drawer{position:fixed;bottom:-100%;left:0;right:0;background:rgba(250,248,246,0.98);border-radius:20px 20px 0 0;border-top:1px solid rgba(125,146,99,0.2);z-index:200;padding:12px 16px max(18px,env(safe-area-inset-bottom));transition:bottom 0.3s cubic-bezier(0.4,0,0.2,1);box-shadow:0 -8px 32px rgba(30,43,64,0.1);}
 .more-drawer.open{bottom:0;}
 .drw-handle{width:36px;height:4px;background:var(--bord2);border-radius:2px;margin:0 auto 14px;}
 .drw-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
-.drw-item{display:flex;flex-direction:column;align-items:center;gap:5px;padding:12px 4px;background:rgba(206,202,192,0.15);border-radius:12px;cursor:pointer;border:1px solid rgba(179,162,216,0.2);font-family:'DM Sans',sans-serif;transition:all 0.15s;}
-.drw-item:hover{background:rgba(179,162,216,0.2);border-color:rgba(114,93,134,0.3);}
+.drw-item{display:flex;flex-direction:column;align-items:center;gap:5px;padding:12px 4px;background:rgba(206,202,192,0.15);border-radius:12px;cursor:pointer;border:1px solid rgba(125,146,99,0.2);font-family:'DM Sans',sans-serif;transition:all 0.15s;}
+.drw-item:hover{background:rgba(125,146,99,0.2);border-color:rgba(61,139,140,0.3);}
 .drw-item-lbl{font-size:10px;font-weight:600;color:var(--text-mid);}
 .drw-overlay{position:fixed;inset:0;background:rgba(30,43,64,0.18);z-index:199;display:none;}
 .drw-overlay.open{display:block;}
@@ -80,15 +80,15 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .page-hdr-row{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:10px;}
 /* CARDS */
 .card{background:var(--surface);backdrop-filter:blur(32px);-webkit-backdrop-filter:blur(32px);border:1px solid rgba(255,255,255,0.5);box-shadow:var(--sh);border-radius:var(--r);padding:20px;position:relative;overflow:hidden;}
-.card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:30%;background:linear-gradient(0deg,rgba(206,202,192,0.25),transparent);pointer-events:none;}
+.card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:30%;background:linear-gradient(0deg,rgba(200,188,167,0.32),transparent);pointer-events:none;}
 .card-b{position:relative;}
 .card-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
 .card-title{font-size:15px;font-weight:700;color:var(--text);}
 /* STAT TILES */
 .st{background:var(--surface);border:1px solid rgba(255,255,255,0.5);box-shadow:var(--sh);border-radius:var(--r);padding:18px;position:relative;overflow:hidden;}
-.st::after{content:'';position:absolute;bottom:0;left:0;right:0;height:30%;background:linear-gradient(0deg,rgba(206,202,192,0.25),transparent);pointer-events:none;}
+.st::after{content:'';position:absolute;bottom:0;left:0;right:0;height:30%;background:linear-gradient(0deg,rgba(200,188,167,0.32),transparent);pointer-events:none;}
 .st-b{position:relative;}
-.st-icon{width:36px;height:36px;background:rgba(179,162,216,0.15);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:10px;color:var(--navy2);}
+.st-icon{width:36px;height:36px;background:rgba(125,146,99,0.15);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:10px;color:var(--navy2);}
 .st-num{font-size:28px;font-weight:700;color:var(--text);line-height:1;}
 .st-label{font-size:12px;color:var(--text-faint);margin-top:4px;}
 /* GRIDS */
@@ -99,14 +99,14 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .fg{display:flex;flex-direction:column;gap:5px;}
 .flbl{font-size:11px;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;color:var(--text-soft);}
 .fi,.fs,.fta{background:rgba(255,255,255,0.7);border:1px solid var(--bord2);border-radius:11px;color:var(--text);padding:10px 13px;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:400;outline:none;transition:all 0.18s;width:100%;box-sizing:border-box;-webkit-text-size-adjust:100%;}
-.fi:focus,.fs:focus,.fta:focus{border-color:var(--navy);background:rgba(255,255,253,0.96);box-shadow:0 0 0 3px rgba(114,93,134,0.12);}
+.fi:focus,.fs:focus,.fta:focus{border-color:var(--navy);background:rgba(255,255,253,0.96);box-shadow:0 0 0 3px rgba(61,139,140,0.12);}
 .fta{resize:vertical;min-height:68px;}
 input[type="date"].fi,input[type="time"].fi{-webkit-appearance:none;appearance:none;padding:10px 13px;}
 /* BUTTONS */
 .btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:999px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;transition:all 0.18s;white-space:nowrap;}
-.btn-p{background:var(--navy);color:#fff;box-shadow:0 2px 8px rgba(114,93,134,0.25);}
-.btn-p:hover{background:var(--navy2);transform:translateY(-1px);box-shadow:0 4px 14px rgba(114,93,134,0.3);}
-.btn-a{background:linear-gradient(135deg,#7B593D,#9a6e4a);color:#fff;box-shadow:0 3px 12px rgba(123,89,61,0.25);}
+.btn-p{background:var(--navy);color:#fff;box-shadow:0 2px 8px rgba(61,139,140,0.25);}
+.btn-p:hover{background:var(--navy2);transform:translateY(-1px);box-shadow:0 4px 14px rgba(61,139,140,0.3);}
+.btn-a{background:linear-gradient(135deg,#3D8B8C,#E08660);color:#fff;box-shadow:0 3px 12px rgba(123,89,61,0.25);}
 .btn-a:hover{filter:brightness(1.06);transform:translateY(-1px);}
 .btn-g{background:rgba(255,255,255,0.8);color:var(--text-soft);border:1px solid var(--bord2);}
 .btn-g:hover{color:var(--text);border-color:var(--navy2);}
@@ -118,17 +118,17 @@ input[type="date"].fi,input[type="time"].fi{-webkit-appearance:none;appearance:n
 /* BADGES */
 .badge{display:inline-flex;align-items:center;padding:3px 9px;border-radius:999px;font-size:11px;font-weight:600;}
 .badge-n{background:var(--navy);color:#fff;}
-.badge-a{background:rgba(123,89,61,0.12);color:#7B593D;border:1px solid rgba(123,89,61,0.22);}
+.badge-a{background:rgba(244,165,132,0.18);color:#3D8B8C;border:1px solid rgba(244,165,132,0.4);}
 .badge-g{background:rgba(34,197,94,0.1);color:#15803d;border:1px solid rgba(34,197,94,0.15);}
 .badge-r{background:rgba(239,68,68,0.1);color:#b91c1c;border:1px solid rgba(239,68,68,0.15);}
 .badge-b{background:rgba(59,130,246,0.1);color:#1d4ed8;border:1px solid rgba(59,130,246,0.15);}
 .badge-s{background:#f1f5f9;color:var(--text-soft);border:1px solid var(--border);}
 /* PROGRESS BAR */
 .pbar{height:6px;background:#e2e8f0;border-radius:999px;overflow:hidden;margin-top:8px;}
-.pfill{height:100%;border-radius:999px;background:linear-gradient(90deg,#725D86,#B3A2D8);transition:width 0.5s ease;}
-.unit-toggle{display:inline-flex;background:rgba(179,162,216,0.12);border-radius:999px;padding:3px;border:1px solid rgba(179,162,216,0.2);}
-.unit-btn{padding:5px 14px;border-radius:999px;border:none;cursor:pointer;font-family:"DM Sans",sans-serif;font-size:12px;font-weight:700;color:#8A769B;background:none;transition:all 0.18s;letter-spacing:0.04em;}
-.unit-btn.active{background:#725D86;color:#fff;box-shadow:0 2px 6px rgba(114,93,134,0.25);}
+.pfill{height:100%;border-radius:999px;background:linear-gradient(90deg,#3D8B8C,#9DA89A);transition:width 0.5s ease;}
+.unit-toggle{display:inline-flex;background:rgba(125,146,99,0.12);border-radius:999px;padding:3px;border:1px solid rgba(125,146,99,0.2);}
+.unit-btn{padding:5px 14px;border-radius:999px;border:none;cursor:pointer;font-family:"DM Sans",sans-serif;font-size:12px;font-weight:700;color:#7E9263;background:none;transition:all 0.18s;letter-spacing:0.04em;}
+.unit-btn.active{background:#3D8B8C;color:#fff;box-shadow:0 2px 6px rgba(61,139,140,0.25);}
 /* DIVIDER */
 .div{border:none;border-top:1px solid var(--border);margin:16px 0;}
 /* NOTIF */
@@ -136,7 +136,7 @@ input[type="date"].fi,input[type="time"].fi{-webkit-appearance:none;appearance:n
 .notif.show{transform:translateY(0);opacity:1;}
 /* EMPTY */
 .empty{text-align:center;padding:44px 20px;}
-.empty-ico{width:56px;height:56px;border-radius:16px;background:rgba(179,162,216,0.12);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;color:var(--navy2);}
+.empty-ico{width:56px;height:56px;border-radius:16px;background:rgba(125,146,99,0.12);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;color:var(--navy2);}
 .empty-title{font-size:17px;font-weight:700;color:var(--text-mid);margin-bottom:4px;}
 .empty-sub{font-size:13px;color:var(--text-faint);}
 /* SET ROW */
@@ -150,7 +150,7 @@ input[type="date"].fi,input[type="time"].fi{-webkit-appearance:none;appearance:n
 .sdel:hover{background:rgba(239,68,68,0.13);}
 /* PLAN CARD */
 .plan-card{background:var(--surface);border:1px solid rgba(255,255,255,0.5);box-shadow:var(--sh);border-radius:var(--r);padding:20px;position:relative;overflow:hidden;transition:all 0.2s;cursor:pointer;}
-.plan-card:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(114,93,134,0.15);}
+.plan-card:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(61,139,140,0.15);}
 .plan-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:28%;background:linear-gradient(0deg,var(--sand),transparent);pointer-events:none;}
 .pc-body{position:relative;}
 .pc-icon{width:44px;height:44px;border-radius:13px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;}
@@ -162,7 +162,7 @@ input[type="date"].fi,input[type="time"].fi{-webkit-appearance:none;appearance:n
 .areachip{background:rgba(255,255,255,0.55);border:0.5px solid var(--border);border-radius:999px;padding:7px 16px;font-size:13px;font-weight:600;color:var(--text-soft);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;}
 .areachip.active{background:var(--navy);border-color:var(--navy);color:#fff;}
 .areachip:not(.active):hover{border-color:var(--navy);color:var(--navy);}
-.session-bar{display:none;position:fixed;bottom:0;left:256px;right:0;background:#3a2d45;color:#fff;padding:11px 24px;z-index:90;align-items:center;justify-content:space-between;box-shadow:0 -4px 20px rgba(26,34,54,0.22);}
+.session-bar{display:none;position:fixed;bottom:0;left:256px;right:0;background:#1F3D3F;color:#fff;padding:11px 24px;z-index:90;align-items:center;justify-content:space-between;box-shadow:0 -4px 20px rgba(26,34,54,0.22);}
 .session-bar.on{display:flex;}
 .sb-left .sb-name{font-size:15px;font-weight:700;}
 .sb-left .sb-time{font-size:12px;color:rgba(255,255,255,0.6);font-variant-numeric:tabular-nums;}
@@ -174,21 +174,21 @@ input[type="date"].fi,input[type="time"].fi{-webkit-appearance:none;appearance:n
 .ep-body{padding:18px 22px;overflow-y:auto;flex:1;}
 .ep-filters{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px;}
 .ep-chip{padding:5px 12px;border-radius:999px;font-size:12px;font-weight:600;cursor:pointer;transition:all 0.15s;border:none;font-family:'DM Sans',sans-serif;background:#f1f5f9;color:var(--text-soft);}
-.ep-chip.active{background:var(--navy);color:#fff;box-shadow:0 2px 8px rgba(114,93,134,0.2);}
+.ep-chip.active{background:var(--navy);color:#fff;box-shadow:0 2px 8px rgba(61,139,140,0.2);}
 .ep-list{display:flex;flex-direction:column;gap:5px;max-height:40svh;overflow-y:auto;}
 .ep-item{display:flex;align-items:center;justify-content:space-between;padding:10px 13px;border-radius:12px;border:1px solid var(--border);background:rgba(255,255,255,0.7);cursor:pointer;transition:all 0.15s;font-size:14px;font-weight:500;color:var(--text);}
 .ep-item:hover{background:rgba(255,255,255,0.95);border-color:var(--navy);}
 @keyframes mIn{from{opacity:0;transform:scale(0.94) translateY(14px);}to{opacity:1;transform:scale(1) translateY(0);}}
-/* TAG COLORS */
-.tc-chest{background:rgba(123,89,61,0.12);color:#7B593D;}
-.tc-back{background:rgba(90,138,106,0.12);color:#3a7050;}
-.tc-shoulders{background:rgba(114,93,134,0.12);color:#725D86;}
-.tc-arms{background:rgba(179,162,216,0.2);color:#5a4a6a;}
-.tc-legs{background:rgba(138,118,155,0.12);color:#6a5a7a;}
-.tc-glutes{background:rgba(123,89,61,0.15);color:#8a6040;}
-.tc-core{background:rgba(90,138,106,0.1);color:#3d7060;}
-.tc-cardio{background:rgba(192,80,96,0.1);color:#a04050;}
-.tc-full{background:rgba(206,202,192,0.25);color:var(--text-soft);}
+/* TAG COLORS — Italian Coast palette */
+.tc-chest{background:rgba(244,165,132,0.18);color:#9A4630;}
+.tc-back{background:rgba(125,146,99,0.18);color:#4F6038;}
+.tc-shoulders{background:rgba(61,139,140,0.15);color:#1F3D3F;}
+.tc-arms{background:rgba(157,169,96,0.18);color:#5A6028;}
+.tc-legs{background:rgba(61,139,140,0.18);color:#1F5454;}
+.tc-glutes{background:rgba(244,165,132,0.22);color:#9A4630;}
+.tc-core{background:rgba(157,169,96,0.18);color:#5A6028;}
+.tc-cardio{background:rgba(198,106,92,0.15);color:#9A3E30;}
+.tc-full{background:rgba(200,188,167,0.4);color:var(--text-soft);}
 /* SCROLLBAR */
 ::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-track{background:transparent;}::-webkit-scrollbar-thumb{background:var(--bord2);border-radius:2px;}
 @media(max-width:1024px){
@@ -208,13 +208,13 @@ input[type="date"].fi,input[type="time"].fi{-webkit-appearance:none;appearance:n
 <!-- ===== ONBOARDING OVERLAY ===== -->
 <div id="onboarding" style="display:none;position:fixed;inset:0;z-index:9999;overflow:hidden;">
   <!-- Bg blobs (same as app) -->
-  <div style="position:absolute;inset:0;background:linear-gradient(135deg,#f2eeea 0%,rgba(220,215,208,0.4) 40%,#ede8f4 100%);"></div>
-  <div style="position:absolute;width:600px;height:600px;top:-160px;right:-160px;border-radius:50%;filter:blur(64px);background:radial-gradient(circle,rgba(179,162,216,0.22) 0%,transparent 70%);"></div>
-  <div style="position:absolute;width:500px;height:500px;bottom:-128px;left:-128px;border-radius:50%;filter:blur(64px);background:radial-gradient(circle,rgba(206,202,192,0.22) 0%,transparent 70%);"></div>
+  <div style="position:absolute;inset:0;background:linear-gradient(135deg,#E8DDC8 0%,rgba(220,215,208,0.4) 40%,#E0D6BD 100%);"></div>
+  <div style="position:absolute;width:600px;height:600px;top:-160px;right:-160px;border-radius:50%;filter:blur(64px);background:radial-gradient(circle,rgba(125,146,99,0.22) 0%,transparent 70%);"></div>
+  <div style="position:absolute;width:500px;height:500px;bottom:-128px;left:-128px;border-radius:50%;filter:blur(64px);background:radial-gradient(circle,rgba(200,188,167,0.3) 0%,transparent 70%);"></div>
 
   <!-- Onboarding card -->
   <div style="position:relative;z-index:1;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;">
-    <div id="ob-card" style="background:rgba(255,255,253,0.96);border-radius:28px;padding:36px 32px;width:100%;max-width:480px;box-shadow:0 24px 64px rgba(58,45,69,0.18),0 4px 16px rgba(58,45,69,0.1);border:1px solid rgba(179,162,216,0.2);">
+    <div id="ob-card" style="background:rgba(255,255,253,0.96);border-radius:28px;padding:36px 32px;width:100%;max-width:480px;box-shadow:0 24px 64px rgba(31,61,63,0.18),0 4px 16px rgba(31,61,63,0.1);border:1px solid rgba(125,146,99,0.2);">
       
       <!-- Step indicator -->
       <div style="display:flex;gap:6px;justify-content:center;margin-bottom:32px;" id="ob-dots"></div>
@@ -222,14 +222,14 @@ input[type="date"].fi,input[type="time"].fi{-webkit-appearance:none;appearance:n
       <!-- Steps -->
       <div id="ob-step-1">
         <div style="text-align:center;margin-bottom:28px;">
-          <div style="width:64px;height:64px;background:linear-gradient(135deg,rgba(114,93,134,0.12),rgba(179,162,216,0.18));border-radius:20px;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;color:#725D86;">
+          <div style="width:64px;height:64px;background:linear-gradient(135deg,rgba(61,139,140,0.12),rgba(125,146,99,0.18));border-radius:20px;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;color:#3D8B8C;">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
           </div>
-          <div style="font-size:26px;font-weight:700;color:#3a2d45;letter-spacing:-0.03em;margin-bottom:8px;">Welcome to Forge</div>
-          <div style="font-size:14px;color:#7a6a8a;line-height:1.6;">Your personal fitness tracker. Let's get you set up in a few quick steps.</div>
+          <div style="font-size:26px;font-weight:700;color:#1F3D3F;letter-spacing:-0.03em;margin-bottom:8px;">Welcome to Forge</div>
+          <div style="font-size:14px;color:#5A6553;line-height:1.6;">Your personal fitness tracker. Let's get you set up in a few quick steps.</div>
         </div>
         <div style="margin-bottom:24px;">
-          <label style="display:block;font-size:11px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#7a6a8a;margin-bottom:8px;">What should we call you?</label>
+          <label style="display:block;font-size:11px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#5A6553;margin-bottom:8px;">What should we call you?</label>
           <input id="ob-name" class="fi" placeholder="Your first name" style="font-size:18px;padding:14px 16px;border-radius:14px;text-align:center;font-weight:600;" autocomplete="given-name" autocapitalize="words">
         </div>
         <button class="btn btn-p" onclick="obNext(1)" style="width:100%;padding:14px;font-size:16px;border-radius:16px;">
@@ -240,21 +240,21 @@ input[type="date"].fi,input[type="time"].fi{-webkit-appearance:none;appearance:n
 
       <div id="ob-step-2" style="display:none;">
         <div style="margin-bottom:24px;">
-          <div style="font-size:22px;font-weight:700;color:#3a2d45;letter-spacing:-0.02em;margin-bottom:6px;" id="ob-step2-title">Hi there!</div>
-          <div style="font-size:14px;color:#7a6a8a;line-height:1.5;">Log your current measurements so Forge can track your progress from day one.</div>
+          <div style="font-size:22px;font-weight:700;color:#1F3D3F;letter-spacing:-0.02em;margin-bottom:6px;" id="ob-step2-title">Hi there!</div>
+          <div style="font-size:14px;color:#5A6553;line-height:1.5;">Log your current measurements so Forge can track your progress from day one.</div>
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
           <div>
-            <label style="display:block;font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#7a6a8a;margin-bottom:6px;">Weight (kg)</label>
+            <label style="display:block;font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#5A6553;margin-bottom:6px;">Weight (kg)</label>
             <input type="number" step="0.1" id="ob-weight" class="fi" placeholder="e.g. 68.5">
           </div>
           <div>
-            <label style="display:block;font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#7a6a8a;margin-bottom:6px;">Body Fat %</label>
+            <label style="display:block;font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#5A6553;margin-bottom:6px;">Body Fat %</label>
             <input type="number" step="0.1" id="ob-bf" class="fi" placeholder="e.g. 22.0">
           </div>
         </div>
         <div style="margin-bottom:24px;">
-          <label style="display:block;font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#7a6a8a;margin-bottom:6px;">Height (cm)</label>
+          <label style="display:block;font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#5A6553;margin-bottom:6px;">Height (cm)</label>
           <input type="number" id="ob-height" class="fi" placeholder="e.g. 165" style="max-width:180px;">
         </div>
         <div style="display:flex;gap:10px;">
@@ -268,13 +268,13 @@ input[type="date"].fi,input[type="time"].fi{-webkit-appearance:none;appearance:n
 
       <div id="ob-step-3" style="display:none;">
         <div style="margin-bottom:24px;">
-          <div style="font-size:22px;font-weight:700;color:#3a2d45;letter-spacing:-0.02em;margin-bottom:6px;">Weekly training goal</div>
-          <div style="font-size:14px;color:#7a6a8a;line-height:1.5;">How many hours do you want to spend training each week?</div>
+          <div style="font-size:22px;font-weight:700;color:#1F3D3F;letter-spacing:-0.02em;margin-bottom:6px;">Weekly training goal</div>
+          <div style="font-size:14px;color:#5A6553;line-height:1.5;">How many hours do you want to spend training each week?</div>
         </div>
         <!-- Hour picker buttons -->
         <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:20px;" id="ob-hours-grid"></div>
         <div style="margin-bottom:24px;">
-          <label style="display:block;font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#7a6a8a;margin-bottom:6px;">Days per week</label>
+          <label style="display:block;font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#5A6553;margin-bottom:6px;">Days per week</label>
           <div style="display:flex;gap:8px;" id="ob-days-grid"></div>
         </div>
         <div style="display:flex;gap:10px;">
@@ -288,12 +288,12 @@ input[type="date"].fi,input[type="time"].fi{-webkit-appearance:none;appearance:n
 
       <div id="ob-step-4" style="display:none;">
         <div style="margin-bottom:20px;">
-          <div style="font-size:22px;font-weight:700;color:#3a2d45;letter-spacing:-0.02em;margin-bottom:6px;">Personal bests to beat</div>
-          <div style="font-size:14px;color:#7a6a8a;line-height:1.5;">Any lifts or cardio goals you're working towards? Add as many as you like.</div>
+          <div style="font-size:22px;font-weight:700;color:#1F3D3F;letter-spacing:-0.02em;margin-bottom:6px;">Personal bests to beat</div>
+          <div style="font-size:14px;color:#5A6553;line-height:1.5;">Any lifts or cardio goals you're working towards? Add as many as you like.</div>
         </div>
         <!-- PB rows -->
         <div id="ob-pb-list" style="margin-bottom:12px;max-height:240px;overflow-y:auto;"></div>
-        <button onclick="addObPB()" style="width:100%;padding:10px;border:1.5px dashed rgba(179,162,216,0.5);border-radius:12px;background:none;cursor:pointer;font-size:13px;font-weight:600;color:#8A769B;font-family:'DM Sans',sans-serif;margin-bottom:20px;">
+        <button onclick="addObPB()" style="width:100%;padding:10px;border:1.5px dashed rgba(125,146,99,0.5);border-radius:12px;background:none;cursor:pointer;font-size:13px;font-weight:600;color:#7E9263;font-family:'DM Sans',sans-serif;margin-bottom:20px;">
           + Add personal best goal
         </button>
         <div style="display:flex;gap:10px;">
@@ -404,7 +404,7 @@ input[type="date"].fi,input[type="time"].fi{-webkit-appearance:none;appearance:n
     <div class="eyebrow"><span style="color:var(--amber)">✦</span> Good energy today</div>
     <div class="page-hdr-row">
       <div><div class="page-title">Welcome back</div><div class="page-sub">Your fitness journey continues</div></div>
-      <button class="btn btn-p" onclick="nav('session')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg> Start Workout</button>
+      <button class="btn btn-a" onclick="nav('session')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg> Start Workout</button>
     </div>
   </div>
   <div class="g4" style="margin-bottom:18px;">
@@ -436,7 +436,7 @@ input[type="date"].fi,input[type="time"].fi{-webkit-appearance:none;appearance:n
         <div class="page-sub" id="sess-sub">Pick a plan or start free</div>
       </div>
       <div style="display:flex;gap:8px;" id="sess-actions">
-        <button class="btn btn-p btn-sm" onclick="showCreatePlan()">+ New Plan</button>
+        <button class="btn btn-a btn-sm" onclick="showCreatePlan()">+ New Plan</button>
       </div>
     </div>
   </div>
@@ -582,7 +582,7 @@ input[type="date"].fi,input[type="time"].fi{-webkit-appearance:none;appearance:n
         <div class="fg"><label class="flbl">Body Fat %</label><input type="number" step="0.1" class="fi" id="m-bfin" placeholder="auto / manual"></div>
       </div>
       <!-- Body fat auto-calc (Covert Bailey, women's formula) -->
-      <div style="margin-bottom:14px;padding:14px;background:rgba(179,162,216,0.08);border:1px solid rgba(179,162,216,0.2);border-radius:12px;">
+      <div style="margin-bottom:14px;padding:14px;background:rgba(125,146,99,0.08);border:1px solid rgba(125,146,99,0.2);border-radius:12px;">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
           <div style="font-size:12px;font-weight:600;color:var(--navy);text-transform:uppercase;letter-spacing:0.05em;">Auto-calculate body fat</div>
           <button type="button" onclick="toggleBfHelp()" style="background:none;border:none;cursor:pointer;color:var(--navy2);font-size:11px;text-decoration:underline;">How to measure</button>
@@ -625,15 +625,15 @@ input[type="date"].fi,input[type="time"].fi{-webkit-appearance:none;appearance:n
       <button class="btn btn-a btn-sm" onclick="showTargetsAdd()">+ Add</button>
     </div>
   </div>
-  <div style="display:flex;gap:0;background:rgba(179,162,216,0.1);border-radius:13px;padding:3px;margin-bottom:20px;">
-    <button onclick="switchTargetsTab('goals')" id="tt-goals" style="flex:1;padding:9px;border:none;border-radius:10px;background:#725D86;color:#fff;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all 0.18s;">Goals</button>
-    <button onclick="switchTargetsTab('records')" id="tt-records" style="flex:1;padding:9px;border:none;border-radius:10px;background:none;color:#8A769B;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all 0.18s;">Records</button>
+  <div style="display:flex;gap:0;background:rgba(125,146,99,0.1);border-radius:13px;padding:3px;margin-bottom:20px;">
+    <button onclick="switchTargetsTab('goals')" id="tt-goals" style="flex:1;padding:9px;border:none;border-radius:10px;background:#3D8B8C;color:#fff;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all 0.18s;">Goals</button>
+    <button onclick="switchTargetsTab('records')" id="tt-records" style="flex:1;padding:9px;border:none;border-radius:10px;background:none;color:#7E9263;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all 0.18s;">Records</button>
   </div>
   <div class="card" id="targets-add-form" style="display:none;margin-bottom:18px;">
     <div class="card-b">
-      <div style="display:flex;gap:0;background:rgba(179,162,216,0.1);border-radius:11px;padding:3px;margin-bottom:18px;">
-        <button onclick="setTargetsMode('goal')" id="tm-goal-btn" style="flex:1;padding:7px;border:none;border-radius:9px;background:#725D86;color:#fff;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;cursor:pointer;">Goal</button>
-        <button onclick="setTargetsMode('record')" id="tm-rec-btn" style="flex:1;padding:7px;border:none;border-radius:9px;background:none;color:#8A769B;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;cursor:pointer;">Record</button>
+      <div style="display:flex;gap:0;background:rgba(125,146,99,0.1);border-radius:11px;padding:3px;margin-bottom:18px;">
+        <button onclick="setTargetsMode('goal')" id="tm-goal-btn" style="flex:1;padding:7px;border:none;border-radius:9px;background:#3D8B8C;color:#fff;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;cursor:pointer;">Goal</button>
+        <button onclick="setTargetsMode('record')" id="tm-rec-btn" style="flex:1;padding:7px;border:none;border-radius:9px;background:none;color:#7E9263;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;cursor:pointer;">Record</button>
       </div>
       <div id="tm-goal-fields">
         <div class="card-hdr" style="margin-bottom:14px;"><span class="card-title" id="gf-title">New Goal</span><button onclick="closeTargetsForm()" style="background:#f1f5f9;border:none;cursor:pointer;border-radius:9px;width:30px;height:30px;display:flex;align-items:center;justify-content:center;font-size:13px;">✕</button></div>
@@ -1291,7 +1291,7 @@ var PLAN_ICONS = {
 function getPlanIcon(icon, color) {
   // color arg ignored — keep all plan icons consistent with dashboard tiles
   var svg = (typeof PLAN_ICONS !== 'undefined' && PLAN_ICONS[icon]) ? PLAN_ICONS[icon] : PLAN_ICONS['__custom'];
-  return '<div class="pc-icon" style="background:rgba(179,162,216,0.15);color:#8A769B;">' + svg + '</div>';
+  return '<div class="pc-icon" style="background:rgba(125,146,99,0.15);color:#7E9263;">' + svg + '</div>';
 }
 
 function renderWorkouts(){
@@ -1494,7 +1494,7 @@ function renderSession(){
     el('sess-sub').textContent='Pick a plan or start free';
     el('sess-eyebrow').textContent='Choose your session';
     // Restore the default action button (+ New Plan)
-    el('sess-actions').innerHTML='<button class="btn btn-p btn-sm" onclick="showCreatePlan()">+ New Plan</button>';
+    el('sess-actions').innerHTML='<button class="btn btn-a btn-sm" onclick="showCreatePlan()">+ New Plan</button>';
     // Plan picker — built-in + custom, filtered by body area
     var c=el('sess-plan-picker'); c.innerHTML='';
     var allPlans=BUILTIN_PLANS.concat(S.customPlans);
@@ -1511,7 +1511,7 @@ function renderSession(){
       var isCustom = !!plan.createdAt;
       var bodyAreaLabel = ({upper:'Upper body',lower:'Lower body',full:'Full body',cardio:'Cardio'})[plan.bodyArea]||'';
       d.innerHTML='<div class="pc-body">'
-        +getPlanIcon(plan.icon||'__custom', plan.color||'#725D86')
+        +getPlanIcon(plan.icon||'__custom', plan.color||'#3D8B8C')
         +'<div style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:3px;">'+plan.name+'</div>'
         +'<div style="font-size:12px;color:var(--text-soft);margin-bottom:8px;">'+(plan.exercises||[]).length+' exercises'+(bodyAreaLabel?' · '+bodyAreaLabel:'')+'</div>'
         +(isCustom?'<div style="font-size:10px;color:var(--text-faint);letter-spacing:0.1em;text-transform:uppercase;">Custom</div>':'')
@@ -1570,7 +1570,7 @@ function renderStrengthSession(){
     var completedCount=activeSession.exercises.reduce(function(t,ex){return t+ex.sets.filter(function(s){return s.done;}).length;},0);
     var header=document.createElement('div');
     header.style.cssText='background:linear-gradient(135deg,rgba(34,197,94,0.1),rgba(34,197,94,0.05));border:1px solid rgba(34,197,94,0.2);border-radius:14px;padding:16px 20px;margin-bottom:16px;display:flex;align-items:center;gap:12px;';
-    header.innerHTML='<div style="font-size:24px;">🎉</div><div><div style="font-weight:700;font-size:15px;color:var(--text);">All exercises completed!</div><div style="font-size:13px;color:var(--text-soft);margin-top:2px;">'+completedCount+' sets done — great work</div></div><button class="btn btn-a btn-sm" onclick="finishSession()" style="margin-left:auto;">Save Workout</button>';
+    header.innerHTML='<div style="width:36px;height:36px;border-radius:50%;background:rgba(157,169,96,0.18);color:#7E9263;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div><div><div style="font-weight:700;font-size:15px;color:var(--text);">All exercises completed!</div><div style="font-size:13px;color:var(--text-soft);margin-top:2px;">'+completedCount+' sets done — great work</div></div><button class="btn btn-a btn-sm" onclick="finishSession()" style="margin-left:auto;">Save Workout</button>';
     c.appendChild(header);
   }
   strengthExs.forEach(function(item,ei){
@@ -1654,7 +1654,7 @@ function renderHoldSession(){
   // Section header
   var hdr = document.createElement('div');
   hdr.style.cssText = 'display:flex;align-items:center;gap:10px;margin-bottom:12px;';
-  hdr.innerHTML = '<div style="width:32px;height:32px;border-radius:9px;background:rgba(179,162,216,0.15);color:#8A769B;display:flex;align-items:center;justify-content:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 7 12 12 15 15"/></svg></div><div style="font-size:14px;font-weight:700;color:var(--text);">Holds &amp; mobility</div>';
+  hdr.innerHTML = '<div style="width:32px;height:32px;border-radius:9px;background:rgba(125,146,99,0.15);color:#7E9263;display:flex;align-items:center;justify-content:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 7 12 12 15 15"/></svg></div><div style="font-size:14px;font-weight:700;color:var(--text);">Holds &amp; mobility</div>';
   c.appendChild(hdr);
 
   holdExs.forEach(function(item, i){
@@ -1673,7 +1673,7 @@ function renderHoldSession(){
     var title = document.createElement('div');
     title.style.cssText = 'display:flex;align-items:center;gap:10px;';
     title.innerHTML = '<div style="font-size:16px;font-weight:700;color:var(--text);">'+ex.name+'</div>'+
-      (ex.mg ? '<span class="badge" style="background:rgba(179,162,216,0.15);color:#8A769B;border:none;">'+ex.mg+'</span>' : '');
+      (ex.mg ? '<span class="badge" style="background:rgba(125,146,99,0.15);color:#7E9263;border:none;">'+ex.mg+'</span>' : '');
     var del = document.createElement('button');
     del.className = 'btn-ico';
     del.style.cssText = 'background:#fef2f2;border:none;cursor:pointer;border-radius:9px;width:30px;height:30px;display:flex;align-items:center;justify-content:center;color:#dc2626;font-size:13px;';
@@ -1710,8 +1710,8 @@ function renderHoldSession(){
       unit.style.cssText = 'font-size:12px;color:var(--text-soft);';
       unit.textContent = 'sec';
       var chk = document.createElement('button');
-      chk.style.cssText = 'margin-left:auto;width:34px;height:34px;border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;background:'+(s.done?'#22c55e':'rgba(179,162,216,0.18)')+';color:#fff;font-size:14px;';
-      chk.innerHTML = s.done ? '✓' : '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8A769B" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+      chk.style.cssText = 'margin-left:auto;width:34px;height:34px;border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;background:'+(s.done?'#22c55e':'rgba(125,146,99,0.18)')+';color:#fff;font-size:14px;';
+      chk.innerHTML = s.done ? '✓' : '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7E9263" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
       chk.onclick = (function(oi,j){return function(){
         activeSession.exercises[oi].sets[j].done = !activeSession.exercises[oi].sets[j].done;
         renderHoldSession();
@@ -1740,10 +1740,10 @@ function renderHoldSession(){
 // Reusable: build the "How to" expandable cue panel
 function buildCuePanel(exerciseName, cueText){
   var wrap = document.createElement('div');
-  wrap.style.cssText = 'margin-bottom:12px;background:rgba(179,162,216,0.07);border:1px solid rgba(179,162,216,0.18);border-radius:10px;overflow:hidden;';
+  wrap.style.cssText = 'margin-bottom:12px;background:rgba(125,146,99,0.07);border:1px solid rgba(125,146,99,0.18);border-radius:10px;overflow:hidden;';
   var hdr = document.createElement('button');
-  hdr.style.cssText = 'width:100%;display:flex;align-items:center;justify-content:space-between;padding:9px 12px;background:none;border:none;cursor:pointer;font-family:\'DM Sans\',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;color:#725D86;';
-  hdr.innerHTML = '<span>ℹ How to</span><span class="cue-arrow" style="font-size:14px;transition:transform 0.2s;">▾</span>';
+  hdr.style.cssText = 'width:100%;display:flex;align-items:center;justify-content:space-between;padding:9px 12px;background:none;border:none;cursor:pointer;font-family:\'DM Sans\',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;color:#3D8B8C;';
+  hdr.innerHTML = '<span style="display:inline-flex;align-items:center;gap:7px;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>How to</span><svg class="cue-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transition:transform 0.2s;"><polyline points="6 9 12 15 18 9"/></svg>';
   var body = document.createElement('div');
   body.style.cssText = 'display:none;padding:0 12px 12px;font-size:13px;color:var(--text-soft);line-height:1.55;';
   body.textContent = cueText;
@@ -1912,7 +1912,7 @@ function saveCustomPlan(){
   var name=el('cp-name').value.trim();
   if(!name){showNotif('Please enter a plan name');return;}
   if(!cpExercises.length){showNotif('Add at least one exercise');return;}
-  var area=el('cp-area')?el('cp-area').value:'full'; var typ=area==='cardio'?'cardio':'strength'; S.customPlans.unshift({id:uid(),name:name,type:typ,bodyArea:area,icon:'__custom',color:'#8A769B',exercises:cpExercises.slice(),createdAt:new Date().toISOString()});
+  var area=el('cp-area')?el('cp-area').value:'full'; var typ=area==='cardio'?'cardio':'strength'; S.customPlans.unshift({id:uid(),name:name,type:typ,bodyArea:area,icon:'__custom',color:'#7E9263',exercises:cpExercises.slice(),createdAt:new Date().toISOString()});
   save();hideCreatePlan();renderCustomPlans();showNotif('Plan saved!');
 }
 
@@ -1967,12 +1967,13 @@ function renderDashboard(){
   // Recent sessions
   var rc=el('d-sessions');rc.innerHTML='';
   if(!S.sessions.length){
-    var rcEmpty=document.createElement('div');rcEmpty.className='empty';rcEmpty.style.padding='24px';rcEmpty.innerHTML='<div class="empty-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5a5.657 5.657 0 0 1 8 0l1 1-1 1a5.657 5.657 0 0 1-8 0L5.5 7.5l1-1z"/><path d="m19 19-7-7"/><path d="M17.5 17.5 20 20"/></svg></div><div class="empty-sub">No sessions yet</div>';var rcBtn=document.createElement('button');rcBtn.className='btn btn-p btn-sm';rcBtn.style.marginTop='10px';rcBtn.textContent='Start first workout';rcBtn.onclick=function(){nav('session');};rcEmpty.appendChild(rcBtn);rc.appendChild(rcEmpty);rc.innerHTML=rc.innerHTML;
+    var rcEmpty=document.createElement('div');rcEmpty.className='empty';rcEmpty.style.padding='24px';rcEmpty.innerHTML='<div class="empty-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5a5.657 5.657 0 0 1 8 0l1 1-1 1a5.657 5.657 0 0 1-8 0L5.5 7.5l1-1z"/><path d="m19 19-7-7"/><path d="M17.5 17.5 20 20"/></svg></div><div class="empty-sub">No sessions yet</div>';var rcBtn=document.createElement('button');rcBtn.className='btn btn-a btn-sm';rcBtn.style.marginTop='10px';rcBtn.textContent='Start first workout';rcBtn.onclick=function(){nav('session');};rcEmpty.appendChild(rcBtn);rc.appendChild(rcEmpty);rc.innerHTML=rc.innerHTML;
   } else {
     S.sessions.slice(0,3).forEach(function(s){
       var d=document.createElement('div');
       d.style.cssText='display:flex;align-items:center;justify-content:space-between;padding:12px;border-radius:13px;background:rgba(255,255,255,0.6);margin-bottom:7px;';
-      d.innerHTML='<div style="display:flex;align-items:center;gap:12px;"><div style="width:38px;height:38px;border-radius:11px;background:#f1f5f9;display:flex;align-items:center;justify-content:center;font-size:17px;">🏋️</div><div><div style="font-size:14px;font-weight:600;color:var(--text);">'+s.name+'</div><div style="font-size:12px;color:var(--text-soft);">'+fmt(s.date)+' · '+s.duration+'min</div></div></div><span class="badge badge-a">'+s.type+'</span>';
+      var sIco=(s.type==='Cardio'||s.planType==='cardio')?'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>':'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5h11v11h-11z"/><path d="M2 9v6"/><path d="M22 9v6"/><path d="M6.5 12H2"/><path d="M22 12h-4.5"/><path d="M6.5 6.5l-2-2"/><path d="M6.5 17.5l-2 2"/><path d="M17.5 6.5l2-2"/><path d="M17.5 17.5l2 2"/></svg>';
+      d.innerHTML='<div style="display:flex;align-items:center;gap:12px;"><div style="width:38px;height:38px;border-radius:11px;background:rgba(125,146,99,0.15);color:#7E9263;display:flex;align-items:center;justify-content:center;">'+sIco+'</div><div><div style="font-size:14px;font-weight:600;color:var(--text);">'+s.name+'</div><div style="font-size:12px;color:var(--text-soft);">'+fmt(s.date)+' · '+s.duration+'min</div></div></div><span class="badge badge-a">'+s.type+'</span>';
       rc.appendChild(d);
     });
   }
@@ -2037,7 +2038,8 @@ function renderHistory(){
     card.style.cssText='background:var(--surface);border:1px solid rgba(255,255,255,0.5);border-radius:var(--r);overflow:hidden;margin-bottom:12px;box-shadow:var(--sh);';
     var hdr=document.createElement('div');
     hdr.style.cssText='display:flex;align-items:center;justify-content:space-between;padding:16px 20px;cursor:pointer;transition:background 0.15s;';
-    hdr.innerHTML='<div style="display:flex;align-items:center;gap:13px;"><div style="width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,rgba(179,162,216,0.25),rgba(206,202,192,0.2));display:flex;align-items:center;justify-content:center;font-size:22px;">🏋️</div><div><div style="font-size:15px;font-weight:700;color:var(--text);">'+s.name+'</div><div style="font-size:12px;color:var(--text-soft);margin-top:2px;">'+fmt(s.date)+' · '+s.duration+'min</div></div></div><div style="display:flex;align-items:center;gap:8px;"><span class="badge badge-a">'+s.type+'</span><span id="'+id+'-arr" style="color:var(--text-faint);font-size:12px;">▼</span></div>';
+    var sIco2=(s.type==='Cardio'||s.planType==='cardio')?'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>':'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5h11v11h-11z"/><path d="M2 9v6"/><path d="M22 9v6"/><path d="M6.5 12H2"/><path d="M22 12h-4.5"/><path d="M6.5 6.5l-2-2"/><path d="M6.5 17.5l-2 2"/><path d="M17.5 6.5l2-2"/><path d="M17.5 17.5l2 2"/></svg>';
+    hdr.innerHTML='<div style="display:flex;align-items:center;gap:13px;"><div style="width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,rgba(125,146,99,0.25),rgba(206,202,192,0.2));color:#7E9263;display:flex;align-items:center;justify-content:center;">'+sIco2+'</div><div><div style="font-size:15px;font-weight:700;color:var(--text);">'+s.name+'</div><div style="font-size:12px;color:var(--text-soft);margin-top:2px;">'+fmt(s.date)+' · '+s.duration+'min</div></div></div><div style="display:flex;align-items:center;gap:8px;"><span class="badge badge-a">'+s.type+'</span><span id="'+id+'-arr" style="color:var(--text-faint);font-size:12px;">▼</span></div>';
     hdr.onclick=(function(eid){return function(){toggleHistEntry(eid);};})(id);
     card.appendChild(hdr);
     var body=document.createElement('div');
@@ -2055,9 +2057,9 @@ function renderHistory(){
         if(isCardio||ex.cardio){
           exDiv.innerHTML='<div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-weight:700;font-size:14px;color:var(--text);">'+ex.name+'</span><span class="badge '+(MG_CLASS[ex.mg]||'tc-full')+'">'+ex.mg+'</span></div>'
             +'<div style="display:flex;gap:16px;font-size:13px;color:var(--text-soft);">'
-            +(ex.duration?'<span>⏱ '+ex.duration+'min</span>':'')
-            +(ex.speed?'<span>⚡ '+ex.speed+'km/h</span>':'')
-            +(ex.distance?'<span>📍 '+ex.distance+'km</span>':'')
+            +(ex.duration?'<span><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:3px;"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>'+ex.duration+'min</span>':'')
+            +(ex.speed?'<span><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:3px;"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>'+ex.speed+'km/h</span>':'')
+            +(ex.distance?'<span><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:3px;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>'+ex.distance+'km</span>':'')
             +'</div>'+(ex.notes?'<div style="font-size:12px;color:var(--text-faint);margin-top:6px;font-style:italic;">'+ex.notes+'</div>':'');
         } else {
           exDiv.innerHTML='<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;"><span style="font-weight:700;font-size:14px;color:var(--text);">'+ex.name+'</span><span class="badge '+(MG_CLASS[ex.mg]||'tc-full')+'">'+ex.mg+'</span></div>';
@@ -2310,13 +2312,13 @@ function calculateBodyFat(){
   var resultEl = el('m-bf-result');
   if(!hip || !thigh || !calf || !wrist){
     resultEl.style.display = 'block';
-    resultEl.style.color = '#c05060';
+    resultEl.style.color = '#C66A5C';
     resultEl.textContent = 'Please fill in all four measurements.';
     return;
   }
   if(!age){
     resultEl.style.display = 'block';
-    resultEl.style.color = '#c05060';
+    resultEl.style.color = '#C66A5C';
     resultEl.textContent = 'Please enter your age.';
     return;
   }
@@ -2338,7 +2340,7 @@ function calculateBodyFat(){
   bf = Math.round(bf * 10) / 10;
   if(bf < 5 || bf > 60){
     resultEl.style.display = 'block';
-    resultEl.style.color = '#c05060';
+    resultEl.style.color = '#C66A5C';
     resultEl.textContent = 'Result (' + bf + '%) seems off — double check measurements.';
     return;
   }
@@ -2389,7 +2391,7 @@ function renderMetrics(){
       +(m.weight?'<span style="font-size:13px;"><span style="color:var(--text-soft);">Weight: </span><span style="font-weight:700;color:var(--text);">'+m.weight+'kg</span></span>':'')
       +(m.bodyFat?'<span style="font-size:13px;"><span style="color:var(--text-soft);">BF: </span><span style="font-weight:700;color:var(--text);">'+m.bodyFat+'%</span></span>':'')
       +'</div>';
-    var del=document.createElement('button');del.style.cssText='background:none;border:none;cursor:pointer;color:var(--text-faint);font-size:15px;';del.textContent='🗑';
+    var del=document.createElement('button');del.style.cssText='background:none;border:none;cursor:pointer;color:var(--text-faint);padding:6px;display:flex;align-items:center;justify-content:center;';del.setAttribute('aria-label','Delete entry');del.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-2 14a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>';
     del.onclick=(function(id){return function(){S.bodyMetrics=S.bodyMetrics.filter(function(m){return m.id!==id;});save();renderMetrics();};})(m.id);
     d.appendChild(del);list.appendChild(d);
   });
@@ -2417,9 +2419,9 @@ function renderRecords(){
     var col=medals[i]?medals[i][0]:'#cbd5e1';
     var d=document.createElement('div');
     d.style.cssText='background:var(--surface);border:1px solid rgba(255,255,255,0.5);border-left:4px solid '+col+';border-radius:var(--r);padding:18px 20px;margin-bottom:10px;box-shadow:var(--sh);';
-    d.innerHTML='<div style="display:flex;align-items:center;justify-content:space-between;"><div style="display:flex;align-items:center;gap:13px;"><div style="width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,rgba(179,162,216,0.25),rgba(206,202,192,0.2));display:flex;align-items:center;justify-content:center;font-size:22px;">'+(i<3?'🏅':'🏆')+'</div><div><div style="font-size:16px;font-weight:700;color:var(--text);text-transform:capitalize;">'+g.key+'</div><div style="font-size:12px;color:var(--text-soft);">'+fmt(g.top.date)+'</div></div></div>'
+    d.innerHTML='<div style="display:flex;align-items:center;justify-content:space-between;"><div style="display:flex;align-items:center;gap:13px;"><div style="width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,rgba(125,146,99,0.25),rgba(206,202,192,0.2));color:#7E9263;display:flex;align-items:center;justify-content:center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"/></svg></div><div><div style="font-size:16px;font-weight:700;color:var(--text);text-transform:capitalize;">'+g.key+'</div><div style="font-size:12px;color:var(--text-soft);">'+fmt(g.top.date)+'</div></div></div>'
       +'<div style="display:flex;align-items:center;gap:12px;"><div style="text-align:right;"><div style="font-size:26px;font-weight:700;color:var(--text);">'+g.top.weight+'<span style="font-size:13px;font-weight:400;color:var(--text-faint);margin-left:2px;">kg</span></div><div style="font-size:12px;color:var(--text-soft);">'+g.top.reps+' rep'+(g.top.reps!==1?'s':'')+'</div></div>'
-      +'<button style="background:none;border:none;cursor:pointer;color:var(--text-faint);font-size:16px;" data-rid="'+g.top.id+'">🗑</button></div></div>';
+      +'<button style="background:none;border:none;cursor:pointer;color:var(--text-faint);padding:6px;display:flex;align-items:center;justify-content:center;" data-rid="'+g.top.id+'" aria-label="Delete record"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-2 14a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg></button></div></div>';
     d.querySelector('[data-rid]').onclick=(function(rid){return function(){if(confirm('Delete?')){S.personalRecords=S.personalRecords.filter(function(r){return r.id!==rid;});save();renderRecords();}};})(g.top.id);
     c.appendChild(d);
   });
@@ -2611,16 +2613,16 @@ function renderGoals(){
     var pct=Math.min((g.currentValue/g.targetValue)*100,100)||0;
     var card=document.createElement('div');
     card.style.cssText='background:var(--surface);border:1px solid rgba(255,255,255,0.5);border-radius:var(--r);padding:18px 20px;margin-bottom:10px;box-shadow:var(--sh);';
-    card.innerHTML='<div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;"><div><div style="font-size:15px;font-weight:700;color:var(--text);">'+g.title+'</div>'+(g.description?'<div style="font-size:12px;color:var(--text-soft);margin-top:2px;">'+g.description+'</div>':'')+'</div><div style="display:flex;gap:4px;"><button style="background:rgba(179,162,216,0.1);border:1px solid rgba(179,162,216,0.2);border-radius:8px;cursor:pointer;width:30px;height:30px;display:flex;align-items:center;justify-content:center;color:#8A769B;" data-edit="'+g.id+'"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button style="background:rgba(90,138,106,0.1);border:1px solid rgba(90,138,106,0.2);border-radius:8px;cursor:pointer;width:30px;height:30px;display:flex;align-items:center;justify-content:center;color:#3a7050;" data-complete="'+g.id+'"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></button><button style="background:rgba(192,80,96,0.08);border:1px solid rgba(192,80,96,0.15);border-radius:8px;cursor:pointer;width:30px;height:30px;display:flex;align-items:center;justify-content:center;color:#c05060;" data-del="'+g.id+'"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg></button></div></div>'
+    card.innerHTML='<div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;"><div><div style="font-size:15px;font-weight:700;color:var(--text);">'+g.title+'</div>'+(g.description?'<div style="font-size:12px;color:var(--text-soft);margin-top:2px;">'+g.description+'</div>':'')+'</div><div style="display:flex;gap:4px;"><button style="background:rgba(125,146,99,0.1);border:1px solid rgba(125,146,99,0.2);border-radius:8px;cursor:pointer;width:30px;height:30px;display:flex;align-items:center;justify-content:center;color:#7E9263;" data-edit="'+g.id+'"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button style="background:rgba(157,169,96,0.12);border:1px solid rgba(90,138,106,0.2);border-radius:8px;cursor:pointer;width:30px;height:30px;display:flex;align-items:center;justify-content:center;color:#3a7050;" data-complete="'+g.id+'"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></button><button style="background:rgba(192,80,96,0.08);border:1px solid rgba(192,80,96,0.15);border-radius:8px;cursor:pointer;width:30px;height:30px;display:flex;align-items:center;justify-content:center;color:#C66A5C;" data-del="'+g.id+'"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg></button></div></div>'
     +'<div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px;"><span style="color:var(--text-soft);">Progress</span><span style="font-weight:700;color:var(--text);">'+g.currentValue+' / '+g.targetValue+' '+g.unit+'</span></div>'
-    +'<div style="height:6px;background:#e2e8f0;border-radius:999px;overflow:hidden;margin-bottom:8px;"><div style="height:100%;background:linear-gradient(90deg,#725D86,#B3A2D8);border-radius:999px;width:'+pct+'%;transition:width 0.5s;"></div></div>'
+    +'<div style="height:6px;background:#e2e8f0;border-radius:999px;overflow:hidden;margin-bottom:8px;"><div style="height:100%;background:linear-gradient(90deg,#3D8B8C,#9DA89A);border-radius:999px;width:'+pct+'%;transition:width 0.5s;"></div></div>'
     +'<div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-faint);"><span>'+pct.toFixed(0)+'% complete</span>'+(g.deadline?'<span>Due '+fmt(g.deadline)+'</span>':'')+'</div>'
     +(function(){
       var isAuto = g.type && g.type!=='manual';
       if(isAuto){
         var lblMap = {count:'Auto · sessions this '+(g.period||'week'), weight_pr:'Auto · personal best '+(g.exerciseName||''), distance:'Auto · '+(g.exerciseName||'')+' total this '+(g.period||'month'), duration:'Auto · cardio minutes this '+(g.period||'week')};
         var tag = lblMap[g.type] || 'Auto-tracked';
-        return '<div style="display:flex;align-items:center;gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid var(--border);"><span style="font-size:11px;font-weight:600;padding:4px 10px;border-radius:999px;background:rgba(114,93,134,0.1);color:var(--navy);text-transform:uppercase;letter-spacing:0.04em;">'+tag+'</span></div>';
+        return '<div style="display:flex;align-items:center;gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid var(--border);"><span style="font-size:11px;font-weight:600;padding:4px 10px;border-radius:999px;background:rgba(61,139,140,0.1);color:var(--navy);text-transform:uppercase;letter-spacing:0.04em;">'+tag+'</span></div>';
       } else {
         return '<div style="display:flex;align-items:center;gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid var(--border);"><span style="font-size:12px;color:var(--text-soft);">Update:</span><input type="number" step="0.1" style="background:rgba(248,250,252,0.9);border:1px solid var(--bord2);border-radius:9px;padding:6px 10px;font-size:13px;font-family:\'DM Sans\',sans-serif;outline:none;width:80px;text-align:center;" value="'+g.currentValue+'" data-update="'+g.id+'"><span style="font-size:12px;color:var(--text-soft);">'+g.unit+'</span></div>';
       }
@@ -2639,7 +2641,7 @@ function renderGoals(){
     done.forEach(function(g){
       var d=document.createElement('div');
       d.style.cssText='background:var(--surface);border:1px solid rgba(255,255,255,0.5);border-radius:var(--r);padding:14px 18px;margin-bottom:8px;opacity:0.75;display:flex;align-items:center;justify-content:space-between;box-shadow:var(--sh);';
-      d.innerHTML='<div style="display:flex;align-items:center;gap:12px;"><div style="width:38px;height:38px;border-radius:11px;background:rgba(34,197,94,0.1);display:flex;align-items:center;justify-content:center;font-size:18px;">✅</div><div><div style="font-size:14px;font-weight:600;color:var(--text-soft);text-decoration:line-through;">'+g.title+'</div></div></div><button style="background:none;border:none;cursor:pointer;font-size:13px;color:var(--text-faint);">↩️</button>';
+      d.innerHTML='<div style="display:flex;align-items:center;gap:12px;"><div style="width:38px;height:38px;border-radius:11px;background:rgba(157,169,96,0.18);color:#7E9263;display:flex;align-items:center;justify-content:center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><div><div style="font-size:14px;font-weight:600;color:var(--text-soft);text-decoration:line-through;">'+g.title+'</div></div></div><button style="background:none;border:none;cursor:pointer;color:var(--text-faint);padding:6px;display:flex;align-items:center;justify-content:center;" aria-label="Re-open goal"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg></button>';
       d.querySelector('button').onclick=(function(id){return function(){S.goals=S.goals.map(function(g){return g.id===id?Object.assign({},g,{completed:false}):g;});save();renderGoals();};})(g.id);
       dc.appendChild(d);
     });
@@ -2743,7 +2745,7 @@ function renderObDots(active) {
   c.innerHTML = '';
   for (var i = 1; i <= OB_TOTAL; i++) {
     var d = document.createElement('div');
-    d.style.cssText = 'width:' + (i === active ? '24px' : '8px') + ';height:8px;border-radius:999px;background:' + (i === active ? '#725D86' : (i < active ? 'rgba(114,93,134,0.4)' : 'rgba(179,162,216,0.3)')) + ';transition:all 0.3s ease;';
+    d.style.cssText = 'width:' + (i === active ? '24px' : '8px') + ';height:8px;border-radius:999px;background:' + (i === active ? '#3D8B8C' : (i < active ? 'rgba(61,139,140,0.4)' : 'rgba(125,146,99,0.3)')) + ';transition:all 0.3s ease;';
     c.appendChild(d);
   }
 }
@@ -2754,8 +2756,8 @@ function renderObHours() {
   [1, 2, 3, 4, 5, 6, 8, 10].forEach(function(h) {
     var btn = document.createElement('button');
     var active = obHoursSelected === h;
-    btn.style.cssText = 'padding:14px 8px;border-radius:14px;border:2px solid ' + (active ? '#725D86' : 'rgba(179,162,216,0.25)') + ';background:' + (active ? 'rgba(114,93,134,0.1)' : 'rgba(255,255,253,0.7)') + ';cursor:pointer;font-family:\'DM Sans\',sans-serif;transition:all 0.18s;';
-    btn.innerHTML = '<div style="font-size:18px;font-weight:700;color:' + (active ? '#725D86' : '#3a2d45') + ';">' + h + '</div><div style="font-size:10px;color:#7a6a8a;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;">hr' + (h !== 1 ? 's' : '') + '</div>';
+    btn.style.cssText = 'padding:14px 8px;border-radius:14px;border:2px solid ' + (active ? '#3D8B8C' : 'rgba(125,146,99,0.25)') + ';background:' + (active ? 'rgba(61,139,140,0.1)' : 'rgba(255,255,253,0.7)') + ';cursor:pointer;font-family:\'DM Sans\',sans-serif;transition:all 0.18s;';
+    btn.innerHTML = '<div style="font-size:18px;font-weight:700;color:' + (active ? '#3D8B8C' : '#1F3D3F') + ';">' + h + '</div><div style="font-size:10px;color:#5A6553;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;">hr' + (h !== 1 ? 's' : '') + '</div>';
     btn.onclick = (function(val) { return function() { obHoursSelected = val; renderObHours(); }; })(h);
     c.appendChild(btn);
   });
@@ -2767,8 +2769,8 @@ function renderObDays() {
   ['2', '3', '4', '5', '6', '7'].forEach(function(d) {
     var btn = document.createElement('button');
     var active = obDaysSelected === parseInt(d);
-    btn.style.cssText = 'flex:1;padding:12px 4px;border-radius:12px;border:2px solid ' + (active ? '#725D86' : 'rgba(179,162,216,0.25)') + ';background:' + (active ? 'rgba(114,93,134,0.1)' : 'rgba(255,255,253,0.7)') + ';cursor:pointer;font-family:\'DM Sans\',sans-serif;transition:all 0.18s;';
-    btn.innerHTML = '<div style="font-size:16px;font-weight:700;color:' + (active ? '#725D86' : '#3a2d45') + ';">' + d + '</div><div style="font-size:9px;color:#7a6a8a;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">days</div>';
+    btn.style.cssText = 'flex:1;padding:12px 4px;border-radius:12px;border:2px solid ' + (active ? '#3D8B8C' : 'rgba(125,146,99,0.25)') + ';background:' + (active ? 'rgba(61,139,140,0.1)' : 'rgba(255,255,253,0.7)') + ';cursor:pointer;font-family:\'DM Sans\',sans-serif;transition:all 0.18s;';
+    btn.innerHTML = '<div style="font-size:16px;font-weight:700;color:' + (active ? '#3D8B8C' : '#1F3D3F') + ';">' + d + '</div><div style="font-size:9px;color:#5A6553;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;">days</div>';
     btn.onclick = (function(val) { return function() { obDaysSelected = val; renderObDays(); }; })(parseInt(d));
     c.appendChild(btn);
   });
@@ -2789,7 +2791,7 @@ function renderObPBs() {
   var c = el('ob-pb-list');
   c.innerHTML = '';
   if (!obPBs.length) {
-    c.innerHTML = '<div style="text-align:center;padding:16px 0;font-size:13px;color:rgba(179,162,216,0.7);">No goals added yet</div>';
+    c.innerHTML = '<div style="text-align:center;padding:16px 0;font-size:13px;color:rgba(125,146,99,0.7);">No goals added yet</div>';
     return;
   }
   obPBs.forEach(function(pb, i) {
@@ -2825,7 +2827,7 @@ function renderObPBs() {
     unitSel.onchange = (function(idx) { return function() { obPBs[idx].unit = this.value; }; })(i);
 
     var delBtn = document.createElement('button');
-    delBtn.style.cssText = 'background:none;border:none;cursor:pointer;color:rgba(179,162,216,0.7);font-size:18px;flex-shrink:0;padding:0 4px;line-height:1;';
+    delBtn.style.cssText = 'background:none;border:none;cursor:pointer;color:rgba(125,146,99,0.7);font-size:18px;flex-shrink:0;padding:0 4px;line-height:1;';
     delBtn.textContent = '×';
     delBtn.onclick = (function(idx) { return function() { obPBs.splice(idx, 1); renderObPBs(); }; })(i);
 
@@ -2841,7 +2843,7 @@ function obNext(step) {
   if (step === 1) {
     var name = el('ob-name').value.trim();
     if (!name) {
-      el('ob-name').style.borderColor = '#c05060';
+      el('ob-name').style.borderColor = '#C66A5C';
       el('ob-name').focus();
       return;
     }
@@ -2964,15 +2966,27 @@ document.addEventListener('keydown', function(e) {
 
 
 // ===== CONGRATS =====
+// Icon library for congrats messages — line-icon style matching the rest of Forge
+var CONGRATS_ICONS = {
+  spark:    '<svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4"/><path d="M12 18v4"/><path d="M4.93 4.93l2.83 2.83"/><path d="M16.24 16.24l2.83 2.83"/><path d="M2 12h4"/><path d="M18 12h4"/><path d="M4.93 19.07l2.83-2.83"/><path d="M16.24 7.76l2.83-2.83"/></svg>',
+  heart:    '<svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>',
+  zap:      '<svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>',
+  trophy:   '<svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"/></svg>',
+  sparkles: '<svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.8L19.5 10l-5.6 1.2L12 17l-1.9-5.8L4.5 10l5.6-1.2L12 3z"/><path d="M19 14l.9 2.3L22 17l-2.1.7L19 20l-.9-2.3L16 17l2.1-.7L19 14z"/><path d="M5 4l.6 1.5L7 6l-1.4.5L5 8l-.6-1.5L3 6l1.4-.5L5 4z"/></svg>',
+  star:     '<svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',
+  flex:     '<svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18a4 4 0 0 0 2-7.5"/><path d="M18 11.5V18"/><path d="M14 7a3 3 0 0 1 3-3h0a3 3 0 0 1 3 3v2"/><path d="M6 18h12a2 2 0 0 0 2-2v-7H10a4 4 0 0 0-4 4v5z"/></svg>',
+  target:   '<svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>'
+};
+
 var CONGRATS = [
-  {emoji:"🔥", headline:"You showed up. That is everything.", sub:"Consistency is the secret. Every single session you complete is building the version of you that you are working towards."},
-  {emoji:"💜", headline:"That was all you.", sub:"No one else did that for you. You chose to show up, you pushed through, and you finished. That is something to be proud of."},
-  {emoji:"⚡", headline:"Stronger than yesterday.", sub:"Progress is not always visible right away — but it is happening. Every rep is quietly building something remarkable."},
-  {emoji:"🏆", headline:"Another one in the books!", sub:"Your future self is going to look back at days like today and be so grateful you kept going. Keep stacking these wins."},
-  {emoji:"✨", headline:"Look at you go.", sub:"You planned it, you did it. That gap between intention and action is where most people get stuck — you just cleared it."},
-  {emoji:"🌟", headline:"This is what dedication looks like.", sub:"It does not always feel glamorous. Sometimes it is just putting in the work quietly, session after session. That is the real thing."},
-  {emoji:"💪", headline:"Nailed it.", sub:"Your body just got a little stronger, a little more capable. Trust the process — you are exactly where you need to be."},
-  {emoji:"🎯", headline:"One step closer.", sub:"Every session is a vote for the person you are becoming. Today you voted. That matters more than you know."}
+  {icon:"spark",    headline:"You showed up. That is everything.", sub:"Consistency is the secret. Every single session you complete is building the version of you that you are working towards."},
+  {icon:"heart",    headline:"That was all you.",                  sub:"No one else did that for you. You chose to show up, you pushed through, and you finished. That is something to be proud of."},
+  {icon:"zap",      headline:"Stronger than yesterday.",           sub:"Progress is not always visible right away — but it is happening. Every rep is quietly building something remarkable."},
+  {icon:"trophy",   headline:"Another one in the books!",          sub:"Your future self is going to look back at days like today and be so grateful you kept going. Keep stacking these wins."},
+  {icon:"sparkles", headline:"Look at you go.",                    sub:"You planned it, you did it. That gap between intention and action is where most people get stuck — you just cleared it."},
+  {icon:"star",     headline:"This is what dedication looks like.",sub:"It does not always feel glamorous. Sometimes it is just putting in the work quietly, session after session. That is the real thing."},
+  {icon:"flex",     headline:"Nailed it.",                         sub:"Your body just got a little stronger, a little more capable. Trust the process — you are exactly where you need to be."},
+  {icon:"target",   headline:"One step closer.",                   sub:"Every session is a vote for the person you are becoming. Today you voted. That matters more than you know."}
 ];
 
 var lastCongratsIdx = -1;
@@ -2984,7 +2998,7 @@ function showCongrats(sessionData) {
   lastCongratsIdx = idx;
   var msg = CONGRATS[idx];
 
-  el('congrats-emoji').textContent = msg.emoji;
+  el('congrats-emoji').innerHTML = CONGRATS_ICONS[msg.icon] || '';
   el('congrats-headline').textContent = msg.headline;
   el('congrats-sub').textContent = msg.sub;
 
@@ -2998,8 +3012,8 @@ function showCongrats(sessionData) {
   ];
   items.forEach(function(item) {
     var d = document.createElement('div');
-    d.innerHTML = '<div style="font-size:20px;font-weight:700;color:#3a2d45;">' + item.value + '</div>'
-      + '<div style="font-size:11px;color:#7a6a8a;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;margin-top:2px;">' + item.label + '</div>';
+    d.innerHTML = '<div style="font-size:20px;font-weight:700;color:#1F3D3F;">' + item.value + '</div>'
+      + '<div style="font-size:11px;color:#5A6553;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;margin-top:2px;">' + item.label + '</div>';
     stats.appendChild(d);
   });
 
@@ -3020,7 +3034,7 @@ function showCongrats(sessionData) {
 }
 
 function spawnConfettiDot(parent) {
-  var colours = ['#B3A2D8','#725D86','#7B593D','#CECAC0','#8A769B','#5a8a6a'];
+  var colours = ['#9DA89A','#3D8B8C','#3D8B8C','#CECAC0','#7E9263','#9DA960'];
   var dot = document.createElement('div');
   dot.className = 'confetti-dot';
   dot.style.background = colours[Math.floor(Math.random() * colours.length)];
@@ -3064,9 +3078,9 @@ function setRestPreset(s){
     var active = parseInt(b.textContent) === s || 
       (b.textContent === '2m' && s===120) || 
       (b.textContent === '3m' && s===180);
-    b.style.border = active ? '2px solid #725D86' : '1px solid rgba(179,162,216,0.3)';
-    b.style.background = active ? 'rgba(114,93,134,0.1)' : 'rgba(179,162,216,0.08)';
-    b.style.color = active ? '#725D86' : '#8A769B';
+    b.style.border = active ? '2px solid #3D8B8C' : '1px solid rgba(125,146,99,0.3)';
+    b.style.background = active ? 'rgba(61,139,140,0.1)' : 'rgba(125,146,99,0.08)';
+    b.style.color = active ? '#3D8B8C' : '#7E9263';
   });
   startRestTimer();
 }
@@ -3120,10 +3134,10 @@ function setTargetsMode(mode){
   targetsMode = mode;
   el('tm-goal-fields').style.display = mode==='goal' ? 'block' : 'none';
   el('tm-rec-fields').style.display = mode==='record' ? 'block' : 'none';
-  el('tm-goal-btn').style.background = mode==='goal' ? '#725D86' : 'none';
-  el('tm-goal-btn').style.color = mode==='goal' ? '#fff' : '#8A769B';
-  el('tm-rec-btn').style.background = mode==='record' ? '#725D86' : 'none';
-  el('tm-rec-btn').style.color = mode==='record' ? '#fff' : '#8A769B';
+  el('tm-goal-btn').style.background = mode==='goal' ? '#3D8B8C' : 'none';
+  el('tm-goal-btn').style.color = mode==='goal' ? '#fff' : '#7E9263';
+  el('tm-rec-btn').style.background = mode==='record' ? '#3D8B8C' : 'none';
+  el('tm-rec-btn').style.color = mode==='record' ? '#fff' : '#7E9263';
 }
 function toggleSection(id){
   var el2 = el(id);
@@ -3140,12 +3154,12 @@ function switchTargetsTab(tab){
   goalsTab.style.display = tab==='goals'  ? 'block' : 'none';
   recsTab.style.display  = tab==='records'? 'block' : 'none';
   if(goalsBtn){
-    goalsBtn.style.background = tab==='goals'  ? '#725D86' : 'none';
-    goalsBtn.style.color      = tab==='goals'  ? '#fff'    : '#8A769B';
+    goalsBtn.style.background = tab==='goals'  ? '#3D8B8C' : 'none';
+    goalsBtn.style.color      = tab==='goals'  ? '#fff'    : '#7E9263';
   }
   if(recsBtn){
-    recsBtn.style.background  = tab==='records'? '#725D86' : 'none';
-    recsBtn.style.color       = tab==='records'? '#fff'    : '#8A769B';
+    recsBtn.style.background  = tab==='records'? '#3D8B8C' : 'none';
+    recsBtn.style.color       = tab==='records'? '#fff'    : '#7E9263';
   }
   if(tab==='records') renderRecords();
   else renderGoals();
@@ -3223,7 +3237,7 @@ function renderPainAreas() {
   container.innerHTML = '';
   currentPainAreas.forEach(function(area) {
     var chip = document.createElement('div');
-    chip.style.cssText = 'display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:999px;background:rgba(114,93,134,0.12);border:1px solid rgba(114,93,134,0.2);font-size:13px;font-weight:600;color:#725D86;';
+    chip.style.cssText = 'display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:999px;background:rgba(61,139,140,0.12);border:1px solid rgba(61,139,140,0.2);font-size:13px;font-weight:600;color:#3D8B8C;';
     chip.textContent = area;
     var x = document.createElement('button');
     x.style.cssText = 'background:none;border:none;cursor:pointer;color:#9a3412;font-size:14px;padding:0;line-height:1;margin-left:2px;';
@@ -3318,7 +3332,7 @@ function renderPainPage() {
     card.style.cssText = 'background:rgba(255,255,255,0.6);border-radius:18px;padding:18px;margin-bottom:12px;';
 
     // Score colour
-    var scoreColor = entry.score <= 3 ? '#5a8a6a' : entry.score <= 6 ? '#7B593D' : '#c05060';
+    var scoreColor = entry.score <= 3 ? '#9DA960' : entry.score <= 6 ? '#3D8B8C' : '#C66A5C';
 
     var topRow = document.createElement('div');
     topRow.style.cssText = 'display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px;';
@@ -3333,8 +3347,9 @@ function renderPainPage() {
     scoreBadge.style.cssText = 'width:44px;height:44px;border-radius:12px;background:' + scoreColor + '1a;border:2px solid ' + scoreColor + '40;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;color:' + scoreColor + ';flex-shrink:0;';
     scoreBadge.textContent = entry.score;
     var delBtn = document.createElement('button');
-    delBtn.style.cssText = 'background:none;border:none;cursor:pointer;font-size:15px;color:#94a3b8;padding:4px;';
-    delBtn.textContent = '🗑';
+    delBtn.style.cssText = 'background:none;border:none;cursor:pointer;color:#94a3b8;padding:6px;display:flex;align-items:center;justify-content:center;';
+    delBtn.setAttribute('aria-label', 'Delete pain entry');
+    delBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-2 14a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>';
     delBtn.onclick = (function(id){ return function(){ deletePainEntry(id); }; })(entry.id);
     right.appendChild(scoreBadge);
     right.appendChild(delBtn);
@@ -3431,7 +3446,7 @@ function renderPainChart() {
   }).join('');
 
   chartEl.innerHTML = '<defs>'
-    + '<linearGradient id="painGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1a2236" stop-opacity="0.12"/><stop offset="100%" stop-color="#1a2236" stop-opacity="0"/></linearGradient>'
+    + '<linearGradient id="painGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1F3D3F" stop-opacity="0.12"/><stop offset="100%" stop-color="#1F3D3F" stop-opacity="0"/></linearGradient>'
     + '</defs>'
     + gridLines
     + '<path d="' + areaPath + '" fill="url(#painGrad)"/>'
@@ -3524,19 +3539,19 @@ window.addEventListener('resize', function(){ try{ updateBottomNav(curPage||'das
 </script>
 
 <!-- ===== CONGRATS MODAL ===== -->
-<div id="congrats-overlay" style="display:none;position:fixed;inset:0;background:rgba(58,45,69,0.45);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:800;align-items:center;justify-content:center;padding:24px;">
-  <div id="congrats-card" style="background:rgba(255,255,253,0.97);border-radius:28px;padding:36px 32px;width:100%;max-width:420px;text-align:center;box-shadow:0 24px 64px rgba(58,45,69,0.22),0 4px 16px rgba(58,45,69,0.12);border:1px solid rgba(179,162,216,0.2);transform:scale(0.9) translateY(16px);opacity:0;transition:all 0.35s cubic-bezier(0.34,1.56,0.64,1);">
+<div id="congrats-overlay" style="display:none;position:fixed;inset:0;background:rgba(31,61,63,0.45);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:800;align-items:center;justify-content:center;padding:24px;">
+  <div id="congrats-card" style="background:rgba(255,255,253,0.97);border-radius:28px;padding:36px 32px;width:100%;max-width:420px;text-align:center;box-shadow:0 24px 64px rgba(31,61,63,0.22),0 4px 16px rgba(31,61,63,0.12);border:1px solid rgba(125,146,99,0.2);transform:scale(0.9) translateY(16px);opacity:0;transition:all 0.35s cubic-bezier(0.34,1.56,0.64,1);">
     <!-- Animated emoji -->
-    <div id="congrats-emoji" style="font-size:52px;margin-bottom:16px;display:block;animation:congrats-bounce 0.6s cubic-bezier(0.34,1.56,0.64,1) 0.1s both;"></div>
+    <div id="congrats-emoji" style="width:96px;height:96px;border-radius:24px;background:linear-gradient(135deg,rgba(61,139,140,0.15),rgba(244,165,132,0.15));color:#3D8B8C;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;animation:congrats-bounce 0.6s cubic-bezier(0.34,1.56,0.64,1) 0.1s both;"></div>
     <!-- Headline -->
-    <div id="congrats-headline" style="font-size:24px;font-weight:700;color:#3a2d45;letter-spacing:-0.02em;margin-bottom:10px;line-height:1.2;"></div>
+    <div id="congrats-headline" style="font-size:24px;font-weight:700;color:#1F3D3F;letter-spacing:-0.02em;margin-bottom:10px;line-height:1.2;"></div>
     <!-- Subtext -->
-    <div id="congrats-sub" style="font-size:14px;color:#7a6a8a;line-height:1.6;margin-bottom:8px;"></div>
+    <div id="congrats-sub" style="font-size:14px;color:#5A6553;line-height:1.6;margin-bottom:8px;"></div>
     <!-- Stats row -->
-    <div id="congrats-stats" style="display:flex;justify-content:center;gap:24px;margin:20px 0 24px;padding:16px;background:rgba(179,162,216,0.08);border-radius:16px;border:1px solid rgba(179,162,216,0.15);"></div>
+    <div id="congrats-stats" style="display:flex;justify-content:center;gap:24px;margin:20px 0 24px;padding:16px;background:rgba(125,146,99,0.08);border-radius:16px;border:1px solid rgba(125,146,99,0.15);"></div>
     <!-- Button -->
-    <button onclick="closeCongrats()" style="width:100%;padding:14px;background:#725D86;color:#fff;border:none;border-radius:16px;font-size:16px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;box-shadow:0 4px 14px rgba(114,93,134,0.3);transition:all 0.18s;" onmouseover="this.style.background='#8A769B'" onmouseout="this.style.background='#725D86'">
-      Keep going! 🙌
+    <button onclick="closeCongrats()" style="width:100%;padding:14px;background:#3D8B8C;color:#fff;border:none;border-radius:16px;font-size:16px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;box-shadow:0 4px 14px rgba(61,139,140,0.3);transition:all 0.18s;" onmouseover="this.style.background='#7E9263'" onmouseout="this.style.background='#3D8B8C'">
+      Keep going
     </button>
   </div>
 </div>
@@ -3561,33 +3576,33 @@ window.addEventListener('resize', function(){ try{ updateBottomNav(curPage||'das
 
 <!-- REST TIMER OVERLAY -->
 <div id="rest-overlay" style="display:none;position:fixed;inset:0;background:rgba(52,38,62,0.88);backdrop-filter:blur(12px);z-index:700;align-items:center;justify-content:center;padding:24px;">
-  <div style="background:rgba(255,255,253,0.97);border-radius:28px;padding:36px 28px;width:100%;max-width:360px;text-align:center;box-shadow:0 24px 64px rgba(58,45,69,0.3);">
-    <div style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#8A769B;margin-bottom:6px;">Rest Timer</div>
+  <div style="background:rgba(255,255,253,0.97);border-radius:28px;padding:36px 28px;width:100%;max-width:360px;text-align:center;box-shadow:0 24px 64px rgba(31,61,63,0.3);">
+    <div style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#7E9263;margin-bottom:6px;">Rest Timer</div>
     <!-- Circular countdown -->
     <div style="position:relative;width:180px;height:180px;margin:0 auto 20px;">
       <svg width="180" height="180" viewBox="0 0 180 180" style="transform:rotate(-90deg);">
-        <circle cx="90" cy="90" r="80" fill="none" stroke="rgba(179,162,216,0.15)" stroke-width="10"/>
-        <circle cx="90" cy="90" r="80" fill="none" stroke="#725D86" stroke-width="10" stroke-linecap="round" stroke-dasharray="502" id="rest-ring" style="transition:stroke-dashoffset 0.8s linear;"/>
+        <circle cx="90" cy="90" r="80" fill="none" stroke="rgba(125,146,99,0.15)" stroke-width="10"/>
+        <circle cx="90" cy="90" r="80" fill="none" stroke="#3D8B8C" stroke-width="10" stroke-linecap="round" stroke-dasharray="502" id="rest-ring" style="transition:stroke-dashoffset 0.8s linear;"/>
       </svg>
       <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;">
-        <div id="rest-display" style="font-size:44px;font-weight:700;color:#3a2d45;font-variant-numeric:tabular-nums;line-height:1;">1:30</div>
-        <div id="rest-status" style="font-size:12px;color:#8A769B;margin-top:4px;font-weight:600;">Resting</div>
+        <div id="rest-display" style="font-size:44px;font-weight:700;color:#1F3D3F;font-variant-numeric:tabular-nums;line-height:1;">1:30</div>
+        <div id="rest-status" style="font-size:12px;color:#7E9263;margin-top:4px;font-weight:600;">Resting</div>
       </div>
     </div>
     <!-- Preset times -->
     <div style="display:flex;justify-content:center;gap:8px;margin-bottom:20px;" id="rest-presets">
-      <button onclick="setRestPreset(30)" style="padding:6px 12px;border-radius:999px;border:1px solid rgba(179,162,216,0.3);background:rgba(179,162,216,0.08);cursor:pointer;font-size:12px;font-weight:700;color:#8A769B;font-family:'DM Sans',sans-serif;">30s</button>
-      <button onclick="setRestPreset(60)" style="padding:6px 12px;border-radius:999px;border:1px solid rgba(179,162,216,0.3);background:rgba(179,162,216,0.08);cursor:pointer;font-size:12px;font-weight:700;color:#8A769B;font-family:'DM Sans',sans-serif;">60s</button>
-      <button onclick="setRestPreset(90)" style="padding:6px 12px;border-radius:999px;border:2px solid #725D86;background:rgba(114,93,134,0.1);cursor:pointer;font-size:12px;font-weight:700;color:#725D86;font-family:'DM Sans',sans-serif;">90s</button>
-      <button onclick="setRestPreset(120)" style="padding:6px 12px;border-radius:999px;border:1px solid rgba(179,162,216,0.3);background:rgba(179,162,216,0.08);cursor:pointer;font-size:12px;font-weight:700;color:#8A769B;font-family:'DM Sans',sans-serif;">2m</button>
-      <button onclick="setRestPreset(180)" style="padding:6px 12px;border-radius:999px;border:1px solid rgba(179,162,216,0.3);background:rgba(179,162,216,0.08);cursor:pointer;font-size:12px;font-weight:700;color:#8A769B;font-family:'DM Sans',sans-serif;">3m</button>
+      <button onclick="setRestPreset(30)" style="padding:6px 12px;border-radius:999px;border:1px solid rgba(125,146,99,0.3);background:rgba(125,146,99,0.08);cursor:pointer;font-size:12px;font-weight:700;color:#7E9263;font-family:'DM Sans',sans-serif;">30s</button>
+      <button onclick="setRestPreset(60)" style="padding:6px 12px;border-radius:999px;border:1px solid rgba(125,146,99,0.3);background:rgba(125,146,99,0.08);cursor:pointer;font-size:12px;font-weight:700;color:#7E9263;font-family:'DM Sans',sans-serif;">60s</button>
+      <button onclick="setRestPreset(90)" style="padding:6px 12px;border-radius:999px;border:2px solid #3D8B8C;background:rgba(61,139,140,0.1);cursor:pointer;font-size:12px;font-weight:700;color:#3D8B8C;font-family:'DM Sans',sans-serif;">90s</button>
+      <button onclick="setRestPreset(120)" style="padding:6px 12px;border-radius:999px;border:1px solid rgba(125,146,99,0.3);background:rgba(125,146,99,0.08);cursor:pointer;font-size:12px;font-weight:700;color:#7E9263;font-family:'DM Sans',sans-serif;">2m</button>
+      <button onclick="setRestPreset(180)" style="padding:6px 12px;border-radius:999px;border:1px solid rgba(125,146,99,0.3);background:rgba(125,146,99,0.08);cursor:pointer;font-size:12px;font-weight:700;color:#7E9263;font-family:'DM Sans',sans-serif;">3m</button>
     </div>
     <!-- Custom time -->
     <div style="display:flex;gap:8px;margin-bottom:20px;justify-content:center;">
       <input type="number" id="rest-custom-input" class="fi" placeholder="Custom (secs)" min="1" style="width:140px;text-align:center;font-size:16px;">
       <button onclick="setRestCustom()" class="btn btn-g btn-sm" style="border-radius:12px;">Set</button>
     </div>
-    <button onclick="dismissRest()" style="width:100%;padding:14px;background:rgba(179,162,216,0.12);color:#725D86;border:1.5px solid rgba(114,93,134,0.2);border-radius:16px;font-size:15px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;">
+    <button onclick="dismissRest()" style="width:100%;padding:14px;background:rgba(125,146,99,0.12);color:#3D8B8C;border:1.5px solid rgba(61,139,140,0.2);border-radius:16px;font-size:15px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;">
       Skip Rest
     </button>
   </div>
@@ -3604,7 +3619,7 @@ window.addEventListener('resize', function(){ try{ updateBottomNav(curPage||'das
           <path id="bn-scoop-path" d="M -4 12 C 18 12, 4 66, 36 66 C 68 66, 54 12, 76 12 Z" fill="black"/>
         </mask>
       </defs>
-      <path d="M 0 24 Q 0 12 12 12 L 348 12 Q 360 12 360 24 L 360 68 L 0 68 Z" fill="#34262E" mask="url(#bn-scoop-mask)"/>
+      <path d="M 0 24 Q 0 12 12 12 L 348 12 Q 360 12 360 24 L 360 68 L 0 68 Z" fill="#1F3D3F" mask="url(#bn-scoop-mask)"/>
     </svg>
     <div class="bn-pill-float" id="bn-pill-float" aria-hidden="true">
       <svg id="bn-pill-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l9-9 9 9"/><path d="M5 10v10a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V10"/></svg>
