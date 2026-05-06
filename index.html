@@ -129,6 +129,9 @@ input[type="date"].fi,input[type="time"].fi{-webkit-appearance:none;appearance:n
 .unit-toggle{display:inline-flex;background:rgba(125,146,99,0.12);border-radius:999px;padding:3px;border:1px solid rgba(125,146,99,0.2);}
 .unit-btn{padding:5px 14px;border-radius:999px;border:none;cursor:pointer;font-family:"DM Sans",sans-serif;font-size:12px;font-weight:700;color:#7E9263;background:none;transition:all 0.18s;letter-spacing:0.04em;}
 .unit-btn.active{background:#3D8B8C;color:#fff;box-shadow:0 2px 6px rgba(61,139,140,0.25);}
+.period-toggle{display:inline-flex;background:rgba(125,146,99,0.12);border-radius:999px;padding:2px;border:1px solid rgba(125,146,99,0.2);}
+.period-btn{padding:4px 10px;border-radius:999px;border:none;cursor:pointer;font-family:"DM Sans",sans-serif;font-size:11px;font-weight:600;color:#7E9263;background:none;transition:all 0.18s;letter-spacing:0.03em;}
+.period-btn.active{background:#3D8B8C;color:#fff;box-shadow:0 2px 5px rgba(61,139,140,0.22);}
 /* DIVIDER */
 .div{border:none;border-top:1px solid var(--border);margin:16px 0;}
 /* NOTIF */
@@ -416,7 +419,7 @@ input[type="date"].fi,input[type="time"].fi{-webkit-appearance:none;appearance:n
   </div>
   <div class="g2" style="margin-bottom:18px;">
     <div class="card"><div class="card-b"><div class="card-hdr"><span class="card-title">Recent Sessions</span><button class="btn btn-g btn-xs" onclick="nav('history')">View all →</button></div><div id="d-sessions"></div></div></div>
-    <div class="card"><div class="card-b"><div class="card-hdr"><span class="card-title">Weekly Activity</span></div><div id="d-chart" style="display:flex;align-items:flex-end;gap:5px;height:120px;padding-top:8px;"></div></div></div>
+    <div class="card"><div class="card-b"><div class="card-hdr"><span class="card-title" id="d-chart-title">Weekly Activity</span><div class="period-toggle" id="d-period-toggle"></div></div><div id="d-chart" style="display:flex;align-items:flex-end;gap:5px;height:120px;padding-top:8px;"></div></div></div>
   </div>
   <div class="g2" style="margin-bottom:18px;">
     <div class="card"><div class="card-b"><div class="card-hdr"><span class="card-title">Strength Progress</span><button class="btn btn-g btn-xs" onclick="nav('progress')">Details →</button></div><div id="d-strength"></div></div></div>
@@ -547,8 +550,8 @@ input[type="date"].fi,input[type="time"].fi{-webkit-appearance:none;appearance:n
   <!-- Volume -->
   <div class="card">
     <div class="card-b">
-      <div class="card-hdr"><span class="card-title">Weekly Training Volume</span></div>
-      <div id="prog-volume-empty" style="text-align:center;padding:24px;font-size:13px;color:var(--text-faint);">Log sessions to see your weekly volume trend</div>
+      <div class="card-hdr"><span class="card-title" id="prog-volume-title">Weekly Training Volume</span><div class="period-toggle" id="prog-period-toggle"></div></div>
+      <div id="prog-volume-empty" style="text-align:center;padding:24px;font-size:13px;color:var(--text-faint);">Log sessions to see your training volume trend</div>
       <svg id="prog-volume-chart" width="100%" height="160" viewBox="0 0 800 160" preserveAspectRatio="none" style="display:none;"></svg>
     </div>
   </div>
@@ -1918,6 +1921,118 @@ function saveCustomPlan(){
 }
 
 // ===== DASHBOARD =====
+// ── Period system (Week / Month / Year) ─────────────────────────────
+// Persisted preferences. Default: week for both.
+var DASH_PERIOD = localStorage.getItem('forge-period-dashboard') || 'week';
+var PROG_PERIOD = localStorage.getItem('forge-period-progress') || 'week';
+
+// Returns {start, end, buckets} for a given period.
+// Buckets is the data shape we'll render bars from.
+//   week  → 7 day buckets (Sun..Sat, matching existing isThisWeek convention)
+//   month → ~4-5 weekly buckets covering current calendar month
+//   year  → 12 monthly buckets covering current calendar year
+function periodRangeFor(period){
+  var now=new Date(),y=now.getFullYear(),m=now.getMonth();
+  if(period==='month'){
+    var mStart=new Date(y,m,1);mStart.setHours(0,0,0,0);
+    var mEnd=new Date(y,m+1,0);mEnd.setHours(23,59,59,999);
+    var buckets=[],cur=new Date(mStart);
+    while(cur<=mEnd){
+      var bStart=new Date(cur);bStart.setHours(0,0,0,0);
+      var bEnd=new Date(bStart);bEnd.setDate(bStart.getDate()+6);bEnd.setHours(23,59,59,999);
+      if(bEnd>mEnd) bEnd=new Date(mEnd);
+      buckets.push({start:new Date(bStart),end:new Date(bEnd),label:'W'+(buckets.length+1)});
+      cur.setDate(cur.getDate()+7);
+    }
+    return {start:mStart,end:mEnd,buckets:buckets};
+  }
+  if(period==='year'){
+    var yStart=new Date(y,0,1);yStart.setHours(0,0,0,0);
+    var yEnd=new Date(y,11,31);yEnd.setHours(23,59,59,999);
+    var monthLbls=['J','F','M','A','M','J','J','A','S','O','N','D'];
+    var ybuckets=[];
+    for(var mi=0;mi<12;mi++){
+      var ms=new Date(y,mi,1);ms.setHours(0,0,0,0);
+      var me=new Date(y,mi+1,0);me.setHours(23,59,59,999);
+      ybuckets.push({start:ms,end:me,label:monthLbls[mi]});
+    }
+    return {start:yStart,end:yEnd,buckets:ybuckets};
+  }
+  // week (default) — Sun..Sat to match existing isThisWeek/getDay convention
+  var dayLbls=['S','M','T','W','T','F','S'];
+  var wStart=new Date(now);wStart.setDate(now.getDate()-now.getDay());wStart.setHours(0,0,0,0);
+  var wEnd=new Date(wStart);wEnd.setDate(wStart.getDate()+6);wEnd.setHours(23,59,59,999);
+  var wbuckets=[];
+  for(var di=0;di<7;di++){
+    var ds=new Date(wStart);ds.setDate(wStart.getDate()+di);ds.setHours(0,0,0,0);
+    var de=new Date(ds);de.setHours(23,59,59,999);
+    wbuckets.push({start:ds,end:de,label:dayLbls[di]});
+  }
+  return {start:wStart,end:wEnd,buckets:wbuckets};
+}
+
+// Count sessions per bucket. Used for activity charts.
+function periodBarData(period){
+  var rng=periodRangeFor(period);
+  return rng.buckets.map(function(b){
+    var count=S.sessions.filter(function(s){
+      var d=new Date(s.date+'T12:00:00');
+      return d>=b.start && d<=b.end;
+    }).length;
+    return {label:b.label,val:count,date:b.start.toISOString().slice(0,10)};
+  });
+}
+
+// Volume per bucket = total weight×reps across all strength sets.
+// Falls back to session count when no strength data exists, so the chart
+// stays useful for cardio-heavy weeks too.
+function periodVolumeData(period){
+  var rng=periodRangeFor(period);
+  return rng.buckets.map(function(b){
+    var inRange=S.sessions.filter(function(s){
+      var d=new Date(s.date+'T12:00:00');
+      return d>=b.start && d<=b.end;
+    });
+    var vol=0;
+    inRange.forEach(function(sess){
+      (sess.exercises||[]).forEach(function(ex){
+        (ex.sets||[]).forEach(function(set){
+          var w=set.weight||set.w||0,r=set.reps||set.r||0;
+          if(w>0&&r>0) vol+=w*r;
+        });
+      });
+    });
+    return {label:b.label,val:vol,date:b.start.toISOString().slice(0,10),sessions:inRange.length};
+  });
+}
+
+// Builds the segmented Week/Month/Year pill control.
+// onclickFnName is a string — name of a global function taking (period).
+function buildPeriodToggle(currentPeriod, onclickFnName){
+  var periods=[['week','W'],['month','M'],['year','Y']];
+  return periods.map(function(p){
+    var active=p[0]===currentPeriod?' active':'';
+    return '<button class="period-btn'+active+'" onclick="'+onclickFnName+'(\''+p[0]+'\')">'+p[1]+'</button>';
+  }).join('');
+}
+
+function chartTitleFor(period, base){
+  var pfx=period==='month'?'Monthly':period==='year'?'Yearly':'Weekly';
+  return pfx+' '+base;
+}
+
+function setDashPeriod(period){
+  DASH_PERIOD=period;
+  localStorage.setItem('forge-period-dashboard',period);
+  renderDashboardChart();
+}
+
+function setProgPeriod(period){
+  PROG_PERIOD=period;
+  localStorage.setItem('forge-period-progress',period);
+  renderVolumeChart();
+}
+
 function isThisWeek(d){
   var date=new Date(d+'T12:00:00'),now=new Date(),start=new Date(now);
   start.setDate(now.getDate()-now.getDay());start.setHours(0,0,0,0);
@@ -1978,22 +2093,33 @@ function renderDashboard(){
       rc.appendChild(d);
     });
   }
-  // Weekly bar chart
-  var days=['S','M','T','W','T','F','S'];
-  var counts=days.map(function(_,i){return wk.filter(function(s){return new Date(s.date+'T12:00:00').getDay()===i;}).length;});
-  var max=Math.max.apply(null,counts)||1;
-  var cc=el('d-chart');cc.innerHTML='';
-  days.forEach(function(d,i){
-    var h=counts[i]?Math.max(12,Math.round((counts[i]/max)*100)):3;
-    var col=document.createElement('div');
-    col.style.cssText='flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;';
-    col.innerHTML='<div style="width:100%;border-radius:5px 5px 5px 5px;height:'+h+'px;background:'+(counts[i]?'var(--navy)':'#e2e8f0')+';min-height:3px;"></div><div style="font-size:10px;color:var(--text-faint);font-weight:500;">'+d+'</div>';
-    cc.appendChild(col);
-  });
+  // Activity chart (period-aware)
+  renderDashboardChart();
   // Strength mini-preview
   renderDashboardStrength();
   // Pain mini
   renderDashboardPain();
+}
+
+// Period-aware activity chart on the dashboard.
+// Reads DASH_PERIOD; renders the toggle + title + bars.
+function renderDashboardChart(){
+  var titleEl=el('d-chart-title');
+  if(titleEl) titleEl.textContent=chartTitleFor(DASH_PERIOD,'Activity');
+  var togEl=el('d-period-toggle');
+  if(togEl) togEl.innerHTML=buildPeriodToggle(DASH_PERIOD,'setDashPeriod');
+  var data=periodBarData(DASH_PERIOD);
+  var max=Math.max.apply(null,data.map(function(d){return d.val;}))||1;
+  var cc=el('d-chart');
+  if(!cc) return;
+  cc.innerHTML='';
+  data.forEach(function(d){
+    var h=d.val?Math.max(12,Math.round((d.val/max)*100)):3;
+    var col=document.createElement('div');
+    col.style.cssText='flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;min-width:0;';
+    col.innerHTML='<div style="width:100%;border-radius:5px;height:'+h+'px;background:'+(d.val?'var(--navy)':'#e2e8f0')+';min-height:3px;" title="'+d.val+' session'+(d.val===1?'':'s')+'"></div><div style="font-size:10px;color:var(--text-faint);font-weight:500;">'+d.label+'</div>';
+    cc.appendChild(col);
+  });
 }
 
 function renderDashboardStrength(){
@@ -2196,20 +2322,35 @@ function renderCardioChart(){
 }
 
 function renderVolumeChart(){
-  // Weekly session count last 12 weeks
-  var weeks=[];
-  for(var i=11;i>=0;i--){
-    var wStart=new Date();wStart.setDate(wStart.getDate()-wStart.getDay()-i*7);wStart.setHours(0,0,0,0);
-    var wEnd=new Date(wStart);wEnd.setDate(wStart.getDate()+6);wEnd.setHours(23,59,59,999);
-    var count=S.sessions.filter(function(s){var d=new Date(s.date+'T12:00:00');return d>=wStart&&d<=wEnd;}).length;
-    var label='Wk '+(12-i);
-    weeks.push({date:wStart.toISOString().slice(0,10),val:count,label:label});
+  // Update title + toggle
+  var titleEl=el('prog-volume-title');
+  if(titleEl) titleEl.textContent=chartTitleFor(PROG_PERIOD,'Training Volume');
+  var togEl=el('prog-period-toggle');
+  if(togEl) togEl.innerHTML=buildPeriodToggle(PROG_PERIOD,'setProgPeriod');
+
+  // Try volume (weight×reps). If totally empty, fall back to session count
+  // so the chart isn't blank just because there's no strength data yet.
+  var volPts=periodVolumeData(PROG_PERIOD);
+  var anyVolume=volPts.some(function(p){return p.val>0;});
+  var pts;
+  if(anyVolume){
+    pts=volPts;
+  } else {
+    var counts=periodBarData(PROG_PERIOD);
+    var anyCount=counts.some(function(p){return p.val>0;});
+    if(!anyCount){
+      var chartEmpty=el('prog-volume-chart'),emptyEmpty=el('prog-volume-empty');
+      if(chartEmpty) chartEmpty.style.display='none';
+      if(emptyEmpty) emptyEmpty.style.display='block';
+      return;
+    }
+    pts=counts;
   }
-  var chart=el('prog-volume-chart');
-  var empty=el('prog-volume-empty');
-  if(!weeks.some(function(w){return w.val>0;})){chart.style.display='none';empty.style.display='block';return;}
-  chart.style.display='block';empty.style.display='none';
-  drawBarChart(chart,weeks,800,160);
+
+  var chart=el('prog-volume-chart'),empty=el('prog-volume-empty');
+  if(chart) chart.style.display='block';
+  if(empty) empty.style.display='none';
+  drawBarChart(chart,pts,800,160);
 }
 
 function drawLineChart(svgEl,pts,label,W,H,lineColor,dotColor){
