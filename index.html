@@ -3576,7 +3576,7 @@ function renderPainChart() {
   logs.forEach(function(l, i) {
     if (i % labelStep === 0 || i === logs.length-1) {
       var x = padL + (i/(Math.max(logs.length-1,1)))*chartW;
-      xLabels += '<text x="' + x.toFixed(1) + '" y="' + (H-6) + '" text-anchor="middle" font-size="9" fill="#94a3b8">' + fmtShort(l.date) + '</text>';
+      xLabels += '<text x="' + x.toFixed(1) + '" y="' + (H-6) + '" text-anchor="middle" font-size="9" fill="#94a3b8">' + fmtS(l.date) + '</text>';
     }
   });
 
@@ -3598,12 +3598,12 @@ function renderPainChart() {
 }
 
 function renderDashboardPain() {
-  var container = el('dash-pain-content');
+  var container = el('d-pain');
   if (!container) return;
   var logs = S.painLogs || [];
 
   if (!logs.length) {
-    container.innerHTML = '<div style="color:var(--text-faint);font-size:13px;text-align:center;padding:20px;">No pain entries yet — <button onclick="navigate(\'pain\')" style="background:none;border:none;color:var(--amber);cursor:pointer;font-size:13px;font-weight:600;text-decoration:underline;">start tracking</button></div>';
+    container.innerHTML = '<div style="color:var(--text-faint);font-size:13px;text-align:center;padding:20px;">No pain entries yet — <button onclick="nav(\'pain\')" style="background:none;border:none;color:var(--amber);cursor:pointer;font-size:13px;font-weight:600;text-decoration:underline;">start tracking</button></div>';
     return;
   }
 
