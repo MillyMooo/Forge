@@ -167,6 +167,13 @@ input[type="date"].fi,input[type="time"].fi{-webkit-appearance:none;appearance:n
 .areachip:not(.active):hover{border-color:var(--navy);color:var(--navy);}
 .session-bar{display:none;position:fixed;bottom:0;left:256px;right:0;background:#1F3D3F;color:#fff;padding:11px 24px;z-index:90;align-items:center;justify-content:space-between;box-shadow:0 -4px 20px rgba(26,34,54,0.22);}
 .session-bar.on{display:flex;}
+/* Persistent Return-to-workout button (top right, visible from any page while a session is active) */
+.return-btn{display:none;position:fixed;top:calc(16px + env(safe-area-inset-top));right:16px;z-index:150;padding:9px 14px 9px 12px;border-radius:999px;background:linear-gradient(135deg,#3D8B8C 0%,#F4A584 100%);color:#fff;border:none;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.02em;cursor:pointer;box-shadow:0 4px 14px rgba(31,61,63,0.22),0 2px 6px rgba(31,61,63,0.12);align-items:center;gap:7px;}
+.return-btn.on{display:inline-flex;}
+.return-btn:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(31,61,63,0.28);}
+body.sidebar-open .return-btn{display:none;}
+/* Ensure the last exercise clears the fixed session bar */
+#sess-active{padding-bottom:80px;}
 .sb-left .sb-name{font-size:15px;font-weight:700;}
 .sb-left .sb-time{font-size:12px;color:rgba(255,255,255,0.6);font-variant-numeric:tabular-nums;}
 /* EX PICKER */
@@ -355,6 +362,11 @@ input[type="date"].fi,input[type="time"].fi{-webkit-appearance:none;appearance:n
     <button class="btn btn-p btn-sm" onclick="finishSession()">Save &amp; end</button>
   </div>
 </div>
+<!-- Persistent return-to-workout button — shown whenever an active session exists and the user is not on the session page -->
+<button class="return-btn" id="return-btn" onclick="nav('session')" aria-label="Return to workout">
+  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+  <span>Return to workout</span>
+</button>
 <!-- EX PICKER -->
 <div class="expicker" id="expicker">
   <div class="ep-box">
@@ -1219,6 +1231,7 @@ function nav(page){
   curPage = page;
   closeSidebar();
   updateBottomNav(page);
+  updateReturnBtn();
   window.scrollTo({top:0,behavior:'smooth'});
   if(page==='dashboard') renderDashboard();
   else if(page==='workouts') renderWorkouts();
@@ -1434,6 +1447,7 @@ function initSession(plan){
   sessionTimer=setInterval(function(){ updateSessionBar(); if(curPage==='session' && activeSession) { el('sess-sub').textContent = formatElapsed(sessionElapsedSec()); } },1000);
   updateSessionBar();
   el('session-bar').classList.add('on');
+  updateReturnBtn();
 }
 
 function updateSessionBar(){
@@ -1487,6 +1501,7 @@ function confirmCancelSession(){
   sessionTimer=null;
   sessionAccumulatedMs=0;
   el('session-bar').classList.remove('on');
+  updateReturnBtn();
   nav('dashboard');
 }
 
@@ -1586,11 +1601,17 @@ function renderStrengthSession(){
     // Header
     var hdr=document.createElement('div');
     hdr.style.cssText='display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;';
-    // Get last best for this exercise
-    var lastBest=getLastBest(ex.name);
+    // Header — show last session summary (not personal best)
+    var lastSess=getLastSession(ex.name);
+    var lastLine='';
+    if(lastSess){
+      var summary=formatLastSummary(lastSess.exercise);
+      var when=formatRelativeDate(lastSess.date);
+      lastLine='<div style="font-size:11px;color:var(--text-faint);margin-top:2px;">Last · '+(summary?summary+' · ':'')+when+'</div>';
+    }
     hdr.innerHTML='<div>'
       +'<div style="font-size:15px;font-weight:700;color:var(--text);">'+ex.name+'</div>'
-      +(lastBest?'<div style="font-size:11px;color:var(--text-faint);margin-top:2px;">Last: '+lastBest.weight+'kg × '+lastBest.reps+'</div>':'')
+      +lastLine
       +'</div>'
       +'<div style="display:flex;align-items:center;gap:6px;">'
       +(allSetsDone?'<span class="badge badge-g">✓ Done</span>':'<span class="badge '+(MG_CLASS[ex.mg]||'tc-full')+'">'+ex.mg+'</span>')
@@ -1605,6 +1626,9 @@ function renderStrengthSession(){
     // Cue panel: written How-to text
     var cueText = exerciseCue(ex.name);
     if(cueText){ card.appendChild(buildCuePanel(ex.name, cueText)); }
+    // Previous session panel — collapsible, shows set-by-set of the last time she did this
+    var lastPanel = buildLastSessionPanel(ex.name);
+    if(lastPanel){ card.appendChild(lastPanel); }
 
     // Col headers
     var colHdr=document.createElement('div');
@@ -1762,6 +1786,50 @@ function buildCuePanel(exerciseName, cueText){
   return wrap;
 }
 
+// Collapsible panel showing the previous session's set-by-set breakdown for this exercise.
+// Returns null when there's no prior data (so calling code can skip appending).
+function buildLastSessionPanel(exerciseName){
+  var last = getLastSession(exerciseName);
+  if(!last) return null;
+  var wrap = document.createElement('div');
+  wrap.style.cssText = 'margin-bottom:12px;background:rgba(61,139,140,0.06);border:1px solid rgba(61,139,140,0.18);border-radius:10px;overflow:hidden;';
+  var hdr = document.createElement('button');
+  hdr.style.cssText = 'width:100%;display:flex;align-items:center;justify-content:space-between;padding:9px 12px;background:none;border:none;cursor:pointer;font-family:\'DM Sans\',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;color:#3D8B8C;';
+  hdr.innerHTML = '<span style="display:inline-flex;align-items:center;gap:7px;">'
+    + '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9"/><path d="M3 4v5h5"/><path d="M12 7v5l3 2"/></svg>'
+    + 'Previous session · ' + formatRelativeDate(last.date)
+    + '</span>'
+    + '<svg class="ls-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transition:transform 0.2s;"><polyline points="6 9 12 15 18 9"/></svg>';
+  var body = document.createElement('div');
+  body.style.cssText = 'display:none;padding:4px 12px 12px;';
+  var sets = last.exercise.sets || [];
+  var rows = '<div style="display:grid;grid-template-columns:32px 1fr 1fr 24px;gap:6px;font-size:10px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-faint);padding:6px 0 4px;">'
+    + '<span>Set</span><span>Weight</span><span>Reps</span><span></span></div>';
+  sets.forEach(function(s, i){
+    var w = s.weight || s.w || 0;
+    var r = s.reps || s.r || 0;
+    var done = !!s.done;
+    rows += '<div style="display:grid;grid-template-columns:32px 1fr 1fr 24px;gap:6px;font-size:12px;color:var(--text);align-items:center;padding:5px 0;border-top:1px solid rgba(61,139,140,0.1);">'
+      + '<span style="color:var(--text-faint);font-weight:600;">' + (i+1) + '</span>'
+      + '<span>' + (w > 0 ? w + ' kg' : '—') + '</span>'
+      + '<span>' + (r > 0 ? r : '—') + '</span>'
+      + '<span style="color:' + (done ? 'var(--green)' : 'var(--text-faint)') + ';font-size:11px;">' + (done ? '✓' : '·') + '</span>'
+      + '</div>';
+  });
+  body.innerHTML = rows + (last.notes
+    ? '<div style="margin-top:10px;padding-top:8px;border-top:1px solid rgba(61,139,140,0.15);font-size:12px;color:var(--text-soft);font-style:italic;line-height:1.5;">' + last.notes + '</div>'
+    : '');
+  hdr.onclick = function(){
+    var open = body.style.display === 'block';
+    body.style.display = open ? 'none' : 'block';
+    var arrow = hdr.querySelector('.ls-arrow');
+    if(arrow) arrow.style.transform = open ? 'rotate(0deg)' : 'rotate(180deg)';
+  };
+  wrap.appendChild(hdr);
+  wrap.appendChild(body);
+  return wrap;
+}
+
 function renderCardioSession(){
   var c=el('sess-cardio-content');c.innerHTML='';
   var cardioExs = []; (activeSession.exercises||[]).forEach(function(ex,idx){ if(exerciseType(ex)==='cardio'){ cardioExs.push({ex:ex, origIdx:idx}); } });
@@ -1826,20 +1894,91 @@ function addExToSession(name,mg,exType){
   else renderStrengthSession();
 }
 
-function getLastBest(exerciseName){
-  var matches=[];
-  S.sessions.forEach(function(sess){
-    if(sess.exercises){
-      sess.exercises.forEach(function(ex){
-        if(ex.name.toLowerCase()===exerciseName.toLowerCase()&&ex.sets){
-          ex.sets.forEach(function(s){if(s.weight>0) matches.push({weight:s.weight,reps:s.reps,date:sess.date});});
-        }
-      });
-    }
+// ── Previous-session lookup (replaces the old "getLastBest" which was actually a PR lookup) ──
+// Returns the most recent recorded instance of an exercise, not the heaviest.
+// This is what she actually needs mid-workout: what did I do last time?
+function getLastSession(exerciseName){
+  if(!exerciseName) return null;
+  var name = exerciseName.toLowerCase();
+  // S.sessions is stored newest-first (unshift on save), but we sort by date to be robust
+  // in case the user backdates a session.
+  var sorted = (S.sessions||[]).slice().sort(function(a,b){
+    return (b.date||'').localeCompare(a.date||'');
   });
-  if(!matches.length) return null;
-  return matches.sort(function(a,b){return b.weight-a.weight;})[0];
+  for(var i=0; i<sorted.length; i++){
+    var sess = sorted[i];
+    var exs = sess.exercises || [];
+    for(var j=0; j<exs.length; j++){
+      var ex = exs[j];
+      if(ex.name && ex.name.toLowerCase() === name){
+        // Only count it as a "previous session" if there's actual logged data —
+        // an empty exercise entry (all sets skipped) isn't useful reference material.
+        var hasData = (ex.sets||[]).some(function(s){
+          return (s.weight||s.w||0) > 0 || (s.reps||s.r||0) > 0 || s.done;
+        });
+        if(hasData) return { date: sess.date, notes: sess.notes||'', exercise: ex, session: sess };
+      }
+    }
+  }
+  return null;
 }
+
+// Format a date string as a relative label ("yesterday", "3d ago", "2w ago", "12 Mar").
+function formatRelativeDate(dateStr){
+  if(!dateStr) return '';
+  var then = new Date(dateStr+'T12:00:00');
+  var now = new Date(); now.setHours(12,0,0,0);
+  var diffDays = Math.round((now - then) / 86400000);
+  if(diffDays <= 0) return 'today';
+  if(diffDays === 1) return 'yesterday';
+  if(diffDays < 7) return diffDays + 'd ago';
+  if(diffDays < 30) return Math.round(diffDays/7) + 'w ago';
+  try { return then.toLocaleDateString('en-GB',{day:'numeric',month:'short'}); } catch(e){ return dateStr; }
+}
+
+// Build a concise header summary of the previous session's sets.
+// If all sets used the same weight: "40 kg × 9, 8, 6, 5"
+// If weights vary: "40–45 kg · 4 sets"
+// Falls back gracefully when data is thin.
+function formatLastSummary(exData){
+  if(!exData) return '';
+  var sets = (exData.sets||[]).filter(function(s){
+    return (s.weight||s.w||0) > 0 || (s.reps||s.r||0) > 0;
+  });
+  if(!sets.length) return '';
+  var weights = sets.map(function(s){ return s.weight||s.w||0; });
+  var reps = sets.map(function(s){ return s.reps||s.r||0; });
+  var allSameWeight = weights.every(function(w){ return w === weights[0]; });
+  if(allSameWeight){
+    var w = weights[0];
+    var repsStr = reps.join(', ');
+    return (w>0 ? w+'kg × ' : '') + repsStr;
+  }
+  var minW = Math.min.apply(null, weights);
+  var maxW = Math.max.apply(null, weights);
+  return minW+'–'+maxW+'kg · '+sets.length+' sets';
+}
+
+// Legacy shim — one caller used the old name and grabbed .weight/.reps.
+// Redirect it to the new lookup so nothing breaks if called elsewhere.
+function getLastBest(exerciseName){
+  var last = getLastSession(exerciseName);
+  if(!last) return null;
+  var sets = (last.exercise.sets||[]).filter(function(s){ return (s.weight||s.w||0) > 0; });
+  if(!sets.length) return null;
+  var top = sets[0];
+  return { weight: top.weight||top.w, reps: top.reps||top.r, date: last.date };
+}
+
+// Show/hide the "Return to workout" pill based on session + current page.
+function updateReturnBtn(){
+  var btn = el('return-btn');
+  if(!btn) return;
+  var shouldShow = !!activeSession && curPage !== 'session';
+  btn.classList.toggle('on', shouldShow);
+}
+
+
 
 function finishSession(){
   if(!activeSession) return;
@@ -1881,6 +2020,7 @@ function finishSession(){
   clearInterval(sessionTimer);
   sessionTimer=null;
   el('session-bar').classList.remove('on');
+  updateReturnBtn();
   showCongrats(savedSession);
 }
 
